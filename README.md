@@ -8,3 +8,5 @@
 * Glide
 * SwipeToLoadLayout(第三方开源UI控件)
 
+####git
+* 分布式版本控制系统(DVCS)
