@@ -51,11 +51,11 @@ public class UserFriendsPresenter implements Presenter {
         mUserFriendsInfoView = (UserFriendsInfoView) view;
     }
 
-
     /**
      * 得到用户所关注的所有用户
-     *
      * @param accessToken
+     * @param uId
+     * @param cursor
      */
     public void getUserFriendsInfo(Oauth2AccessToken accessToken, long uId, int cursor) {
         mCompositeSubscription.add(
