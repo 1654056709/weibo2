@@ -231,6 +231,38 @@ public class WeiboInfoPresenter implements Presenter {
     }
 
 
+    public void setUserWeiboInfo(Oauth2AccessToken accessToken, String status) {
+        mCompositeSubscription.add(
+                mDataManager.setUserWeiboInfo(accessToken.getToken(), status)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(Schedulers.io())
+                        .map(new Func1<CommonWeiboInfo, List<WeiboInfo>>() {
+                            @Override
+                            public List<WeiboInfo> call(CommonWeiboInfo commonWeiboInfo) {
+                                List<WeiboInfo> weibos = WeiboInfo.transformToWiebo(commonWeiboInfo);
+                                return weibos;
+                            }
+                        })
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                new Action1<List<WeiboInfo>>() {
+                                    @Override
+                                    public void call(List<WeiboInfo> weiboInfos) {
+                                        mWeiboInfoView.onSuccess(weiboInfos);
+                                    }
+                                },
+                                new Action1<Throwable>() {
+                                    @Override
+                                    public void call(Throwable throwable) {
+                                        mWeiboInfoView.onFailure(throwable.getMessage());
+                                    }
+                                }
+
+                        )
+        );
+    }
+
+
     /**
      * 错误提示
      */

@@ -71,7 +71,7 @@ public class UserTimeLineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_time_line);
         ButterKnife.bind(this);
-
+        mTitleBarTitle.setText("个人微博");
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

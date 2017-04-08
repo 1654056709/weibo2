@@ -79,6 +79,7 @@ public class PublicTimeLineFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.fragment_public_time_line, null);
         unbinder = ButterKnife.bind(this, view);
+        mTitleBarTitle.setText("公共微博");
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
