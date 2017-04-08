@@ -188,7 +188,6 @@ public class UserFansFragment extends Fragment {
                 mSwipeToLoadLayout.setRefreshing(false);
 
             }
-
             @Override
             public void onFailure(String errorMsg) {
                 Log.d(PublicTimeLineActivity.TAG, errorMsg);
