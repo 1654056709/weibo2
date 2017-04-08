@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.sina.weibo.sdk.simple.weibo.R;
@@ -124,5 +125,26 @@ public class Tools {
         boolean flag = recyclerView.getAdapter().getItemCount() == 0 ? true : false;
         emptyView.setVisibility(flag ? android.view.View.VISIBLE : android.view.View.GONE);
         swipeToLoadLayout.setVisibility(flag ? android.view.View.GONE : android.view.View.VISIBLE);
+    }
+
+    /**
+     * 初始化标题
+     *
+     * @param nextCursor
+     * @param totalNum
+     */
+    public static void initTitle(int nextCursor, int totalNum, TextView view) {
+        int totalPage = 0;
+        if (totalNum % 50 == 0) {
+            totalPage = totalNum / 50;
+        } else {
+            totalPage = totalNum / 50 + 1;
+        }
+
+        int page = nextCursor / 50;
+        if (nextCursor == 0) {
+            page = totalPage;
+        }
+        view.setText(page + "/" + totalPage);
     }
 }

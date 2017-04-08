@@ -96,5 +96,16 @@ public interface RetrofitService {
     @GET("2/comments/mentions.json")
     Observable<CommonComment> getMentionUserComment(@Query("access_token") String token, @Query("count") int count, @Query("page") int page);
 
+
+    /**
+     * 获取粉丝关注列表
+     *
+     * @param token
+     * @param uId
+     * @param cursor
+     * @return
+     */
+    @GET("2/friendships/followers.json")
+    Observable<CommonFriendsInfo> getUserFansInfo(@Query("access_token") String token, @Query("uid") long uId, @Query("cursor") int cursor);
 }
 

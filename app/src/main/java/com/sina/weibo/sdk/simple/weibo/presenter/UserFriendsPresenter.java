@@ -53,6 +53,7 @@ public class UserFriendsPresenter implements Presenter {
 
     /**
      * 得到用户所关注的所有用户
+     *
      * @param accessToken
      * @param uId
      * @param cursor
@@ -79,7 +80,37 @@ public class UserFriendsPresenter implements Presenter {
 
                         )
         );
+    }
 
 
+    /**
+     * 获取用户粉丝列表
+     *
+     * @param accessToken
+     * @param uId
+     * @param cursor
+     */
+    public void getUserFansInfo(Oauth2AccessToken accessToken, long uId, int cursor) {
+        mCompositeSubscription.add(
+                mDataManager.getUserFansInfo(accessToken.getToken(), uId, cursor)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                new Action1<CommonFriendsInfo>() {
+                                    @Override
+                                    public void call(CommonFriendsInfo commonFriendsInfo) {
+                                        mUserFriendsInfoView.onSuccess(commonFriendsInfo);
+                                    }
+                                }
+                                ,
+                                new Action1<Throwable>() {
+                                    @Override
+                                    public void call(Throwable throwable) {
+                                        mUserFriendsInfoView.onFailure(throwable.getMessage());
+                                    }
+                                }
+
+                        )
+        );
     }
 }

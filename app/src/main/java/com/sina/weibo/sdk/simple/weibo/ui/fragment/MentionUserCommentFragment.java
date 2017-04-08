@@ -39,11 +39,7 @@ import butterknife.Unbinder;
  * \@ 我的评论
  */
 public class MentionUserCommentFragment extends Fragment {
-
-
     Unbinder unbinder;
-
-
     private static final int COMMENT_COUNT = 10;
     private static int sCommentPage = 0;
     @BindView(R.id.swipe_refresh_header)

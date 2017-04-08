@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.CommentViewPagerAdapter;
 import com.sina.weibo.sdk.simple.weibo.ui.fragment.MentionUserCommentFragment;
-import com.sina.weibo.sdk.simple.weibo.ui.fragment.MentionUserFragment;
+import com.sina.weibo.sdk.simple.weibo.ui.fragment.MentionUserWieboFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +67,7 @@ public class MentionUserActivity extends AppCompatActivity {
 
     private void initViewPager() {
         mFragments = new ArrayList<>();
-        mFragments.add(new MentionUserFragment());
+        mFragments.add(new MentionUserWieboFragment());
         mFragments.add(new MentionUserCommentFragment());
     }
 

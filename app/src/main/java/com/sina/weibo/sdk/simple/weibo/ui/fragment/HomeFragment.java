@@ -33,6 +33,7 @@ import com.sina.weibo.sdk.simple.weibo.presenter.WeiboInfoPresenter;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.LoginActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.MentionUserActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.PublicTimeLineActivity;
+import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFansActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFriendsActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserTimeLineActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.view.LoadMoreFooterView;
@@ -235,7 +236,7 @@ public class HomeFragment extends Fragment {
             } else if (mData.equals(mDataList.get(1))) {
                 goToPage(UserTimeLineActivity.class);
             } else if (mData.equals(mDataList.get(2))) {
-
+                goToPage(UserFansActivity.class);
             } else if (mData.equals(mDataList.get(3))) {
                 goToPage(UserFriendsActivity.class);
             } else if (mData.equals(mDataList.get(4))) {

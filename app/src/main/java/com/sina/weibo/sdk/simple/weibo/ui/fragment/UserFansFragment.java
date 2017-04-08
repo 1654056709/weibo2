@@ -1,14 +1,15 @@
-package com.sina.weibo.sdk.simple.weibo.ui.activity;
+package com.sina.weibo.sdk.simple.weibo.ui.fragment;
 
-import android.content.Context;
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.UserFriendsAdapter;
 import com.sina.weibo.sdk.simple.weibo.model.CommonFriendsInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.UserFriendsPresenter;
+import com.sina.weibo.sdk.simple.weibo.ui.activity.PublicTimeLineActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.view.LoadMoreFooterView;
 import com.sina.weibo.sdk.simple.weibo.ui.view.RefreshHeaderView;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
@@ -33,11 +35,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
- * 用户所关注的用户信息列表
+ * A simple {@link Fragment} subclass.
  */
-public class UserFriendsActivity extends AppCompatActivity {
+public class UserFansFragment extends Fragment {
 
 
     @BindView(R.id.title_bar_title)
@@ -54,35 +57,44 @@ public class UserFriendsActivity extends AppCompatActivity {
     LoadMoreFooterView mSwipeLoadMoreFooter;
     @BindView(R.id.swipeToLoadLayout)
     SwipeToLoadLayout mSwipeToLoadLayout;
+    @BindView(R.id.iv_empty)
+    ImageView mIvEmpty;
     @BindView(R.id.empty_view)
     RelativeLayout mEmptyView;
-    private UserFriendsPresenter mUserFriendsPresenter;
+    Unbinder unbinder;
+
     private Oauth2AccessToken mAccessToken;
     List<CommonFriendsInfo.UsersBean> mUsersBeanList;
     private UserFriendsAdapter mUserFriendsAdapter;
     private int mNextCursor;
     private int mPreCursor;
+    private UserFriendsPresenter mUserFriendsPresenter;
+
+    public UserFansFragment() {
+
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_friends);
-        ButterKnife.bind(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_user_fans, container, false);
+        unbinder = ButterKnife.bind(this, view);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                getActivity().finish();
             }
         });
-        mSwipeTarget.setLayoutManager(new LinearLayoutManager(this));
+        mSwipeTarget.setLayoutManager(new LinearLayoutManager(getActivity()));
         mUsersBeanList = new ArrayList<>();
-        mUserFriendsAdapter = new UserFriendsAdapter(this, mUsersBeanList);
+        mUserFriendsAdapter = new UserFriendsAdapter(getActivity(), mUsersBeanList);
         mSwipeTarget.setAdapter(mUserFriendsAdapter);
 
-        mUserFriendsPresenter = new UserFriendsPresenter(this);
+        mUserFriendsPresenter = new UserFriendsPresenter(getActivity());
         mUserFriendsPresenter.onCreate();
 
-        mAccessToken = AccessTokenKeeper.readAccessToken(this);
+        mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
         if (mAccessToken.isSessionValid()) {
             mSwipeToLoadLayout.setRefreshing(true);
         }
@@ -100,6 +112,29 @@ public class UserFriendsActivity extends AppCompatActivity {
                 refreshData();
             }
         });
+
+
+        return view;
+    }
+
+    private void initToobar() {
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        mUserFriendsPresenter.onStop();
+    }
+
+    @OnClick(R.id.title_bar_write_image_view)
+    public void onClick() {
     }
 
 
@@ -107,7 +142,7 @@ public class UserFriendsActivity extends AppCompatActivity {
      * 加载更多数据
      */
     private void loadMoreData() {
-        mUserFriendsPresenter.getUserFriendsInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), mNextCursor);
+        mUserFriendsPresenter.getUserFansInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), mNextCursor);
         mUserFriendsPresenter.onAttachView(new UserFriendsInfoView() {
             @Override
             public void onSuccess(CommonFriendsInfo commonFriendsInfo) {
@@ -138,7 +173,7 @@ public class UserFriendsActivity extends AppCompatActivity {
         if (mPreCursor != 0) {
             preCursor = mPreCursor - 50;
         }
-        mUserFriendsPresenter.getUserFriendsInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), preCursor);
+        mUserFriendsPresenter.getUserFansInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), preCursor);
         mUserFriendsPresenter.onAttachView(new UserFriendsInfoView() {
             @Override
             public void onSuccess(CommonFriendsInfo commonFriendsInfo) {
@@ -159,22 +194,6 @@ public class UserFriendsActivity extends AppCompatActivity {
                 Log.d(PublicTimeLineActivity.TAG, errorMsg);
             }
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mUserFriendsPresenter.onStop();
-    }
-
-
-    public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, UserFriendsActivity.class);
-        return intent;
-    }
-
-    @OnClick(R.id.title_bar_write_image_view)
-    public void onClick() {
     }
 
 

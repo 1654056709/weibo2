@@ -36,7 +36,7 @@ import butterknife.Unbinder;
 /**
  * \@ 我的微博
  */
-public class MentionUserFragment extends Fragment {
+public class MentionUserWieboFragment extends Fragment {
 
 
     Unbinder unbinder;
@@ -61,7 +61,7 @@ public class MentionUserFragment extends Fragment {
     private WeiboInfoPresenter mWeiboInfoPresenter;
     private Oauth2AccessToken mAccessToken;
 
-    public MentionUserFragment() {
+    public MentionUserWieboFragment() {
     }
 
 
