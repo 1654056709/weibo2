@@ -13,6 +13,7 @@ import com.sina.weibo.sdk.simple.weibo.ui.fragment.HomeFragment;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 
 public class HomeActivity extends BaseActivity {
+    public static final String TAG="HomeActivity";
     @Override
     protected Fragment createFragment() {
         return new HomeFragment();

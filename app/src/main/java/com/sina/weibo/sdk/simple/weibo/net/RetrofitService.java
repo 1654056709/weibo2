@@ -5,7 +5,10 @@ import com.sina.weibo.sdk.simple.weibo.model.CommonFriendsInfo;
 import com.sina.weibo.sdk.simple.weibo.model.CommonWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.model.CommonUserInfo;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -107,5 +110,17 @@ public interface RetrofitService {
      */
     @GET("2/friendships/followers.json")
     Observable<CommonFriendsInfo> getUserFansInfo(@Query("access_token") String token, @Query("uid") long uId, @Query("cursor") int cursor);
+
+
+    /**
+     * 用户发布微博
+     *
+     * @param token
+     * @param status 用户所发微博内容
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("2/statuses/update.json")
+    Observable<CommonWeiboInfo> setUserWeiboInfo(@Query("access_token") String token, @Field("status") String status);
 }
 

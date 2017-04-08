@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="8dp">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="8dp"
+            android:text="发微博"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/layout_write_weibo_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:text="发送"
+            android:textColor="@android:color/holo_blue_light"/>
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/black"/>
+
+
+    <EditText
+        android:id="@+id/layout_write_weibo_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_write_weibo"
+        android:gravity="left|top"
+        android:hint="写微博信息"
+        android:lines="6"
+        android:padding="8dp"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/layout_write_weibo_word_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:text="0/140"/>
+
+
+</LinearLayout>

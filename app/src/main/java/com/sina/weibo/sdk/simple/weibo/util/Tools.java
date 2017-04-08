@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.sina.weibo.sdk.simple.weibo.R;
+import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteWeiboDialog;
 import com.sina.weibo.sdk.simple.weibo.view.View;
 
 import java.text.SimpleDateFormat;
@@ -146,5 +149,17 @@ public class Tools {
             page = totalPage;
         }
         view.setText(page + "/" + totalPage);
+    }
+
+
+    /**
+     * 写微博dialog
+     *
+     * @param fragmentManager
+     * @param tag
+     */
+    public static void openWriteWeibo(FragmentManager fragmentManager, String tag) {
+        WriteWeiboDialog writeWeiboDialog = new WriteWeiboDialog();
+        writeWeiboDialog.show(fragmentManager, tag);
     }
 }

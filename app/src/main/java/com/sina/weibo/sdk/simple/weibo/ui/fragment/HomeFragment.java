@@ -4,6 +4,7 @@ package com.sina.weibo.sdk.simple.weibo.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,12 +31,14 @@ import com.sina.weibo.sdk.simple.weibo.dao.UserDao;
 import com.sina.weibo.sdk.simple.weibo.model.UserInfo;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.WeiboInfoPresenter;
+import com.sina.weibo.sdk.simple.weibo.ui.activity.HomeActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.LoginActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.MentionUserActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.PublicTimeLineActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFansActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFriendsActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserTimeLineActivity;
+import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteWeiboDialog;
 import com.sina.weibo.sdk.simple.weibo.ui.view.LoadMoreFooterView;
 import com.sina.weibo.sdk.simple.weibo.ui.view.RefreshHeaderView;
 import com.sina.weibo.sdk.simple.weibo.util.SpaceItemDecoration;
@@ -242,7 +245,7 @@ public class HomeFragment extends Fragment {
             } else if (mData.equals(mDataList.get(4))) {
                 goToPage(PublicTimeLineActivity.class);
             } else if (mData.equals(mDataList.get(5))) {
-
+                Tools.openWriteWeibo(getActivity().getSupportFragmentManager(), HomeActivity.TAG);
             }
         }
 

@@ -132,12 +132,14 @@ public class PublicTimeLineFragment extends Fragment {
      * 下拉加载更多数据
      */
     private void loadMoreData() {
+        sCount += 10;
         mWeiboInfoPresenter.getPublicTimeLineWeiboInfo(mAccessToken, sCount);
         mWeiboInfoPresenter.onAttachView(new WeiboInfoView() {
             @Override
             public void onSuccess(List<WeiboInfo> weibos) {
                 int size = weibos.size();
                 if (size > 0) {
+                    mWeiboInfos.clear();
                     mWeiboInfos.addAll(weibos);
                     mWeiboAdapter.notifyDataSetChanged();
                     Tools.MoveToPosition(mLinearLayoutManager, mSwipeTarget);
@@ -159,6 +161,7 @@ public class PublicTimeLineFragment extends Fragment {
      * 上拉刷新数据
      */
     private void refreshData() {
+        sCount = 10;
         mWeiboInfoPresenter.getPublicTimeLineWeiboInfo(mAccessToken, sCount);
         mWeiboInfoPresenter.onAttachView(new WeiboInfoView() {
             @Override

@@ -1,6 +1,7 @@
 package com.sina.weibo.sdk.simple.weibo.manager;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.provider.UserDictionary;
 
 import com.sina.weibo.sdk.simple.weibo.model.CommonComment;
@@ -131,5 +132,17 @@ public class DataManager {
 
     public Observable<CommonFriendsInfo> getUserFansInfo(String token, long uId, int cursor) {
         return mRetrofitService.getUserFansInfo(token, uId, cursor);
+    }
+
+
+    /**
+     * 发布微博
+     *
+     * @param token
+     * @param status
+     * @return
+     */
+    public Observable<CommonWeiboInfo> setUserWeiboInfo(String token, String status) {
+        return mRetrofitService.setUserWeiboInfo(token, status);
     }
 }
