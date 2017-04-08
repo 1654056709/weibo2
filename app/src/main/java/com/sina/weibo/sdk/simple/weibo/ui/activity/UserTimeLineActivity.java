@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,9 +44,10 @@ public class UserTimeLineActivity extends AppCompatActivity {
     private static int sWeiboPage = 0;
     @BindView(R.id.title_bar_title)
     TextView mTitleBarTitle;
-
     @BindView(R.id.title_bar_write_image_view)
     ImageView mTitleBarWriteImageView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     @BindView(R.id.swipe_refresh_header)
     RefreshHeaderView mSwipeRefreshHeader;
     @BindView(R.id.swipe_target)
@@ -58,8 +60,6 @@ public class UserTimeLineActivity extends AppCompatActivity {
     ImageView mIvEmpty;
     @BindView(R.id.empty_view)
     RelativeLayout mEmptyView;
-
-
     private WeiboInfoPresenter mWeiboInfoPresenter;
     private Oauth2AccessToken mAccessToken;
     private List<WeiboInfo> mWeibos;
@@ -71,6 +71,13 @@ public class UserTimeLineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_time_line);
         ButterKnife.bind(this);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mWeiboInfoPresenter = new WeiboInfoPresenter(this);
         mWeiboInfoPresenter.onCreate();
@@ -85,14 +92,14 @@ public class UserTimeLineActivity extends AppCompatActivity {
         mSwipeToLoadLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                loadMoreData(mSwipeToLoadLayout);
+                loadMoreData();
             }
         });
 
         mSwipeToLoadLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshData(mSwipeToLoadLayout);
+                refreshData();
             }
         });
 
@@ -111,14 +118,10 @@ public class UserTimeLineActivity extends AppCompatActivity {
     }
 
 
-
-
     /**
      * 下拉加载更多数据
-     *
-     * @param swipeToLoadLayout
      */
-    private void loadMoreData(final SwipeToLoadLayout swipeToLoadLayout) {
+    private void loadMoreData() {
         sWeiboPage++;
         mWeiboInfoPresenter.getUserTimeLineInfo(mAccessToken, WEIBO_COUNT, sWeiboPage);
         mWeiboInfoPresenter.onAttachView(new WeiboInfoView() {
@@ -132,7 +135,7 @@ public class UserTimeLineActivity extends AppCompatActivity {
                 } else {
                     hint();
                 }
-                swipeToLoadLayout.setLoadingMore(false);
+                mSwipeToLoadLayout.setLoadingMore(false);
             }
 
             @Override
@@ -145,11 +148,8 @@ public class UserTimeLineActivity extends AppCompatActivity {
 
     /**
      * 上拉刷新数据
-     *
-     * @param swipeToLoadLayout
      */
-    private void refreshData(final SwipeToLoadLayout swipeToLoadLayout) {
-        Log.d(PublicTimeLineActivity.TAG, "hello world ");
+    private void refreshData() {
         sWeiboPage = 1;
         mWeiboInfoPresenter.getUserTimeLineInfo(mAccessToken, WEIBO_COUNT, sWeiboPage);
         mWeiboInfoPresenter.onAttachView(new WeiboInfoView() {
@@ -159,7 +159,7 @@ public class UserTimeLineActivity extends AppCompatActivity {
                 mWeibos.addAll(weibos);
                 mWeiboAdapter.notifyDataSetChanged();
                 Tools.showEmptyView(mEmptyView, mSwipeToLoadLayout, mSwipeTarget);
-                swipeToLoadLayout.setRefreshing(false);
+                mSwipeToLoadLayout.setRefreshing(false);
             }
 
             @Override
@@ -175,5 +175,9 @@ public class UserTimeLineActivity extends AppCompatActivity {
      */
     private void hint() {
         ToastUtil.showToasts(UserTimeLineActivity.this, "没有数据了");
+    }
+
+    @OnClick(R.id.title_bar_write_image_view)
+    public void onClick() {
     }
 }
