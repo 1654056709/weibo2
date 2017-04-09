@@ -22,6 +22,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
@@ -348,7 +349,7 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onFailure(String errorMsg) {
-                    Log.d(PublicTimeLineActivity.TAG, errorMsg);
+                    Logger.d(errorMsg);
                 }
             });
         }

@@ -12,7 +12,6 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,21 +19,11 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
-import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
-import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
-import com.sina.weibo.sdk.simple.weibo.presenter.UpdateWeiboInfoPresenter;
-import com.sina.weibo.sdk.simple.weibo.presenter.WeiboInfoPresenter;
-import com.sina.weibo.sdk.simple.weibo.ui.activity.PublicTimeLineActivity;
 import com.sina.weibo.sdk.simple.weibo.util.HttpUtil;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
-import com.sina.weibo.sdk.simple.weibo.view.UpdateWeiboInfoView;
-import com.sina.weibo.sdk.simple.weibo.view.WeiboInfoView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +46,6 @@ public class WriteWeiboDialog extends DialogFragment {
 
     private Oauth2AccessToken mAccessToken;
     private Context mContext;
-//    private UpdateWeiboInfoPresenter mUpdateWeiboInfoPresenter;
 
     public WriteWeiboDialog() {
     }
@@ -69,8 +57,7 @@ public class WriteWeiboDialog extends DialogFragment {
         View view = View.inflate(getActivity(), R.layout.layout_write_weibo, null);
         unbinder = ButterKnife.bind(this, view);
         mContext = getActivity();
-//        mUpdateWeiboInfoPresenter = new UpdateWeiboInfoPresenter(getActivity());
-//        mUpdateWeiboInfoPresenter.onCreate();
+
 
         mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
 
@@ -107,7 +94,6 @@ public class WriteWeiboDialog extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-//        mUpdateWeiboInfoPresenter.onStop();
     }
 
     @OnClick({R.id.layout_write_weibo_send, R.id.layout_write_weibo_body})

@@ -3,6 +3,7 @@ package com.sina.weibo.sdk.simple.weibo.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.simple.weibo.manager.DataManager;
 import com.sina.weibo.sdk.simple.weibo.model.CommonWeiboInfo;
@@ -120,7 +121,7 @@ public class WeiboInfoPresenter implements Presenter {
                                 new Action1<Throwable>() {
                                     @Override
                                     public void call(Throwable throwable) {
-                                        Log.d("PublicTimeLineActivity", throwable.getMessage());
+                                        Logger.d(throwable.getMessage());
                                         errorHint();
                                     }
                                 }
@@ -229,7 +230,6 @@ public class WeiboInfoPresenter implements Presenter {
         );
 
     }
-
 
 
     /**
