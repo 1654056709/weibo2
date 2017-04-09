@@ -13,7 +13,7 @@ public class Weibo extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Logger.init("Weibo")
+        Logger.init("weibo")
                 .methodCount(0)
                 .logLevel(LogLevel.FULL)
                 .methodOffset(2);

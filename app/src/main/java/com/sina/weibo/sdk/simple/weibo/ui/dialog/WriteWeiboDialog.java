@@ -1,7 +1,11 @@
 package com.sina.weibo.sdk.simple.weibo.ui.dialog;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -16,6 +20,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
@@ -24,6 +29,7 @@ import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.UpdateWeiboInfoPresenter;
 import com.sina.weibo.sdk.simple.weibo.presenter.WeiboInfoPresenter;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.PublicTimeLineActivity;
+import com.sina.weibo.sdk.simple.weibo.util.HttpUtil;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.view.UpdateWeiboInfoView;
 import com.sina.weibo.sdk.simple.weibo.view.WeiboInfoView;
@@ -50,7 +56,8 @@ public class WriteWeiboDialog extends DialogFragment {
     TextView mLayoutWriteWeiboWordCount;
 
     private Oauth2AccessToken mAccessToken;
-    private UpdateWeiboInfoPresenter mUpdateWeiboInfoPresenter;
+    private Context mContext;
+//    private UpdateWeiboInfoPresenter mUpdateWeiboInfoPresenter;
 
     public WriteWeiboDialog() {
     }
@@ -61,8 +68,9 @@ public class WriteWeiboDialog extends DialogFragment {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View view = View.inflate(getActivity(), R.layout.layout_write_weibo, null);
         unbinder = ButterKnife.bind(this, view);
-        mUpdateWeiboInfoPresenter = new UpdateWeiboInfoPresenter(getActivity());
-        mUpdateWeiboInfoPresenter.onCreate();
+        mContext = getActivity();
+//        mUpdateWeiboInfoPresenter = new UpdateWeiboInfoPresenter(getActivity());
+//        mUpdateWeiboInfoPresenter.onCreate();
 
         mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
 
@@ -99,7 +107,7 @@ public class WriteWeiboDialog extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        mUpdateWeiboInfoPresenter.onStop();
+//        mUpdateWeiboInfoPresenter.onStop();
     }
 
     @OnClick({R.id.layout_write_weibo_send, R.id.layout_write_weibo_body})
@@ -127,17 +135,30 @@ public class WriteWeiboDialog extends DialogFragment {
         dismiss();
     }
 
-    private void sendWeibo(Oauth2AccessToken accessToken, String status) {
-        mUpdateWeiboInfoPresenter.setUserWeiboInfo(accessToken, status);
-        mUpdateWeiboInfoPresenter.onAttachView(new UpdateWeiboInfoView() {
-            @Override
-            public void onSuccess(UpdateWeiboInfo updateWeiboInfo) {
+    private Handler mHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    ToastUtil.showToasts(mContext, "微博发送失败");
+                    break;
+                case 1:
+                    ToastUtil.showToasts(mContext, "微博发送成功");
+                    break;
+            }
+        }
+    };
 
+    private void sendWeibo(Oauth2AccessToken accessToken, String status) {
+        HttpUtil.sendWeibo(accessToken, status, new HttpUtil.HttpCallback() {
+            @Override
+            public void onSuccess(final String msg) {
+                mHandler.sendEmptyMessage(1);
             }
 
             @Override
-            public void onFailure(String errorMsg) {
-
+            public void onFailure(String msg) {
+                mHandler.sendEmptyMessage(0);
             }
         });
     }
