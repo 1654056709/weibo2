@@ -8,6 +8,7 @@ import com.sina.weibo.sdk.simple.weibo.model.CommonComment;
 import com.sina.weibo.sdk.simple.weibo.model.CommonFriendsInfo;
 import com.sina.weibo.sdk.simple.weibo.model.CommonWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.model.CommonUserInfo;
+import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.net.RetrofitHelper;
 import com.sina.weibo.sdk.simple.weibo.net.RetrofitService;
 
@@ -142,7 +143,7 @@ public class DataManager {
      * @param status
      * @return
      */
-    public Observable<CommonWeiboInfo> setUserWeiboInfo(String token, String status) {
+    public Observable<UpdateWeiboInfo> setUserWeiboInfo(String token, String status) {
         return mRetrofitService.setUserWeiboInfo(token, status);
     }
 }

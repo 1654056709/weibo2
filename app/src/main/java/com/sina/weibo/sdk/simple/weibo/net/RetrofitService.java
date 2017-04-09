@@ -4,6 +4,7 @@ import com.sina.weibo.sdk.simple.weibo.model.CommonComment;
 import com.sina.weibo.sdk.simple.weibo.model.CommonFriendsInfo;
 import com.sina.weibo.sdk.simple.weibo.model.CommonWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.model.CommonUserInfo;
+import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -121,6 +122,6 @@ public interface RetrofitService {
      */
     @FormUrlEncoded
     @POST("2/statuses/update.json")
-    Observable<CommonWeiboInfo> setUserWeiboInfo(@Query("access_token") String token, @Field("status") String status);
+    Observable<UpdateWeiboInfo> setUserWeiboInfo(@Query("access_token") String token, @Field("status") String status);
 }
 
