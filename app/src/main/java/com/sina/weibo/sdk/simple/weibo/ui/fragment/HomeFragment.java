@@ -4,7 +4,6 @@ package com.sina.weibo.sdk.simple.weibo.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,11 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
@@ -38,7 +37,6 @@ import com.sina.weibo.sdk.simple.weibo.ui.activity.PublicTimeLineActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFansActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFriendsActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserTimeLineActivity;
-import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteWeiboDialog;
 import com.sina.weibo.sdk.simple.weibo.ui.view.LoadMoreFooterView;
 import com.sina.weibo.sdk.simple.weibo.ui.view.RefreshHeaderView;
 import com.sina.weibo.sdk.simple.weibo.util.SpaceItemDecoration;
@@ -51,7 +49,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -62,6 +59,8 @@ public class HomeFragment extends Fragment {
     private static final String USER_INFO = "user_info";
 
     Unbinder mUnbinder;
+    @BindView(R.id.fragment_home_menu)
+    ImageView mFragmentHomeMenu;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.fragment_home_user_head)
@@ -80,6 +79,8 @@ public class HomeFragment extends Fragment {
     LoadMoreFooterView mSwipeLoadMoreFooter;
     @BindView(R.id.swipeToLoadLayout)
     SwipeToLoadLayout mSwipeToLoadLayout;
+    @BindView(R.id.empty_view)
+    RelativeLayout mEmptyView;
 
 
     private Oauth2AccessToken mAccessToken;
@@ -179,18 +180,42 @@ public class HomeFragment extends Fragment {
     }
 
     private void initToolbar() {
-        mToolbar.inflateMenu(R.menu.menu_fragment_home);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        mPopupWindow = new PopupWindow(getActivity());
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setFocusable(true);
+        mPopupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        View view = View.inflate(getActivity(), R.layout.layout_popup_window, null);
+        mPopupWindow.setContentView(view);
+
+
+        //重新登录
+        ButterKnife.findById(view, R.id.popup_window_restart_login).setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.restart_login:
-                        goToPage(LoginActivity.class);
-                        break;
-                }
-                return false;
+            public void onClick(View v) {
+                getActivity().startActivity(LoginActivity.newIntent(getActivity(), LoginActivity.FROM_LOAD_ACTIVITY));
+                mPopupWindow.dismiss();
             }
         });
+
+
+        //退出
+        ButterKnife.findById(view, R.id.popup_window_login_out).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        mFragmentHomeMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPopupWindow.showAsDropDown(mFragmentHomeMenu);
+            }
+        });
+
     }
 
 
@@ -314,10 +339,10 @@ public class HomeFragment extends Fragment {
             mWeiboInfoPresenter.onAttachView(new WeiboInfoView() {
                 @Override
                 public void onSuccess(List<WeiboInfo> weibos) {
-//                    Log.d(PublicTimeLineActivity.TAG, weibos.get(0).getWeiboId() + "");
                     mWeibos.clear();
                     mWeibos.addAll(weibos);
                     mWeiboAdapter.notifyDataSetChanged();
+                    Tools.showEmptyView(mEmptyView, mSwipeToLoadLayout, mSwipeTarget);
                     swipeToLoadLayout.setRefreshing(false);
                 }
 

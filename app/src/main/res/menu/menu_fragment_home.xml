@@ -7,4 +7,9 @@
         android:title="重新登录"
         app:showAsAction="never"
         />
+
+    <item
+        android:id="@+id/login_out"
+    android:title="退出"
+    />
 </menu>
