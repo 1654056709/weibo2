@@ -314,7 +314,7 @@ public class HomeFragment extends Fragment {
             mWeiboInfoPresenter.onAttachView(new WeiboInfoView() {
                 @Override
                 public void onSuccess(List<WeiboInfo> weibos) {
-                    Log.d(PublicTimeLineActivity.TAG, weibos.get(0).getWeiboId() + "");
+//                    Log.d(PublicTimeLineActivity.TAG, weibos.get(0).getWeiboId() + "");
                     mWeibos.clear();
                     mWeibos.addAll(weibos);
                     mWeiboAdapter.notifyDataSetChanged();
