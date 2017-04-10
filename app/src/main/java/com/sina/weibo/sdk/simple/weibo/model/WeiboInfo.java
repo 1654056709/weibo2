@@ -1,5 +1,7 @@
 package com.sina.weibo.sdk.simple.weibo.model;
 
+import android.test.suitebuilder.TestSuiteBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,36 @@ public class WeiboInfo {
     private String mImageUrl;
     //图片源地址
     private String mOriginPicUrl;
+    //喜欢
+    private long mFavorite;
+    //评论
+    private long mComment;
+    //转发
+    private long mTranspond;
+
+    public long getFavorite() {
+        return mFavorite;
+    }
+
+    public void setFavorite(long favorite) {
+        mFavorite = favorite;
+    }
+
+    public long getComment() {
+        return mComment;
+    }
+
+    public void setComment(long comment) {
+        mComment = comment;
+    }
+
+    public long getTranspond() {
+        return mTranspond;
+    }
+
+    public void setTranspond(long transpond) {
+        mTranspond = transpond;
+    }
 
     public String getOriginPicUrl() {
         return mOriginPicUrl;
@@ -136,6 +168,8 @@ public class WeiboInfo {
             weibo.setWeiboId(statusesBean.getId() + "");
             //创建时间
             weibo.setDate(statusesBean.getCreated_at());
+            //评论
+            weibo.setComment(statusesBean.getComments_count());
             //内容
             if (statusesBean.getText().equals("转发微博")) {
                 retweetedStatus = statusesBean.getRetweeted_status();

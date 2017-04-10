@@ -162,4 +162,22 @@ public class Tools {
         WriteWeiboDialog writeWeiboDialog = new WriteWeiboDialog();
         writeWeiboDialog.show(fragmentManager, tag);
     }
+
+    /**
+     * 转换字符串
+     *
+     * @param num
+     * @return
+     */
+    public static String number2Str(long num) {
+        String numStr = null;
+        if (num < 1000) {
+            numStr = String.valueOf(num);
+        } else if (num >= 1000) {
+            numStr = num / 1000 + "K";
+        } else if (num >= 10000) {
+            numStr = num / 10000 + "W";
+        }
+        return numStr;
+    }
 }

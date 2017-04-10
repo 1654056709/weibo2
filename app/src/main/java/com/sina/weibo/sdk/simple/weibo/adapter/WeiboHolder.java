@@ -1,8 +1,11 @@
 package com.sina.weibo.sdk.simple.weibo.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +17,8 @@ import com.sina.weibo.sdk.simple.weibo.ui.activity.ShowImageActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.WeiboContentActivity;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
@@ -25,18 +30,30 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  */
 
 public class WeiboHolder extends RecyclerView.ViewHolder {
-
-    private final TextView mWeiboContentDateTextView;
     private WeiboInfo mWeibo;
     private Context mContext;
-    private final ImageView mWeiboContentImgImageView;
-    private final ImageView mUserHeadImageView;
-    private final TextView mUserNameTextView;
-    private final TextView mWeiboContentTextView;
+
+    @BindView(R.id.item_user_weibo_user_head)
+    ImageView mItemUserWeiboUserHead;
+    @BindView(R.id.item_user_weibo_user_name)
+    TextView mItemUserWeiboUserName;
+    @BindView(R.id.item_user_weibo_content_date)
+    TextView mItemUserWeiboContentDate;
+    @BindView(R.id.item_user_weibo_user_content_image)
+    ImageView mItemUserWeiboUserContentImage;
+    @BindView(R.id.item_user_weibo_content)
+    TextView mItemUserWeiboContent;
+    @BindView(R.id.weibo_transpond_count)
+    TextView mWeiboTranspondCount;
+    @BindView(R.id.weibo_comment_count)
+    TextView mWeiboCommentCount;
+    @BindView(R.id.weibo_favorite_count)
+    TextView mWeiboFavoriteCount;
 
 
     public WeiboHolder(Context context, View itemView) {
         super(itemView);
+        ButterKnife.bind(this, itemView);
         mContext = context;
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,12 +62,8 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
                 mContext.startActivity(WeiboContentActivity.newIntent(mContext, weiboId));
             }
         });
-        mUserHeadImageView = (ImageView) itemView.findViewById(R.id.item_user_weibo_user_head);
-        mUserNameTextView = (TextView) itemView.findViewById(R.id.item_user_weibo_user_name);
-        mWeiboContentTextView = (TextView) itemView.findViewById(R.id.item_user_weibo_content);
-        mWeiboContentDateTextView = (TextView) itemView.findViewById(R.id.item_user_weibo_content_date);
-        mWeiboContentImgImageView = (ImageView) itemView.findViewById(R.id.item_user_weibo_user_content_image);
-        mWeiboContentImgImageView.setOnClickListener(new View.OnClickListener() {
+
+        mItemUserWeiboUserContentImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mContext.startActivity(ShowImageActivity.newIntent(mContext, mWeibo.getOriginPicUrl()));
@@ -67,19 +80,21 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
                 .centerCrop()
                 .crossFade()
                 .bitmapTransform(new RoundedCornersTransformation(mContext, 30, 0, RoundedCornersTransformation.CornerType.ALL))
-                .into(mUserHeadImageView);
-        mUserNameTextView.setText(weibo.getUserName());
-        mWeiboContentDateTextView.setText(Tools.dateFormat(weibo.getDate()));
-        mWeiboContentTextView.setText(weibo.getContent());
+                .into(mItemUserWeiboUserHead);
+        mItemUserWeiboUserName.setText(weibo.getUserName());
+        mItemUserWeiboContentDate.setText(Tools.dateFormat(weibo.getDate()));
+        mItemUserWeiboContent.setText(weibo.getContent());
         if (weibo.getHaveImg()) {
-            mWeiboContentImgImageView.setVisibility(View.VISIBLE);
+            mItemUserWeiboUserContentImage.setVisibility(View.VISIBLE);
             Glide.with(mContext)
                     .load(weibo.getImageUrl())
                     .fitCenter()
                     .crossFade()
-                    .into(mWeiboContentImgImageView);
+                    .into(mItemUserWeiboUserContentImage);
         } else {
-            mWeiboContentImgImageView.setVisibility(View.GONE);
+            mItemUserWeiboUserContentImage.setVisibility(View.GONE);
         }
+
+        mWeiboCommentCount.setText("评论(" +Tools.number2Str(weibo.getComment() ) + ")");
     }
 }

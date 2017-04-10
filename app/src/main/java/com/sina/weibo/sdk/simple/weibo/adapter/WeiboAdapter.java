@@ -6,15 +6,19 @@ package com.sina.weibo.sdk.simple.weibo.adapter;
 
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * RecyclerView的Adapter
@@ -44,4 +48,5 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboHolder> {
     public int getItemCount() {
         return mWeibos.size();
     }
+
 }

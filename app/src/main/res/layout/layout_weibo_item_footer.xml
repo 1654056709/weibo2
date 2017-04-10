@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:paddingLeft="8dp"
+             android:paddingRight="8dp"
+    >
+
+    <TextView
+        android:id="@+id/weibo_transpond_count"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:drawableLeft="@drawable/ic_action_transpond"
+        android:drawablePadding="4dp"
+        android:gravity="left|center_vertical"
+        android:text="转发"/>
+
+    <TextView
+        android:id="@+id/weibo_comment_count"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:drawableLeft="@drawable/ic_mode_comment_amber_400_24dp"
+        android:drawablePadding="4dp"
+        android:gravity="left|center_vertical"
+        android:text="评论"/>
+
+    <TextView
+        android:id="@+id/weibo_favorite_count"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:drawableLeft="@drawable/ic_favorite_red_200_24dp"
+        android:drawablePadding="4dp"
+        android:gravity="left|center_vertical"
+        android:text="点赞"/>
+
+
+</FrameLayout>
