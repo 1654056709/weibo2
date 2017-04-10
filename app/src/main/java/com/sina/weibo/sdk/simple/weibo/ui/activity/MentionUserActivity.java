@@ -10,7 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sina.weibo.sdk.simple.weibo.R;
@@ -30,8 +29,6 @@ public class MentionUserActivity extends AppCompatActivity {
 
     @BindView(R.id.title_bar_title)
     TextView mTitleBarTitle;
-    @BindView(R.id.title_bar_write_image_view)
-    ImageView mTitleBarWriteImageView;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.activity_mention_user_tab_layout)
@@ -90,7 +87,4 @@ public class MentionUserActivity extends AppCompatActivity {
         return new Intent(context, MentionUserActivity.class);
     }
 
-    @OnClick(R.id.title_bar_write_image_view)
-    public void onClick() {
-    }
 }

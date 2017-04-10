@@ -2,6 +2,7 @@ package com.sina.weibo.sdk.simple.weibo.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Looper;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -11,10 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
+import com.sina.weibo.sdk.simple.weibo.net.HttpUtil;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.ShowImageActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.WeiboContentActivity;
+import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 
 import butterknife.BindView;
@@ -55,6 +61,15 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
         super(itemView);
         ButterKnife.bind(this, itemView);
         mContext = context;
+        initListener(itemView);
+    }
+
+    /**
+     * 初始化监听
+     *
+     * @param itemView
+     */
+    private void initListener(View itemView) {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +84,41 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
                 mContext.startActivity(ShowImageActivity.newIntent(mContext, mWeibo.getOriginPicUrl()));
             }
         });
+
+        mWeiboTranspondCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(mContext);
+                if (accessToken.isSessionValid()) {
+                    transPondWeibo(accessToken, mWeibo.getWeiboId());
+                }
+            }
+        });
+    }
+
+    /**
+     * 转发微博
+     *
+     * @param accessToken
+     * @param weiboId
+     */
+    private void transPondWeibo(Oauth2AccessToken accessToken, String weiboId) {
+        HttpUtil.transPondWeibo(accessToken, Long.valueOf(weiboId), new HttpUtil.HttpCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Looper.prepare();
+                ToastUtil.showToasts(mContext, "转发成功");
+                Looper.loop();
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                Looper.prepare();
+                ToastUtil.showToasts(mContext, "转发失败");
+                Looper.loop();
+            }
+        });
     }
 
 
@@ -77,9 +127,8 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
         mWeibo = weibo;
         Glide.with(mContext)
                 .load(weibo.getUserHead())
-                .centerCrop()
                 .crossFade()
-                .bitmapTransform(new RoundedCornersTransformation(mContext, 30, 0, RoundedCornersTransformation.CornerType.ALL))
+                .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                 .into(mItemUserWeiboUserHead);
         mItemUserWeiboUserName.setText(weibo.getUserName());
         mItemUserWeiboContentDate.setText(Tools.dateFormat(weibo.getDate()));
@@ -88,6 +137,7 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
             mItemUserWeiboUserContentImage.setVisibility(View.VISIBLE);
             Glide.with(mContext)
                     .load(weibo.getImageUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .fitCenter()
                     .crossFade()
                     .into(mItemUserWeiboUserContentImage);
@@ -95,6 +145,8 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
             mItemUserWeiboUserContentImage.setVisibility(View.GONE);
         }
 
-        mWeiboCommentCount.setText("评论(" +Tools.number2Str(weibo.getComment() ) + ")");
+        mWeiboCommentCount.setText("评论(" + Tools.number2Str(weibo.getComment()) + ")");
+        mWeiboFavoriteCount.setText("赞(" + Tools.number2Str(weibo.getFavorite()) + ")");
+        mWeiboTranspondCount.setText("转发(" + Tools.number2Str(weibo.getTranspond()) + ")");
     }
 }

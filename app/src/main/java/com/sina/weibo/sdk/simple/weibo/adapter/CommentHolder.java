@@ -16,6 +16,8 @@ import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import jp.wasabeef.glide.transformations.CropSquareTransformation;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by John on 2017/4/7.
@@ -42,14 +44,13 @@ public class CommentHolder extends RecyclerView.ViewHolder {
     public void bindComment(CommonComment.CommentsBean commentsBean) {
         mCommentsBean = commentsBean;
         Glide.with(mContext)
-                .load(commentsBean.getUser().getProfile_url())
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .centerCrop()
+                .load(commentsBean.getUser().getProfile_image_url())
+                .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                 .into(mItemUserWeiboUserHead);
 
-        mItemUserWeiboContent.setText(commentsBean.getText());
-
+        mItemUserWeiboUserName.setText(commentsBean.getUser().getName());
         mItemUserWeiboContentDate.setText(Tools.dateFormat(commentsBean.getCreated_at()));
+        mItemUserWeiboContent.setText(commentsBean.getText());
     }
 
 }

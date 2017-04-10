@@ -2,10 +2,16 @@ package com.sina.weibo.sdk.simple.weibo.net;
 
 import android.content.Context;
 
+import com.orhanobut.logger.Logger;
+import com.sina.weibo.sdk.simple.weibo.util.RequestLoggingInterceptor;
+
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by John on 2017/3/26.
@@ -20,10 +26,27 @@ public class RetrofitHelper {
     private Retrofit mRetrofit;
 
     private RetrofitHelper(Context context) {
+//        OkHttpClient.Builder client = new OkHttpClient.Builder()
+//                .addInterceptor(new RequestLoggingInterceptor())
+//                .connectTimeout(5, TimeUnit.SECONDS)
+//                .retryOnConnectionFailure(true);
+//
+//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(
+//                new HttpLoggingInterceptor.Logger() {
+//                    @Override
+//                    public void log(String message) {
+//                        Logger.d("收到响应: " + message);
+//                    }
+//                }
+//        );
+
+//        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        client.addInterceptor(logging);
         this.mContext = context;
         //初始化Retrofit
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+//                .client(client.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();

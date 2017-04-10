@@ -9,6 +9,7 @@ import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -122,6 +123,7 @@ public interface RetrofitService {
      */
     @FormUrlEncoded
     @POST("2/statuses/update.json")
-    Observable<UpdateWeiboInfo> setUserWeiboInfo(@Query("access_token") String token, @Field("status") String status);
+    Observable<UpdateWeiboInfo> setUserWeiboInfo(@Field("access_token") String token, @Field("status") String status);
+
 }
 

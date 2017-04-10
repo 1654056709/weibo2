@@ -10,6 +10,8 @@ import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.view.UpdateWeiboInfoView;
 import com.sina.weibo.sdk.simple.weibo.view.View;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -82,5 +84,16 @@ public class UpdateWeiboInfoPresenter implements Presenter {
                                 }
                         )
         );
+    }
+
+
+    /**
+     * 删除一条微博信息
+     *
+     * @param accessToken
+     * @param id
+     */
+    public void deleteWeiboinfo(Oauth2AccessToken accessToken, long id) {
+
     }
 }

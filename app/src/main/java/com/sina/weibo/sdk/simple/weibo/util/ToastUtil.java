@@ -1,6 +1,7 @@
 package com.sina.weibo.sdk.simple.weibo.util;
 
 import android.content.Context;
+import android.os.Looper;
 import android.widget.Toast;
 
 /**

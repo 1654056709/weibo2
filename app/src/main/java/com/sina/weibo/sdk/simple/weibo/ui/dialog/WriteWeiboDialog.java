@@ -19,11 +19,15 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
-import com.sina.weibo.sdk.simple.weibo.util.HttpUtil;
+import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
+import com.sina.weibo.sdk.simple.weibo.presenter.UpdateWeiboInfoPresenter;
+import com.sina.weibo.sdk.simple.weibo.net.HttpUtil;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
+import com.sina.weibo.sdk.simple.weibo.view.UpdateWeiboInfoView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +50,7 @@ public class WriteWeiboDialog extends DialogFragment {
 
     private Oauth2AccessToken mAccessToken;
     private Context mContext;
+    private UpdateWeiboInfoPresenter mUpdateWeiboInfoPresenter;
 
     public WriteWeiboDialog() {
     }
@@ -57,6 +62,8 @@ public class WriteWeiboDialog extends DialogFragment {
         View view = View.inflate(getActivity(), R.layout.layout_write_weibo, null);
         unbinder = ButterKnife.bind(this, view);
         mContext = getActivity();
+        mUpdateWeiboInfoPresenter = new UpdateWeiboInfoPresenter(mContext);
+        mUpdateWeiboInfoPresenter.onCreate();
 
 
         mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
@@ -94,6 +101,7 @@ public class WriteWeiboDialog extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        mUpdateWeiboInfoPresenter.onStop();
     }
 
     @OnClick({R.id.layout_write_weibo_send, R.id.layout_write_weibo_body})
@@ -136,6 +144,39 @@ public class WriteWeiboDialog extends DialogFragment {
     };
 
     private void sendWeibo(Oauth2AccessToken accessToken, String status) {
+        sendWeiboWay1(accessToken, status);
+    }
+
+
+    /**
+     * 发微博第二种方式
+     *
+     * @param accessToken
+     * @param status
+     */
+    private void sendWeiboWay2(Oauth2AccessToken accessToken, String status) {
+        mUpdateWeiboInfoPresenter.setUserWeiboInfo(accessToken, status);
+        mUpdateWeiboInfoPresenter.onAttachView(new UpdateWeiboInfoView() {
+            @Override
+            public void onSuccess(UpdateWeiboInfo updateWeiboInfo) {
+                Logger.d(updateWeiboInfo.getUser().getName());
+            }
+
+            @Override
+            public void onFailure(String errorMsg) {
+
+            }
+        });
+    }
+
+
+    /**
+     * 普通联网方式
+     *
+     * @param accessToken
+     * @param status
+     */
+    private void sendWeiboWay1(Oauth2AccessToken accessToken, String status) {
         HttpUtil.sendWeibo(accessToken, status, new HttpUtil.HttpCallback() {
             @Override
             public void onSuccess(final String msg) {

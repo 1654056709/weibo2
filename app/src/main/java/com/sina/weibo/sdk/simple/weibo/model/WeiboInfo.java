@@ -170,8 +170,12 @@ public class WeiboInfo {
             weibo.setDate(statusesBean.getCreated_at());
             //评论
             weibo.setComment(statusesBean.getComments_count());
-            //内容
-            if (statusesBean.getText().equals("转发微博")) {
+            //转发
+            weibo.setTranspond(statusesBean.getReposts_count());
+            //表态
+            weibo.setFavorite(statusesBean.getAttitudes_count());
+
+            if (statusesBean.getRetweeted_status() != null) {
                 retweetedStatus = statusesBean.getRetweeted_status();
                 content = statusesBean.getText() + "\n" + retweetedStatus.getText();
                 isHaveimage = retweetedStatus.getThumbnail_pic() != null ? true : false;
@@ -187,6 +191,8 @@ public class WeiboInfo {
             weibo.setHaveImg(isHaveimage);
             weibo.setImageUrl(imgUrl);
             weibo.setOriginPicUrl(originPic);
+
+
             //用户头像
             weibo.setUserHead(statusesBean.getUser().getAvatar_hd());
             //用户姓名
