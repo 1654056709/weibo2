@@ -362,9 +362,9 @@ public class CommonComment {
             private int mbrank;
             private int block_word;
             private int block_app;
-            private int level;
+            private long level;
             private int type;
-            private int ulevel;
+            private long ulevel;
             private BadgeBean badge;
             private String badge_top;
             private int has_ability_tag;
@@ -749,11 +749,11 @@ public class CommonComment {
                 this.block_app = block_app;
             }
 
-            public int getLevel() {
+            public long getLevel() {
                 return level;
             }
 
-            public void setLevel(int level) {
+            public void setLevel(long level) {
                 this.level = level;
             }
 
@@ -765,11 +765,11 @@ public class CommonComment {
                 this.type = type;
             }
 
-            public int getUlevel() {
+            public long getUlevel() {
                 return ulevel;
             }
 
-            public void setUlevel(int ulevel) {
+            public void setUlevel(long ulevel) {
                 this.ulevel = ulevel;
             }
 
@@ -1307,7 +1307,7 @@ public class CommonComment {
             private int comments_count;
             private int attitudes_count;
             private boolean isLongText;
-            private int mlevel;
+            private long mlevel;
             private VisibleBeanX visible;
             private int biz_feature;
             private int hasActionTypeCard;
@@ -1489,11 +1489,11 @@ public class CommonComment {
                 this.isLongText = isLongText;
             }
 
-            public int getMlevel() {
+            public long getMlevel() {
                 return mlevel;
             }
 
-            public void setMlevel(int mlevel) {
+            public void setMlevel(long mlevel) {
                 this.mlevel = mlevel;
             }
 
@@ -1702,9 +1702,9 @@ public class CommonComment {
                 private int mbrank;
                 private int block_word;
                 private int block_app;
-                private int level;
+                private long level;
                 private int type;
-                private int ulevel;
+                private long ulevel;
                 private BadgeBeanX badge;
                 private String badge_top;
                 private int has_ability_tag;
@@ -2089,11 +2089,11 @@ public class CommonComment {
                     this.block_app = block_app;
                 }
 
-                public int getLevel() {
+                public long getLevel() {
                     return level;
                 }
 
-                public void setLevel(int level) {
+                public void setLevel(long level) {
                     this.level = level;
                 }
 
@@ -2105,11 +2105,11 @@ public class CommonComment {
                     this.type = type;
                 }
 
-                public int getUlevel() {
+                public long getUlevel() {
                     return ulevel;
                 }
 
-                public void setUlevel(int ulevel) {
+                public void setUlevel(long ulevel) {
                     this.ulevel = ulevel;
                 }
 
@@ -2603,7 +2603,9 @@ public class CommonComment {
                  * in_reply_to_screen_name :
                  * pic_ids : []
                  * geo : null
-                 * user : {"id":3903514164,"idstr":"3903514164","class":1,"screen_name":"如果爱-就勇敢爱","name":"如果爱-就勇敢爱","province":"100","city":"1000","location":"其他","description":"做真的自我","url":"","profile_image_url":"http://tva1.sinaimg.cn/crop.0.0.180.180.50/e8aae634jw8eakgk3uvxlj2050050weg.jpg","cover_image_phone":"http://ww1.sinaimg.cn/crop.0.0.640.640.640/549d0121tw1egm1kjly3jj20hs0hsq4f.jpg","profile_url":"u/3903514164","domain":"","weihao":"","gender":"m","followers_count":24,"friends_count":209,"pagefriends_count":1,"statuses_count":178,"favourites_count":17,"created_at":"Thu Nov 14 12:54:49 +0800 2013","following":false,"allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":-1,"remark":"","insecurity":{"sexual_content":false},"ptype":0,"allow_all_comment":true,"avatar_large":"http://tva1.sinaimg.cn/crop.0.0.180.180.180/e8aae634jw8eakgk3uvxlj2050050weg.jpg","avatar_hd":"http://tva1.sinaimg.cn/crop.0.0.180.180.1024/e8aae634jw8eakgk3uvxlj2050050weg.jpg","verified_reason":"","verified_trade":"","verified_reason_url":"","verified_source":"","verified_source_url":"","follow_me":false,"online_status":0,"bi_followers_count":8,"lang":"zh-cn","star":0,"mbtype":0,"mbrank":0,"block_word":0,"block_app":0,"level":1,"type":1,"ulevel":0,"badge":{"uc_domain":0,"enterprise":0,"anniversary":0,"taobao":0,"travel2013":0,"gongyi":0,"gongyi_level":0,"bind_taobao":1,"hongbao_2014":1,"suishoupai_2014":0,"dailv":0,"zongyiji":0,"vip_activity1":0,"unread_pool":1,"daiyan":0,"ali_1688":0,"vip_activity2":0,"suishoupai_2016":0,"fools_day_2016":0,"uefa_euro_2016":0,"super_star_2016":0,"unread_pool_ext":0,"self_media":0,"olympic_2016":0,"dzwbqlx_2016":0,"discount_2016":0,"wedding_2016":0,"shuang11_2016":0,"follow_whitelist_video":0,"wbzy_2016":0,"hongbao_2017":0,"hongbao_2017_2":0,"caishen_2017":0,"wedding_2017":1,"league_badge":0},"badge_top":"","has_ability_tag":0,"extend":{"privacy":{"mobile":1},"mbprivilege":"0000000000000000000000000000000000000000000000000000000000000000"},"credit_score":80,"user_ability":0,"urank":9}
+                 * user : {"id":3903514164,"idstr":"3903514164","class":1,"screen_name":"如果爱-就勇敢爱","name":"如果爱-就勇敢爱","province":"100","city":"1000","location":"其他","description":"做真的自我","url":"","profile_image_url":"http://tva1.sinaimg.cn/crop.0.0.180.180.50/e8aae634jw8eakgk3uvxlj2050050weg.jpg","cover_image_phone":"http://ww1.sinaimg.cn/crop.0.0.640.640.640/549d0121tw1egm1kjly3jj20hs0hsq4f.jpg","profile_url":"u/3903514164","domain":"","weihao":"","gender":"m","followers_count":24,"friends_count":209,"pagefriends_count":1,"statuses_count":178,"favourites_count":17,"created_at":"Thu Nov 14 12:54:49 +0800 2013","following":false,"allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":-1,"remark":"","insecurity":{"sexual_content":false},"ptype":0,"allow_all_comment":true,"avatar_large":"http://tva1.sinaimg.cn/crop.0.0.180.180.180/e8aae634jw8eakgk3uvxlj2050050weg.jpg","avatar_hd":"http://tva1.sinaimg.cn/crop.0.0.180.180.1024/e8aae634jw8eakgk3uvxlj2050050weg.jpg",
+                 * "verified_reason":"","verified_trade":"","verified_reason_url":"","verified_source":"","verified_source_url":"","follow_me":false,"online_status":0,"bi_followers_count":8,"lang":"zh-cn","star":0,"mbtype":0,"mbrank":0,"block_word":0,"block_app":0,"level":1,"type":1,"ulevel":0,"badge":{"uc_domain":0,"enterprise":0,"anniversary":0,"taobao":0,"travel2013":0,"gongyi":0,"gongyi_level":0,"bind_taobao":1,"hongbao_2014":1,"suishoupai_2014":0,"dailv":0,"zongyiji":0,"vip_activity1":0,"unread_pool":1,"daiyan":0,"ali_1688":0,"vip_activity2":0,"suishoupai_2016":0,"fools_day_2016":0,"uefa_euro_2016":0,"super_star_2016":0,"unread_pool_ext":0,"self_media":0,"olympic_2016":0,"dzwbqlx_2016":0,"discount_2016":0,"wedding_2016":0,"shuang11_2016":0,"follow_whitelist_video":0,"wbzy_2016":0,"hongbao_2017":0,"hongbao_2017_2":0,"caishen_2017":0,"wedding_2017":1,"league_badge":0},"badge_top":"","has_ability_tag":0,"extend":{"privacy":{"mobile":1},
+                 * "mbprivilege":"0000000000000000000000000000000000000000000000000000000000000000"},"credit_score":80,"user_ability":0,"urank":9}
                  * reposts_count : 0
                  * comments_count : 0
                  * attitudes_count : 0
@@ -2643,7 +2645,7 @@ public class CommonComment {
                 private int comments_count;
                 private int attitudes_count;
                 private boolean isLongText;
-                private int mlevel;
+                private long mlevel;
                 private VisibleBean visible;
                 private int biz_feature;
                 private int hasActionTypeCard;
@@ -2825,11 +2827,11 @@ public class CommonComment {
                     this.isLongText = isLongText;
                 }
 
-                public int getMlevel() {
+                public long getMlevel() {
                     return mlevel;
                 }
 
-                public void setMlevel(int mlevel) {
+                public void setMlevel(long mlevel) {
                     this.mlevel = mlevel;
                 }
 
@@ -3038,9 +3040,9 @@ public class CommonComment {
                     private int mbrank;
                     private int block_word;
                     private int block_app;
-                    private int level;
+                    private long level;
                     private int type;
-                    private int ulevel;
+                    private long ulevel;
                     private BadgeBeanXX badge;
                     private String badge_top;
                     private int has_ability_tag;
@@ -3425,11 +3427,11 @@ public class CommonComment {
                         this.block_app = block_app;
                     }
 
-                    public int getLevel() {
+                    public long getLevel() {
                         return level;
                     }
 
-                    public void setLevel(int level) {
+                    public void setLevel(long level) {
                         this.level = level;
                     }
 
@@ -3441,11 +3443,11 @@ public class CommonComment {
                         this.type = type;
                     }
 
-                    public int getUlevel() {
+                    public long getUlevel() {
                         return ulevel;
                     }
 
-                    public void setUlevel(int ulevel) {
+                    public void setUlevel(long ulevel) {
                         this.ulevel = ulevel;
                     }
 
