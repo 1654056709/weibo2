@@ -1,27 +1,43 @@
 package com.sina.weibo.sdk.simple.weibo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
+import com.sina.weibo.sdk.constant.WBConstants;
 import com.sina.weibo.sdk.simple.weibo.R;
+import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.net.HttpUtil;
+import com.sina.weibo.sdk.simple.weibo.presenter.UpdateWeiboInfoPresenter;
+import com.sina.weibo.sdk.simple.weibo.ui.activity.CommentActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.ShowImageActivity;
+import com.sina.weibo.sdk.simple.weibo.ui.activity.UserTimeLineActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.WeiboContentActivity;
+import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
+import com.sina.weibo.sdk.simple.weibo.view.UpdateWeiboInfoView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,11 +52,13 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  */
 
 public class WeiboHolder extends RecyclerView.ViewHolder {
-    private WeiboInfo mWeibo;
-    private Context mContext;
+    private static WeiboInfo mWeibo;
+    private static Context mContext;
 
     @BindView(R.id.item_user_weibo_user_head)
     ImageView mItemUserWeiboUserHead;
+    @BindView(R.id.item_user_weibo_delete)
+    ImageView mItemUserWeiboDelete;
     @BindView(R.id.item_user_weibo_user_name)
     TextView mItemUserWeiboUserName;
     @BindView(R.id.item_user_weibo_content_date)
@@ -55,6 +73,8 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
     TextView mWeiboCommentCount;
     @BindView(R.id.weibo_favorite_count)
     TextView mWeiboFavoriteCount;
+    @BindView(R.id.item_weibo)
+    LinearLayout mItemWeibo;
 
 
     public WeiboHolder(Context context, View itemView) {
@@ -70,6 +90,7 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
      * @param itemView
      */
     private void initListener(View itemView) {
+        //查看微博内容
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +99,8 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
             }
         });
 
+
+        //查看微博中图片
         mItemUserWeiboUserContentImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,16 +108,49 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
             }
         });
 
+
+        //转发微博
         mWeiboTranspondCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(mContext);
                 if (accessToken.isSessionValid()) {
-                    transPondWeibo(accessToken, mWeibo.getWeiboId());
+                    long count = mWeibo.getTranspond();
+                    count++;
+                    mWeibo.setTranspond(count);
+                    mWeiboTranspondCount.setText("转发(" + Tools.number2Str(count) + ")");
+                    transPondWeibo(mContext, accessToken, mWeibo.getWeiboId());
                 }
             }
         });
+
+
+        //微博删除
+        mItemUserWeiboDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Message message = Message.obtain();
+                message.obj = mWeibo;
+                UserTimeLineActivity.mHandler.sendMessage(message);
+                //删除微博
+                Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(mContext);
+                if (accessToken.isSessionValid()) {
+                    deleteWeibo(mContext, accessToken, mWeibo.getWeiboId());
+                }
+            }
+        });
+
+
+        //获取某条微博评论
+        mWeiboCommentCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = CommentActivity.newIntent(mContext, Long.valueOf(mWeibo.getWeiboId()));
+                mContext.startActivity(intent);
+            }
+        });
     }
+
 
     /**
      * 转发微博
@@ -102,29 +158,78 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
      * @param accessToken
      * @param weiboId
      */
-    private void transPondWeibo(Oauth2AccessToken accessToken, String weiboId) {
-        HttpUtil.transPondWeibo(accessToken, Long.valueOf(weiboId), new HttpUtil.HttpCallback() {
+    private void transPondWeibo(final Context context, Oauth2AccessToken accessToken, String weiboId) {
+        UpdateWeiboInfoPresenter updateWeiboInfoPresenter = new UpdateWeiboInfoPresenter(context);
+        updateWeiboInfoPresenter.onCreate();
+        updateWeiboInfoPresenter.transpondWeibo(accessToken, Long.valueOf(weiboId));
+        updateWeiboInfoPresenter.onAttachView(new UpdateWeiboInfoView() {
             @Override
-            public void onSuccess(String msg) {
-                Looper.prepare();
-                ToastUtil.showToasts(mContext, "转发成功");
-                Looper.loop();
+            public void onSuccess(UpdateWeiboInfo updateWeiboInfo) {
 
             }
 
             @Override
-            public void onFailure(String msg) {
-                Looper.prepare();
-                ToastUtil.showToasts(mContext, "转发失败");
-                Looper.loop();
+            public void onSuccess(String weiboInfo) {
+                ToastUtil.showToasts(context, "转发成功");
+            }
+
+            @Override
+            public void onFailure(String errorMsg) {
+                ToastUtil.showToasts(context, "转发失败");
             }
         });
+        updateWeiboInfoPresenter.onStop();
     }
 
+    /**
+     * 删除微博
+     *
+     * @param context
+     * @param accessToken
+     * @param weiboId
+     */
+    private void deleteWeibo(final Context context, Oauth2AccessToken accessToken, String weiboId) {
+        UpdateWeiboInfoPresenter updateWeiboInfoPresenter = new UpdateWeiboInfoPresenter(context);
+        updateWeiboInfoPresenter.onCreate();
+        updateWeiboInfoPresenter.deleteWeiboinfo(accessToken, Long.valueOf(weiboId));
+        updateWeiboInfoPresenter.onAttachView(new UpdateWeiboInfoView() {
+            @Override
+            public void onSuccess(UpdateWeiboInfo updateWeiboInfo) {
 
-    public void bindWeibo(WeiboInfo weibo) {
+            }
+
+            @Override
+            public void onSuccess(String weiboInfo) {
+                ToastUtil.showToasts(context, "删除成功");
+            }
+
+            @Override
+            public void onFailure(String errorMsg) {
+                ToastUtil.showToasts(context, "删除失败");
+            }
+        });
+        updateWeiboInfoPresenter.onStop();
+
+    }
+
+    public void bindWeibo(WeiboInfo weibo, String type) {
+//        Logger.d("type====" + type);
         //当前weibo对象
         mWeibo = weibo;
+        if (type != null) {
+            if (type.equals(UserTimeLineActivity.CANCEL)) {
+                mItemUserWeiboDelete.setVisibility(View.GONE);
+                mItemWeibo.setEnabled(true);
+            } else {
+                mItemUserWeiboDelete.setVisibility(View.VISIBLE);
+                mItemWeibo.setEnabled(true);
+            }
+        } else {
+            mItemUserWeiboDelete.setVisibility(View.GONE);
+            mItemWeibo.setEnabled(true);
+        }
+
+
         Glide.with(mContext)
                 .load(weibo.getUserHead())
                 .crossFade()

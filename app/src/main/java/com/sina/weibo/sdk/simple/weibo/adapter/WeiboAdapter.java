@@ -10,8 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 
@@ -27,10 +29,33 @@ import butterknife.ButterKnife;
 public class WeiboAdapter extends RecyclerView.Adapter<WeiboHolder> {
     private List<WeiboInfo> mWeibos;
     private Context mContext;
+    private String mType;
+
 
     public WeiboAdapter(Context context, List<WeiboInfo> weibos) {
         mContext = context;
         mWeibos = weibos;
+    }
+
+
+    /**
+     * 设置编辑模式
+     *
+     * @param type
+     */
+    public void setEditType(String type) {
+        mType = type;
+        notifyDataSetChanged();
+    }
+
+
+    /**
+     * 得到编辑模式
+     *
+     * @return
+     */
+    public String getEditType() {
+        return mType;
     }
 
     @Override
@@ -41,8 +66,9 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboHolder> {
 
     @Override
     public void onBindViewHolder(WeiboHolder holder, int position) {
-        holder.bindWeibo(mWeibos.get(position));
+        holder.bindWeibo(mWeibos.get(position), mType);
     }
+
 
     @Override
     public int getItemCount() {

@@ -9,28 +9,11 @@ import java.util.List;
  */
 
 public class CommonComment {
-    /**
-     * comments : [{"created_at":"Mon Apr 10 21:36:12 +0800 2017","id":4095099945998006,"rootid":4095099945998006,"floor_number":2,"text":"@如果爱-就勇敢爱  哈哈","source_allowclick":1,"source_type":1,"source":"<a href=\"http://app.weibo.com/t/feed/3bgZXz\" rel=\"nofollow\">红米Note4<\/a>","user":{"id":3903514164,"idstr":"3903514164","class":1,"screen_name":"如果爱-就勇敢爱","name":"如果爱-就勇敢爱","province":"100","city":"1000","location":"其他","description":"做真的自我","url":"","profile_image_url":"http://tva1.sinaimg.cn/crop.0.0.180.180.50/e8aae634jw8eakgk3uvxlj2050050weg.jpg","cover_image_phone":"http://ww1.sinaimg.cn/crop.0.0.640.640.640/549d0121tw1egm1kjly3jj20hs0hsq4f.jpg","profile_url":"u/3903514164","domain":"","weihao":"","gender":"m","followers_count":24,"friends_count":209,"pagefriends_count":1,"statuses_count":178,"favourites_count":17,"created_at":"Thu Nov 14 12:54:49 +0800 2013","following":false,"allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":-1,"remark":"",
-     * "insecurity":{"sexual_content":false},"ptype":0,"allow_all_comment":true,"avatar_large":"http://tva1.sinaimg.cn/crop.0.0.180.180.180/e8aae634jw8eakgk3uvxlj2050050weg.jpg","avatar_hd":"http://tva1.sinaimg.cn/crop.0.0.180.180.1024/e8aae634jw8eakgk3uvxlj2050050weg.jpg","verified_reason":"","verified_trade":"","verified_reason_url":"","verified_source":"","verified_source_url":"","follow_me":false,"online_status":0,"bi_followers_count":8,"lang":"zh-cn","star":0,"mbtype":0,"mbrank":0,"block_word":0,"block_app":0,"level":1,"type":1,"ulevel":0,"badge":{"uc_domain":0,"enterprise":0,"anniversary":0,"taobao":0,"travel2013":0,"gongyi":0,"gongyi_level":0,"bind_taobao":1,"hongbao_2014":1,"suishoupai_2014":0,"dailv":0,"zongyiji":0,"vip_activity1":0,"unread_pool":1,"daiyan":0,"ali_1688":0,"vip_activity2":0,"suishoupai_2016":0,"fools_day_2016":0,"uefa_euro_2016":0,"super_star_2016":0,"unread_pool_ext":0,"self_media":0,"olympic_2016":0,"dzwbqlx_2016":0,"discount_2016":0,"wedding_2016":0,
-     * "shuang11_2016":0,"follow_whitelist_video":0,"wbzy_2016":0,"hongbao_2017":0,"hongbao_2017_2":0,"caishen_2017":0,"wedding_2017":1,"league_badge":0},"badge_top":"","has_ability_tag":0,"extend":{"privacy":{"mobile":1},"mbprivilege":"0000000000000000000000000000000000000000000000000000000000000000"},"credit_score":80,"user_ability":0,"urank":9},"mid":"4095099945998006","idstr":"4095099945998006","status":{"created_at":"Mon Apr 10 21:26:26 +0800 2017","id":4095097483829171,"mid":"4095097483829171","idstr":"4095097483829171","text":"转发微博","source_allowclick":0,"source_type":1,"source":"<a href=\"http://app.weibo.com/t/feed/H6Loy\" rel=\"nofollow\">未通过审核应用<\/a>","appid":2326732,"favorited":false,"truncated":false,"in_reply_to_status_id":"","in_reply_to_user_id":"","in_reply_to_screen_name":"","pic_ids":[],"geo":null,"user":{"id":3903514164,"idstr":"3903514164","class":1,"screen_name":"如果爱-就勇敢爱","name":"如果爱-就勇敢爱","province":"100","city":"1000","location":"其他","description":"做真的自我",
-     * "url":"","profile_image_url":"http://tva1.sinaimg.cn/crop.0.0.180.180.50/e8aae634jw8eakgk3uvxlj2050050weg.jpg","cover_image_phone":"http://ww1.sinaimg.cn/crop.0.0.640.640.640/549d0121tw1egm1kjly3jj20hs0hsq4f.jpg","profile_url":"u/3903514164","domain":"","weihao":"","gender":"m","followers_count":24,"friends_count":209,"pagefriends_count":1,"statuses_count":178,"favourites_count":17,"created_at":"Thu Nov 14 12:54:49 +0800 2013","following":false,"allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":-1,"remark":"","insecurity":{"sexual_content":false},"ptype":0,"allow_all_comment":true,"avatar_large":"http://tva1.sinaimg.cn/crop.0.0.180.180.180/e8aae634jw8eakgk3uvxlj2050050weg.jpg","avatar_hd":"http://tva1.sinaimg.cn/crop.0.0.180.180.1024/e8aae634jw8eakgk3uvxlj2050050weg.jpg","verified_reason":"","verified_trade":"","verified_reason_url":"","verified_source":"","verified_source_url":"","follow_me":false,"online_status":0,"bi_followers_count":8,
-     * "lang":"zh-cn","star":0,"mbtype":0,"mbrank":0,"block_word":0,"block_app":0,"level":1,"type":1,"ulevel":0,"badge":{"uc_domain":0,"enterprise":0,"anniversary":0,"taobao":0,"travel2013":0,"gongyi":0,"gongyi_level":0,"bind_taobao":1,"hongbao_2014":1,"suishoupai_2014":0,"dailv":0,"zongyiji":0,"vip_activity1":0,"unread_pool":1,"daiyan":0,"ali_1688":0,"vip_activity2":0,"suishoupai_2016":0,"fools_day_2016":0,"uefa_euro_2016":0,"super_star_2016":0,"unread_pool_ext":0,"self_media":0,"olympic_2016":0,"dzwbqlx_2016":0,"discount_2016":0,"wedding_2016":0,"shuang11_2016":0,"follow_whitelist_video":0,"wbzy_2016":0,"hongbao_2017":0,"hongbao_2017_2":0,"caishen_2017":0,"wedding_2017":1,"league_badge":0},"badge_top":"","has_ability_tag":0,"extend":{"privacy":{"mobile":1},"mbprivilege":"0000000000000000000000000000000000000000000000000000000000000000"},"credit_score":80,"user_ability":0,"urank":9},"retweeted_status":{"created_at":"Mon Apr 10 21:26:11 +0800 2017","id":4095097421681412,
-     * "mid":"4095097421681412","idstr":"4095097421681412","text":"hello","textLength":5,"source_allowclick":0,"source_type":1,"source":"<a href=\"http://app.weibo.com/t/feed/H6Loy\" rel=\"nofollow\">未通过审核应用<\/a>","appid":2326732,"favorited":false,"truncated":false,"in_reply_to_status_id":"","in_reply_to_user_id":"","in_reply_to_screen_name":"","pic_ids":[],"geo":null,"user":{"id":3903514164,"idstr":"3903514164","class":1,"screen_name":"如果爱-就勇敢爱","name":"如果爱-就勇敢爱","province":"100","city":"1000","location":"其他","description":"做真的自我","url":"","profile_image_url":"http://tva1.sinaimg.cn/crop.0.0.180.180.50/e8aae634jw8eakgk3uvxlj2050050weg.jpg","cover_image_phone":"http://ww1.sinaimg.cn/crop.0.0.640.640.640/549d0121tw1egm1kjly3jj20hs0hsq4f.jpg","profile_url":"u/3903514164","domain":"","weihao":"","gender":"m","followers_count":24,"friends_count":209,"pagefriends_count":1,"statuses_count":178,"favourites_count":17,"created_at":"Thu Nov 14 12:54:49 +0800 2013","following":false,
-     * "allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":-1,"remark":"","insecurity":{"sexual_content":false},"ptype":0,"allow_all_comment":true,"avatar_large":"http://tva1.sinaimg.cn/crop.0.0.180.180.180/e8aae634jw8eakgk3uvxlj2050050weg.jpg","avatar_hd":"http://tva1.sinaimg.cn/crop.0.0.180.180.1024/e8aae634jw8eakgk3uvxlj2050050weg.jpg","verified_reason":"","verified_trade":"","verified_reason_url":"","verified_source":"","verified_source_url":"","follow_me":false,"online_status":0,"bi_followers_count":8,"lang":"zh-cn","star":0,"mbtype":0,"mbrank":0,"block_word":0,"block_app":0,"level":1,"type":1,"ulevel":0,"badge":{"uc_domain":0,"enterprise":0,"anniversary":0,"taobao":0,"travel2013":0,"gongyi":0,"gongyi_level":0,"bind_taobao":1,"hongbao_2014":1,"suishoupai_2014":0,"dailv":0,"zongyiji":0,"vip_activity1":0,"unread_pool":1,"daiyan":0,"ali_1688":0,"vip_activity2":0,"suishoupai_2016":0,"fools_day_2016":0,"uefa_euro_2016":0,"super_star_2016":0,
-     * "unread_pool_ext":0,"self_media":0,"olympic_2016":0,"dzwbqlx_2016":0,"discount_2016":0,"wedding_2016":0,"shuang11_2016":0,"follow_whitelist_video":0,"wbzy_2016":0,"hongbao_2017":0,"hongbao_2017_2":0,"caishen_2017":0,"wedding_2017":1,"league_badge":0},"badge_top":"","has_ability_tag":0,"extend":{"privacy":{"mobile":1},"mbprivilege":"0000000000000000000000000000000000000000000000000000000000000000"},"credit_score":80,"user_ability":0,"urank":9},"reposts_count":0,"comments_count":0,"attitudes_count":0,"isLongText":false,"mlevel":0,"visible":{"type":0,"list_id":0},"biz_feature":0,"url_objects":[],"hasActionTypeCard":0,"darwin_tags":[],"hot_weibo_tags":[],"text_tag_tips":[],"userType":0,"positive_recom_flag":0,"gif_ids":"","is_show_bulletin":2},"reposts_count":0,"comments_count":0,"attitudes_count":0,"isLongText":false,"mlevel":0,"visible":{"type":0,"list_id":0},"biz_feature":0,"url_objects":[],"hasActionTypeCard":0,"darwin_tags":[],"hot_weibo_tags":[],"text_tag_tips":[],
-     * "userType":0,"positive_recom_flag":0,"gif_ids":"","is_show_bulletin":2},"like_count":0,"reply_count":0,"url_objects":[],"liked":false}]
-     * hasvisible : false
-     * previous_cursor : 0
-     * next_cursor : 0
-     * total_number : 1
-     * interval : 0
-     */
-
     private boolean hasvisible;
-    private int previous_cursor;
-    private int next_cursor;
-    private int total_number;
-    private int interval;
+    private long previous_cursor;
+    private long next_cursor;
+    private long total_number;
+    private long longerval;
     private List<CommentsBean> comments;
 
     public boolean isHasvisible() {
@@ -41,36 +24,36 @@ public class CommonComment {
         this.hasvisible = hasvisible;
     }
 
-    public int getPrevious_cursor() {
+    public long getPrevious_cursor() {
         return previous_cursor;
     }
 
-    public void setPrevious_cursor(int previous_cursor) {
+    public void setPrevious_cursor(long previous_cursor) {
         this.previous_cursor = previous_cursor;
     }
 
-    public int getNext_cursor() {
+    public long getNext_cursor() {
         return next_cursor;
     }
 
-    public void setNext_cursor(int next_cursor) {
+    public void setNext_cursor(long next_cursor) {
         this.next_cursor = next_cursor;
     }
 
-    public int getTotal_number() {
+    public long getTotal_number() {
         return total_number;
     }
 
-    public void setTotal_number(int total_number) {
+    public void setTotal_number(long total_number) {
         this.total_number = total_number;
     }
 
-    public int getInterval() {
-        return interval;
+    public long getlongerval() {
+        return longerval;
     }
 
-    public void setInterval(int interval) {
-        this.interval = interval;
+    public void setlongerval(long longerval) {
+        this.longerval = longerval;
     }
 
     public List<CommentsBean> getComments() {
@@ -111,17 +94,17 @@ public class CommonComment {
         private String created_at;
         private long id;
         private long rootid;
-        private int floor_number;
+        private long floor_number;
         private String text;
-        private int source_allowclick;
-        private int source_type;
+        private long source_allowclick;
+        private long source_type;
         private String source;
         private UserBean user;
         private String mid;
         private String idstr;
         private StatusBean status;
-        private int like_count;
-        private int reply_count;
+        private long like_count;
+        private long reply_count;
         private boolean liked;
         private List<?> url_objects;
 
@@ -149,11 +132,11 @@ public class CommonComment {
             this.rootid = rootid;
         }
 
-        public int getFloor_number() {
+        public long getFloor_number() {
             return floor_number;
         }
 
-        public void setFloor_number(int floor_number) {
+        public void setFloor_number(long floor_number) {
             this.floor_number = floor_number;
         }
 
@@ -165,19 +148,19 @@ public class CommonComment {
             this.text = text;
         }
 
-        public int getSource_allowclick() {
+        public long getSource_allowclick() {
             return source_allowclick;
         }
 
-        public void setSource_allowclick(int source_allowclick) {
+        public void setSource_allowclick(long source_allowclick) {
             this.source_allowclick = source_allowclick;
         }
 
-        public int getSource_type() {
+        public long getSource_type() {
             return source_type;
         }
 
-        public void setSource_type(int source_type) {
+        public void setSource_type(long source_type) {
             this.source_type = source_type;
         }
 
@@ -221,19 +204,19 @@ public class CommonComment {
             this.status = status;
         }
 
-        public int getLike_count() {
+        public long getLike_count() {
             return like_count;
         }
 
-        public void setLike_count(int like_count) {
+        public void setLike_count(long like_count) {
             this.like_count = like_count;
         }
 
-        public int getReply_count() {
+        public long getReply_count() {
             return reply_count;
         }
 
-        public void setReply_count(int reply_count) {
+        public void setReply_count(long reply_count) {
             this.reply_count = reply_count;
         }
 
@@ -317,7 +300,7 @@ public class CommonComment {
             private long id;
             private String idstr;
             @SerializedName("class")
-            private int classX;
+            private long classX;
             private String screen_name;
             private String name;
             private String province;
@@ -331,20 +314,20 @@ public class CommonComment {
             private String domain;
             private String weihao;
             private String gender;
-            private int followers_count;
-            private int friends_count;
-            private int pagefriends_count;
-            private int statuses_count;
-            private int favourites_count;
+            private long followers_count;
+            private long friends_count;
+            private long pagefriends_count;
+            private long statuses_count;
+            private long favourites_count;
             private String created_at;
             private boolean following;
             private boolean allow_all_act_msg;
             private boolean geo_enabled;
             private boolean verified;
-            private int verified_type;
+            private long verified_type;
             private String remark;
             private InsecurityBean insecurity;
-            private int ptype;
+            private long ptype;
             private boolean allow_all_comment;
             private String avatar_large;
             private String avatar_hd;
@@ -354,24 +337,24 @@ public class CommonComment {
             private String verified_source;
             private String verified_source_url;
             private boolean follow_me;
-            private int online_status;
-            private int bi_followers_count;
+            private long online_status;
+            private long bi_followers_count;
             private String lang;
-            private int star;
-            private int mbtype;
-            private int mbrank;
-            private int block_word;
-            private int block_app;
+            private long star;
+            private long mbtype;
+            private long mbrank;
+            private long block_word;
+            private long block_app;
             private long level;
-            private int type;
+            private long type;
             private long ulevel;
             private BadgeBean badge;
             private String badge_top;
-            private int has_ability_tag;
+            private long has_ability_tag;
             private ExtendBean extend;
-            private int credit_score;
-            private int user_ability;
-            private int urank;
+            private long credit_score;
+            private long user_ability;
+            private long urank;
 
             public long getId() {
                 return id;
@@ -389,11 +372,11 @@ public class CommonComment {
                 this.idstr = idstr;
             }
 
-            public int getClassX() {
+            public long getClassX() {
                 return classX;
             }
 
-            public void setClassX(int classX) {
+            public void setClassX(long classX) {
                 this.classX = classX;
             }
 
@@ -501,43 +484,43 @@ public class CommonComment {
                 this.gender = gender;
             }
 
-            public int getFollowers_count() {
+            public long getFollowers_count() {
                 return followers_count;
             }
 
-            public void setFollowers_count(int followers_count) {
+            public void setFollowers_count(long followers_count) {
                 this.followers_count = followers_count;
             }
 
-            public int getFriends_count() {
+            public long getFriends_count() {
                 return friends_count;
             }
 
-            public void setFriends_count(int friends_count) {
+            public void setFriends_count(long friends_count) {
                 this.friends_count = friends_count;
             }
 
-            public int getPagefriends_count() {
+            public long getPagefriends_count() {
                 return pagefriends_count;
             }
 
-            public void setPagefriends_count(int pagefriends_count) {
+            public void setPagefriends_count(long pagefriends_count) {
                 this.pagefriends_count = pagefriends_count;
             }
 
-            public int getStatuses_count() {
+            public long getStatuses_count() {
                 return statuses_count;
             }
 
-            public void setStatuses_count(int statuses_count) {
+            public void setStatuses_count(long statuses_count) {
                 this.statuses_count = statuses_count;
             }
 
-            public int getFavourites_count() {
+            public long getFavourites_count() {
                 return favourites_count;
             }
 
-            public void setFavourites_count(int favourites_count) {
+            public void setFavourites_count(long favourites_count) {
                 this.favourites_count = favourites_count;
             }
 
@@ -581,11 +564,11 @@ public class CommonComment {
                 this.verified = verified;
             }
 
-            public int getVerified_type() {
+            public long getVerified_type() {
                 return verified_type;
             }
 
-            public void setVerified_type(int verified_type) {
+            public void setVerified_type(long verified_type) {
                 this.verified_type = verified_type;
             }
 
@@ -605,11 +588,11 @@ public class CommonComment {
                 this.insecurity = insecurity;
             }
 
-            public int getPtype() {
+            public long getPtype() {
                 return ptype;
             }
 
-            public void setPtype(int ptype) {
+            public void setPtype(long ptype) {
                 this.ptype = ptype;
             }
 
@@ -685,19 +668,19 @@ public class CommonComment {
                 this.follow_me = follow_me;
             }
 
-            public int getOnline_status() {
+            public long getOnline_status() {
                 return online_status;
             }
 
-            public void setOnline_status(int online_status) {
+            public void setOnline_status(long online_status) {
                 this.online_status = online_status;
             }
 
-            public int getBi_followers_count() {
+            public long getBi_followers_count() {
                 return bi_followers_count;
             }
 
-            public void setBi_followers_count(int bi_followers_count) {
+            public void setBi_followers_count(long bi_followers_count) {
                 this.bi_followers_count = bi_followers_count;
             }
 
@@ -709,43 +692,43 @@ public class CommonComment {
                 this.lang = lang;
             }
 
-            public int getStar() {
+            public long getStar() {
                 return star;
             }
 
-            public void setStar(int star) {
+            public void setStar(long star) {
                 this.star = star;
             }
 
-            public int getMbtype() {
+            public long getMbtype() {
                 return mbtype;
             }
 
-            public void setMbtype(int mbtype) {
+            public void setMbtype(long mbtype) {
                 this.mbtype = mbtype;
             }
 
-            public int getMbrank() {
+            public long getMbrank() {
                 return mbrank;
             }
 
-            public void setMbrank(int mbrank) {
+            public void setMbrank(long mbrank) {
                 this.mbrank = mbrank;
             }
 
-            public int getBlock_word() {
+            public long getBlock_word() {
                 return block_word;
             }
 
-            public void setBlock_word(int block_word) {
+            public void setBlock_word(long block_word) {
                 this.block_word = block_word;
             }
 
-            public int getBlock_app() {
+            public long getBlock_app() {
                 return block_app;
             }
 
-            public void setBlock_app(int block_app) {
+            public void setBlock_app(long block_app) {
                 this.block_app = block_app;
             }
 
@@ -757,11 +740,11 @@ public class CommonComment {
                 this.level = level;
             }
 
-            public int getType() {
+            public long getType() {
                 return type;
             }
 
-            public void setType(int type) {
+            public void setType(long type) {
                 this.type = type;
             }
 
@@ -789,11 +772,11 @@ public class CommonComment {
                 this.badge_top = badge_top;
             }
 
-            public int getHas_ability_tag() {
+            public long getHas_ability_tag() {
                 return has_ability_tag;
             }
 
-            public void setHas_ability_tag(int has_ability_tag) {
+            public void setHas_ability_tag(long has_ability_tag) {
                 this.has_ability_tag = has_ability_tag;
             }
 
@@ -805,27 +788,27 @@ public class CommonComment {
                 this.extend = extend;
             }
 
-            public int getCredit_score() {
+            public long getCredit_score() {
                 return credit_score;
             }
 
-            public void setCredit_score(int credit_score) {
+            public void setCredit_score(long credit_score) {
                 this.credit_score = credit_score;
             }
 
-            public int getUser_ability() {
+            public long getUser_ability() {
                 return user_ability;
             }
 
-            public void setUser_ability(int user_ability) {
+            public void setUser_ability(long user_ability) {
                 this.user_ability = user_ability;
             }
 
-            public int getUrank() {
+            public long getUrank() {
                 return urank;
             }
 
-            public void setUrank(int urank) {
+            public void setUrank(long urank) {
                 this.urank = urank;
             }
 
@@ -884,319 +867,319 @@ public class CommonComment {
                  * league_badge : 0
                  */
 
-                private int uc_domain;
-                private int enterprise;
-                private int anniversary;
-                private int taobao;
-                private int travel2013;
-                private int gongyi;
-                private int gongyi_level;
-                private int bind_taobao;
-                private int hongbao_2014;
-                private int suishoupai_2014;
-                private int dailv;
-                private int zongyiji;
-                private int vip_activity1;
-                private int unread_pool;
-                private int daiyan;
-                private int ali_1688;
-                private int vip_activity2;
-                private int suishoupai_2016;
-                private int fools_day_2016;
-                private int uefa_euro_2016;
-                private int super_star_2016;
-                private int unread_pool_ext;
-                private int self_media;
-                private int olympic_2016;
-                private int dzwbqlx_2016;
-                private int discount_2016;
-                private int wedding_2016;
-                private int shuang11_2016;
-                private int follow_whitelist_video;
-                private int wbzy_2016;
-                private int hongbao_2017;
-                private int hongbao_2017_2;
-                private int caishen_2017;
-                private int wedding_2017;
-                private int league_badge;
+                private long uc_domain;
+                private long enterprise;
+                private long anniversary;
+                private long taobao;
+                private long travel2013;
+                private long gongyi;
+                private long gongyi_level;
+                private long bind_taobao;
+                private long hongbao_2014;
+                private long suishoupai_2014;
+                private long dailv;
+                private long zongyiji;
+                private long vip_activity1;
+                private long unread_pool;
+                private long daiyan;
+                private long ali_1688;
+                private long vip_activity2;
+                private long suishoupai_2016;
+                private long fools_day_2016;
+                private long uefa_euro_2016;
+                private long super_star_2016;
+                private long unread_pool_ext;
+                private long self_media;
+                private long olympic_2016;
+                private long dzwbqlx_2016;
+                private long discount_2016;
+                private long wedding_2016;
+                private long shuang11_2016;
+                private long follow_whitelist_video;
+                private long wbzy_2016;
+                private long hongbao_2017;
+                private long hongbao_2017_2;
+                private long caishen_2017;
+                private long wedding_2017;
+                private long league_badge;
 
-                public int getUc_domain() {
+                public long getUc_domain() {
                     return uc_domain;
                 }
 
-                public void setUc_domain(int uc_domain) {
+                public void setUc_domain(long uc_domain) {
                     this.uc_domain = uc_domain;
                 }
 
-                public int getEnterprise() {
+                public long getEnterprise() {
                     return enterprise;
                 }
 
-                public void setEnterprise(int enterprise) {
+                public void setEnterprise(long enterprise) {
                     this.enterprise = enterprise;
                 }
 
-                public int getAnniversary() {
+                public long getAnniversary() {
                     return anniversary;
                 }
 
-                public void setAnniversary(int anniversary) {
+                public void setAnniversary(long anniversary) {
                     this.anniversary = anniversary;
                 }
 
-                public int getTaobao() {
+                public long getTaobao() {
                     return taobao;
                 }
 
-                public void setTaobao(int taobao) {
+                public void setTaobao(long taobao) {
                     this.taobao = taobao;
                 }
 
-                public int getTravel2013() {
+                public long getTravel2013() {
                     return travel2013;
                 }
 
-                public void setTravel2013(int travel2013) {
+                public void setTravel2013(long travel2013) {
                     this.travel2013 = travel2013;
                 }
 
-                public int getGongyi() {
+                public long getGongyi() {
                     return gongyi;
                 }
 
-                public void setGongyi(int gongyi) {
+                public void setGongyi(long gongyi) {
                     this.gongyi = gongyi;
                 }
 
-                public int getGongyi_level() {
+                public long getGongyi_level() {
                     return gongyi_level;
                 }
 
-                public void setGongyi_level(int gongyi_level) {
+                public void setGongyi_level(long gongyi_level) {
                     this.gongyi_level = gongyi_level;
                 }
 
-                public int getBind_taobao() {
+                public long getBind_taobao() {
                     return bind_taobao;
                 }
 
-                public void setBind_taobao(int bind_taobao) {
+                public void setBind_taobao(long bind_taobao) {
                     this.bind_taobao = bind_taobao;
                 }
 
-                public int getHongbao_2014() {
+                public long getHongbao_2014() {
                     return hongbao_2014;
                 }
 
-                public void setHongbao_2014(int hongbao_2014) {
+                public void setHongbao_2014(long hongbao_2014) {
                     this.hongbao_2014 = hongbao_2014;
                 }
 
-                public int getSuishoupai_2014() {
+                public long getSuishoupai_2014() {
                     return suishoupai_2014;
                 }
 
-                public void setSuishoupai_2014(int suishoupai_2014) {
+                public void setSuishoupai_2014(long suishoupai_2014) {
                     this.suishoupai_2014 = suishoupai_2014;
                 }
 
-                public int getDailv() {
+                public long getDailv() {
                     return dailv;
                 }
 
-                public void setDailv(int dailv) {
+                public void setDailv(long dailv) {
                     this.dailv = dailv;
                 }
 
-                public int getZongyiji() {
+                public long getZongyiji() {
                     return zongyiji;
                 }
 
-                public void setZongyiji(int zongyiji) {
+                public void setZongyiji(long zongyiji) {
                     this.zongyiji = zongyiji;
                 }
 
-                public int getVip_activity1() {
+                public long getVip_activity1() {
                     return vip_activity1;
                 }
 
-                public void setVip_activity1(int vip_activity1) {
+                public void setVip_activity1(long vip_activity1) {
                     this.vip_activity1 = vip_activity1;
                 }
 
-                public int getUnread_pool() {
+                public long getUnread_pool() {
                     return unread_pool;
                 }
 
-                public void setUnread_pool(int unread_pool) {
+                public void setUnread_pool(long unread_pool) {
                     this.unread_pool = unread_pool;
                 }
 
-                public int getDaiyan() {
+                public long getDaiyan() {
                     return daiyan;
                 }
 
-                public void setDaiyan(int daiyan) {
+                public void setDaiyan(long daiyan) {
                     this.daiyan = daiyan;
                 }
 
-                public int getAli_1688() {
+                public long getAli_1688() {
                     return ali_1688;
                 }
 
-                public void setAli_1688(int ali_1688) {
+                public void setAli_1688(long ali_1688) {
                     this.ali_1688 = ali_1688;
                 }
 
-                public int getVip_activity2() {
+                public long getVip_activity2() {
                     return vip_activity2;
                 }
 
-                public void setVip_activity2(int vip_activity2) {
+                public void setVip_activity2(long vip_activity2) {
                     this.vip_activity2 = vip_activity2;
                 }
 
-                public int getSuishoupai_2016() {
+                public long getSuishoupai_2016() {
                     return suishoupai_2016;
                 }
 
-                public void setSuishoupai_2016(int suishoupai_2016) {
+                public void setSuishoupai_2016(long suishoupai_2016) {
                     this.suishoupai_2016 = suishoupai_2016;
                 }
 
-                public int getFools_day_2016() {
+                public long getFools_day_2016() {
                     return fools_day_2016;
                 }
 
-                public void setFools_day_2016(int fools_day_2016) {
+                public void setFools_day_2016(long fools_day_2016) {
                     this.fools_day_2016 = fools_day_2016;
                 }
 
-                public int getUefa_euro_2016() {
+                public long getUefa_euro_2016() {
                     return uefa_euro_2016;
                 }
 
-                public void setUefa_euro_2016(int uefa_euro_2016) {
+                public void setUefa_euro_2016(long uefa_euro_2016) {
                     this.uefa_euro_2016 = uefa_euro_2016;
                 }
 
-                public int getSuper_star_2016() {
+                public long getSuper_star_2016() {
                     return super_star_2016;
                 }
 
-                public void setSuper_star_2016(int super_star_2016) {
+                public void setSuper_star_2016(long super_star_2016) {
                     this.super_star_2016 = super_star_2016;
                 }
 
-                public int getUnread_pool_ext() {
+                public long getUnread_pool_ext() {
                     return unread_pool_ext;
                 }
 
-                public void setUnread_pool_ext(int unread_pool_ext) {
+                public void setUnread_pool_ext(long unread_pool_ext) {
                     this.unread_pool_ext = unread_pool_ext;
                 }
 
-                public int getSelf_media() {
+                public long getSelf_media() {
                     return self_media;
                 }
 
-                public void setSelf_media(int self_media) {
+                public void setSelf_media(long self_media) {
                     this.self_media = self_media;
                 }
 
-                public int getOlympic_2016() {
+                public long getOlympic_2016() {
                     return olympic_2016;
                 }
 
-                public void setOlympic_2016(int olympic_2016) {
+                public void setOlympic_2016(long olympic_2016) {
                     this.olympic_2016 = olympic_2016;
                 }
 
-                public int getDzwbqlx_2016() {
+                public long getDzwbqlx_2016() {
                     return dzwbqlx_2016;
                 }
 
-                public void setDzwbqlx_2016(int dzwbqlx_2016) {
+                public void setDzwbqlx_2016(long dzwbqlx_2016) {
                     this.dzwbqlx_2016 = dzwbqlx_2016;
                 }
 
-                public int getDiscount_2016() {
+                public long getDiscount_2016() {
                     return discount_2016;
                 }
 
-                public void setDiscount_2016(int discount_2016) {
+                public void setDiscount_2016(long discount_2016) {
                     this.discount_2016 = discount_2016;
                 }
 
-                public int getWedding_2016() {
+                public long getWedding_2016() {
                     return wedding_2016;
                 }
 
-                public void setWedding_2016(int wedding_2016) {
+                public void setWedding_2016(long wedding_2016) {
                     this.wedding_2016 = wedding_2016;
                 }
 
-                public int getShuang11_2016() {
+                public long getShuang11_2016() {
                     return shuang11_2016;
                 }
 
-                public void setShuang11_2016(int shuang11_2016) {
+                public void setShuang11_2016(long shuang11_2016) {
                     this.shuang11_2016 = shuang11_2016;
                 }
 
-                public int getFollow_whitelist_video() {
+                public long getFollow_whitelist_video() {
                     return follow_whitelist_video;
                 }
 
-                public void setFollow_whitelist_video(int follow_whitelist_video) {
+                public void setFollow_whitelist_video(long follow_whitelist_video) {
                     this.follow_whitelist_video = follow_whitelist_video;
                 }
 
-                public int getWbzy_2016() {
+                public long getWbzy_2016() {
                     return wbzy_2016;
                 }
 
-                public void setWbzy_2016(int wbzy_2016) {
+                public void setWbzy_2016(long wbzy_2016) {
                     this.wbzy_2016 = wbzy_2016;
                 }
 
-                public int getHongbao_2017() {
+                public long getHongbao_2017() {
                     return hongbao_2017;
                 }
 
-                public void setHongbao_2017(int hongbao_2017) {
+                public void setHongbao_2017(long hongbao_2017) {
                     this.hongbao_2017 = hongbao_2017;
                 }
 
-                public int getHongbao_2017_2() {
+                public long getHongbao_2017_2() {
                     return hongbao_2017_2;
                 }
 
-                public void setHongbao_2017_2(int hongbao_2017_2) {
+                public void setHongbao_2017_2(long hongbao_2017_2) {
                     this.hongbao_2017_2 = hongbao_2017_2;
                 }
 
-                public int getCaishen_2017() {
+                public long getCaishen_2017() {
                     return caishen_2017;
                 }
 
-                public void setCaishen_2017(int caishen_2017) {
+                public void setCaishen_2017(long caishen_2017) {
                     this.caishen_2017 = caishen_2017;
                 }
 
-                public int getWedding_2017() {
+                public long getWedding_2017() {
                     return wedding_2017;
                 }
 
-                public void setWedding_2017(int wedding_2017) {
+                public void setWedding_2017(long wedding_2017) {
                     this.wedding_2017 = wedding_2017;
                 }
 
-                public int getLeague_badge() {
+                public long getLeague_badge() {
                     return league_badge;
                 }
 
-                public void setLeague_badge(int league_badge) {
+                public void setLeague_badge(long league_badge) {
                     this.league_badge = league_badge;
                 }
             }
@@ -1231,13 +1214,13 @@ public class CommonComment {
                      * mobile : 1
                      */
 
-                    private int mobile;
+                    private long mobile;
 
-                    public int getMobile() {
+                    public long getMobile() {
                         return mobile;
                     }
 
-                    public void setMobile(int mobile) {
+                    public void setMobile(long mobile) {
                         this.mobile = mobile;
                     }
                 }
@@ -1291,10 +1274,10 @@ public class CommonComment {
             private String mid;
             private String idstr;
             private String text;
-            private int source_allowclick;
-            private int source_type;
+            private long source_allowclick;
+            private long source_type;
             private String source;
-            private int appid;
+            private long appid;
             private boolean favorited;
             private boolean truncated;
             private String in_reply_to_status_id;
@@ -1303,18 +1286,18 @@ public class CommonComment {
             private Object geo;
             private UserBeanX user;
             private RetweetedStatusBean retweeted_status;
-            private int reposts_count;
-            private int comments_count;
-            private int attitudes_count;
+            private long reposts_count;
+            private long comments_count;
+            private long attitudes_count;
             private boolean isLongText;
             private long mlevel;
             private VisibleBeanX visible;
-            private int biz_feature;
-            private int hasActionTypeCard;
-            private int userType;
-            private int positive_recom_flag;
+            private long biz_feature;
+            private long hasActionTypeCard;
+            private long userType;
+            private long positive_recom_flag;
             private String gif_ids;
-            private int is_show_bulletin;
+            private long is_show_bulletin;
             private List<?> pic_ids;
             private List<?> url_objects;
             private List<?> darwin_tags;
@@ -1361,19 +1344,19 @@ public class CommonComment {
                 this.text = text;
             }
 
-            public int getSource_allowclick() {
+            public long getSource_allowclick() {
                 return source_allowclick;
             }
 
-            public void setSource_allowclick(int source_allowclick) {
+            public void setSource_allowclick(long source_allowclick) {
                 this.source_allowclick = source_allowclick;
             }
 
-            public int getSource_type() {
+            public long getSource_type() {
                 return source_type;
             }
 
-            public void setSource_type(int source_type) {
+            public void setSource_type(long source_type) {
                 this.source_type = source_type;
             }
 
@@ -1385,11 +1368,11 @@ public class CommonComment {
                 this.source = source;
             }
 
-            public int getAppid() {
+            public long getAppid() {
                 return appid;
             }
 
-            public void setAppid(int appid) {
+            public void setAppid(long appid) {
                 this.appid = appid;
             }
 
@@ -1457,27 +1440,27 @@ public class CommonComment {
                 this.retweeted_status = retweeted_status;
             }
 
-            public int getReposts_count() {
+            public long getReposts_count() {
                 return reposts_count;
             }
 
-            public void setReposts_count(int reposts_count) {
+            public void setReposts_count(long reposts_count) {
                 this.reposts_count = reposts_count;
             }
 
-            public int getComments_count() {
+            public long getComments_count() {
                 return comments_count;
             }
 
-            public void setComments_count(int comments_count) {
+            public void setComments_count(long comments_count) {
                 this.comments_count = comments_count;
             }
 
-            public int getAttitudes_count() {
+            public long getAttitudes_count() {
                 return attitudes_count;
             }
 
-            public void setAttitudes_count(int attitudes_count) {
+            public void setAttitudes_count(long attitudes_count) {
                 this.attitudes_count = attitudes_count;
             }
 
@@ -1505,35 +1488,35 @@ public class CommonComment {
                 this.visible = visible;
             }
 
-            public int getBiz_feature() {
+            public long getBiz_feature() {
                 return biz_feature;
             }
 
-            public void setBiz_feature(int biz_feature) {
+            public void setBiz_feature(long biz_feature) {
                 this.biz_feature = biz_feature;
             }
 
-            public int getHasActionTypeCard() {
+            public long getHasActionTypeCard() {
                 return hasActionTypeCard;
             }
 
-            public void setHasActionTypeCard(int hasActionTypeCard) {
+            public void setHasActionTypeCard(long hasActionTypeCard) {
                 this.hasActionTypeCard = hasActionTypeCard;
             }
 
-            public int getUserType() {
+            public long getUserType() {
                 return userType;
             }
 
-            public void setUserType(int userType) {
+            public void setUserType(long userType) {
                 this.userType = userType;
             }
 
-            public int getPositive_recom_flag() {
+            public long getPositive_recom_flag() {
                 return positive_recom_flag;
             }
 
-            public void setPositive_recom_flag(int positive_recom_flag) {
+            public void setPositive_recom_flag(long positive_recom_flag) {
                 this.positive_recom_flag = positive_recom_flag;
             }
 
@@ -1545,11 +1528,11 @@ public class CommonComment {
                 this.gif_ids = gif_ids;
             }
 
-            public int getIs_show_bulletin() {
+            public long getIs_show_bulletin() {
                 return is_show_bulletin;
             }
 
-            public void setIs_show_bulletin(int is_show_bulletin) {
+            public void setIs_show_bulletin(long is_show_bulletin) {
                 this.is_show_bulletin = is_show_bulletin;
             }
 
@@ -1657,7 +1640,7 @@ public class CommonComment {
                 private long id;
                 private String idstr;
                 @SerializedName("class")
-                private int classX;
+                private long classX;
                 private String screen_name;
                 private String name;
                 private String province;
@@ -1671,20 +1654,20 @@ public class CommonComment {
                 private String domain;
                 private String weihao;
                 private String gender;
-                private int followers_count;
-                private int friends_count;
-                private int pagefriends_count;
-                private int statuses_count;
-                private int favourites_count;
+                private long followers_count;
+                private long friends_count;
+                private long pagefriends_count;
+                private long statuses_count;
+                private long favourites_count;
                 private String created_at;
                 private boolean following;
                 private boolean allow_all_act_msg;
                 private boolean geo_enabled;
                 private boolean verified;
-                private int verified_type;
+                private long verified_type;
                 private String remark;
                 private InsecurityBeanX insecurity;
-                private int ptype;
+                private long ptype;
                 private boolean allow_all_comment;
                 private String avatar_large;
                 private String avatar_hd;
@@ -1694,24 +1677,24 @@ public class CommonComment {
                 private String verified_source;
                 private String verified_source_url;
                 private boolean follow_me;
-                private int online_status;
-                private int bi_followers_count;
+                private long online_status;
+                private long bi_followers_count;
                 private String lang;
-                private int star;
-                private int mbtype;
-                private int mbrank;
-                private int block_word;
-                private int block_app;
+                private long star;
+                private long mbtype;
+                private long mbrank;
+                private long block_word;
+                private long block_app;
                 private long level;
-                private int type;
+                private long type;
                 private long ulevel;
                 private BadgeBeanX badge;
                 private String badge_top;
-                private int has_ability_tag;
+                private long has_ability_tag;
                 private ExtendBeanX extend;
-                private int credit_score;
-                private int user_ability;
-                private int urank;
+                private long credit_score;
+                private long user_ability;
+                private long urank;
 
                 public long getId() {
                     return id;
@@ -1729,11 +1712,11 @@ public class CommonComment {
                     this.idstr = idstr;
                 }
 
-                public int getClassX() {
+                public long getClassX() {
                     return classX;
                 }
 
-                public void setClassX(int classX) {
+                public void setClassX(long classX) {
                     this.classX = classX;
                 }
 
@@ -1841,43 +1824,43 @@ public class CommonComment {
                     this.gender = gender;
                 }
 
-                public int getFollowers_count() {
+                public long getFollowers_count() {
                     return followers_count;
                 }
 
-                public void setFollowers_count(int followers_count) {
+                public void setFollowers_count(long followers_count) {
                     this.followers_count = followers_count;
                 }
 
-                public int getFriends_count() {
+                public long getFriends_count() {
                     return friends_count;
                 }
 
-                public void setFriends_count(int friends_count) {
+                public void setFriends_count(long friends_count) {
                     this.friends_count = friends_count;
                 }
 
-                public int getPagefriends_count() {
+                public long getPagefriends_count() {
                     return pagefriends_count;
                 }
 
-                public void setPagefriends_count(int pagefriends_count) {
+                public void setPagefriends_count(long pagefriends_count) {
                     this.pagefriends_count = pagefriends_count;
                 }
 
-                public int getStatuses_count() {
+                public long getStatuses_count() {
                     return statuses_count;
                 }
 
-                public void setStatuses_count(int statuses_count) {
+                public void setStatuses_count(long statuses_count) {
                     this.statuses_count = statuses_count;
                 }
 
-                public int getFavourites_count() {
+                public long getFavourites_count() {
                     return favourites_count;
                 }
 
-                public void setFavourites_count(int favourites_count) {
+                public void setFavourites_count(long favourites_count) {
                     this.favourites_count = favourites_count;
                 }
 
@@ -1921,11 +1904,11 @@ public class CommonComment {
                     this.verified = verified;
                 }
 
-                public int getVerified_type() {
+                public long getVerified_type() {
                     return verified_type;
                 }
 
-                public void setVerified_type(int verified_type) {
+                public void setVerified_type(long verified_type) {
                     this.verified_type = verified_type;
                 }
 
@@ -1945,11 +1928,11 @@ public class CommonComment {
                     this.insecurity = insecurity;
                 }
 
-                public int getPtype() {
+                public long getPtype() {
                     return ptype;
                 }
 
-                public void setPtype(int ptype) {
+                public void setPtype(long ptype) {
                     this.ptype = ptype;
                 }
 
@@ -2025,19 +2008,19 @@ public class CommonComment {
                     this.follow_me = follow_me;
                 }
 
-                public int getOnline_status() {
+                public long getOnline_status() {
                     return online_status;
                 }
 
-                public void setOnline_status(int online_status) {
+                public void setOnline_status(long online_status) {
                     this.online_status = online_status;
                 }
 
-                public int getBi_followers_count() {
+                public long getBi_followers_count() {
                     return bi_followers_count;
                 }
 
-                public void setBi_followers_count(int bi_followers_count) {
+                public void setBi_followers_count(long bi_followers_count) {
                     this.bi_followers_count = bi_followers_count;
                 }
 
@@ -2049,43 +2032,43 @@ public class CommonComment {
                     this.lang = lang;
                 }
 
-                public int getStar() {
+                public long getStar() {
                     return star;
                 }
 
-                public void setStar(int star) {
+                public void setStar(long star) {
                     this.star = star;
                 }
 
-                public int getMbtype() {
+                public long getMbtype() {
                     return mbtype;
                 }
 
-                public void setMbtype(int mbtype) {
+                public void setMbtype(long mbtype) {
                     this.mbtype = mbtype;
                 }
 
-                public int getMbrank() {
+                public long getMbrank() {
                     return mbrank;
                 }
 
-                public void setMbrank(int mbrank) {
+                public void setMbrank(long mbrank) {
                     this.mbrank = mbrank;
                 }
 
-                public int getBlock_word() {
+                public long getBlock_word() {
                     return block_word;
                 }
 
-                public void setBlock_word(int block_word) {
+                public void setBlock_word(long block_word) {
                     this.block_word = block_word;
                 }
 
-                public int getBlock_app() {
+                public long getBlock_app() {
                     return block_app;
                 }
 
-                public void setBlock_app(int block_app) {
+                public void setBlock_app(long block_app) {
                     this.block_app = block_app;
                 }
 
@@ -2097,11 +2080,11 @@ public class CommonComment {
                     this.level = level;
                 }
 
-                public int getType() {
+                public long getType() {
                     return type;
                 }
 
-                public void setType(int type) {
+                public void setType(long type) {
                     this.type = type;
                 }
 
@@ -2129,11 +2112,11 @@ public class CommonComment {
                     this.badge_top = badge_top;
                 }
 
-                public int getHas_ability_tag() {
+                public long getHas_ability_tag() {
                     return has_ability_tag;
                 }
 
-                public void setHas_ability_tag(int has_ability_tag) {
+                public void setHas_ability_tag(long has_ability_tag) {
                     this.has_ability_tag = has_ability_tag;
                 }
 
@@ -2145,27 +2128,27 @@ public class CommonComment {
                     this.extend = extend;
                 }
 
-                public int getCredit_score() {
+                public long getCredit_score() {
                     return credit_score;
                 }
 
-                public void setCredit_score(int credit_score) {
+                public void setCredit_score(long credit_score) {
                     this.credit_score = credit_score;
                 }
 
-                public int getUser_ability() {
+                public long getUser_ability() {
                     return user_ability;
                 }
 
-                public void setUser_ability(int user_ability) {
+                public void setUser_ability(long user_ability) {
                     this.user_ability = user_ability;
                 }
 
-                public int getUrank() {
+                public long getUrank() {
                     return urank;
                 }
 
-                public void setUrank(int urank) {
+                public void setUrank(long urank) {
                     this.urank = urank;
                 }
 
@@ -2224,319 +2207,319 @@ public class CommonComment {
                      * league_badge : 0
                      */
 
-                    private int uc_domain;
-                    private int enterprise;
-                    private int anniversary;
-                    private int taobao;
-                    private int travel2013;
-                    private int gongyi;
-                    private int gongyi_level;
-                    private int bind_taobao;
-                    private int hongbao_2014;
-                    private int suishoupai_2014;
-                    private int dailv;
-                    private int zongyiji;
-                    private int vip_activity1;
-                    private int unread_pool;
-                    private int daiyan;
-                    private int ali_1688;
-                    private int vip_activity2;
-                    private int suishoupai_2016;
-                    private int fools_day_2016;
-                    private int uefa_euro_2016;
-                    private int super_star_2016;
-                    private int unread_pool_ext;
-                    private int self_media;
-                    private int olympic_2016;
-                    private int dzwbqlx_2016;
-                    private int discount_2016;
-                    private int wedding_2016;
-                    private int shuang11_2016;
-                    private int follow_whitelist_video;
-                    private int wbzy_2016;
-                    private int hongbao_2017;
-                    private int hongbao_2017_2;
-                    private int caishen_2017;
-                    private int wedding_2017;
-                    private int league_badge;
+                    private long uc_domain;
+                    private long enterprise;
+                    private long anniversary;
+                    private long taobao;
+                    private long travel2013;
+                    private long gongyi;
+                    private long gongyi_level;
+                    private long bind_taobao;
+                    private long hongbao_2014;
+                    private long suishoupai_2014;
+                    private long dailv;
+                    private long zongyiji;
+                    private long vip_activity1;
+                    private long unread_pool;
+                    private long daiyan;
+                    private long ali_1688;
+                    private long vip_activity2;
+                    private long suishoupai_2016;
+                    private long fools_day_2016;
+                    private long uefa_euro_2016;
+                    private long super_star_2016;
+                    private long unread_pool_ext;
+                    private long self_media;
+                    private long olympic_2016;
+                    private long dzwbqlx_2016;
+                    private long discount_2016;
+                    private long wedding_2016;
+                    private long shuang11_2016;
+                    private long follow_whitelist_video;
+                    private long wbzy_2016;
+                    private long hongbao_2017;
+                    private long hongbao_2017_2;
+                    private long caishen_2017;
+                    private long wedding_2017;
+                    private long league_badge;
 
-                    public int getUc_domain() {
+                    public long getUc_domain() {
                         return uc_domain;
                     }
 
-                    public void setUc_domain(int uc_domain) {
+                    public void setUc_domain(long uc_domain) {
                         this.uc_domain = uc_domain;
                     }
 
-                    public int getEnterprise() {
+                    public long getEnterprise() {
                         return enterprise;
                     }
 
-                    public void setEnterprise(int enterprise) {
+                    public void setEnterprise(long enterprise) {
                         this.enterprise = enterprise;
                     }
 
-                    public int getAnniversary() {
+                    public long getAnniversary() {
                         return anniversary;
                     }
 
-                    public void setAnniversary(int anniversary) {
+                    public void setAnniversary(long anniversary) {
                         this.anniversary = anniversary;
                     }
 
-                    public int getTaobao() {
+                    public long getTaobao() {
                         return taobao;
                     }
 
-                    public void setTaobao(int taobao) {
+                    public void setTaobao(long taobao) {
                         this.taobao = taobao;
                     }
 
-                    public int getTravel2013() {
+                    public long getTravel2013() {
                         return travel2013;
                     }
 
-                    public void setTravel2013(int travel2013) {
+                    public void setTravel2013(long travel2013) {
                         this.travel2013 = travel2013;
                     }
 
-                    public int getGongyi() {
+                    public long getGongyi() {
                         return gongyi;
                     }
 
-                    public void setGongyi(int gongyi) {
+                    public void setGongyi(long gongyi) {
                         this.gongyi = gongyi;
                     }
 
-                    public int getGongyi_level() {
+                    public long getGongyi_level() {
                         return gongyi_level;
                     }
 
-                    public void setGongyi_level(int gongyi_level) {
+                    public void setGongyi_level(long gongyi_level) {
                         this.gongyi_level = gongyi_level;
                     }
 
-                    public int getBind_taobao() {
+                    public long getBind_taobao() {
                         return bind_taobao;
                     }
 
-                    public void setBind_taobao(int bind_taobao) {
+                    public void setBind_taobao(long bind_taobao) {
                         this.bind_taobao = bind_taobao;
                     }
 
-                    public int getHongbao_2014() {
+                    public long getHongbao_2014() {
                         return hongbao_2014;
                     }
 
-                    public void setHongbao_2014(int hongbao_2014) {
+                    public void setHongbao_2014(long hongbao_2014) {
                         this.hongbao_2014 = hongbao_2014;
                     }
 
-                    public int getSuishoupai_2014() {
+                    public long getSuishoupai_2014() {
                         return suishoupai_2014;
                     }
 
-                    public void setSuishoupai_2014(int suishoupai_2014) {
+                    public void setSuishoupai_2014(long suishoupai_2014) {
                         this.suishoupai_2014 = suishoupai_2014;
                     }
 
-                    public int getDailv() {
+                    public long getDailv() {
                         return dailv;
                     }
 
-                    public void setDailv(int dailv) {
+                    public void setDailv(long dailv) {
                         this.dailv = dailv;
                     }
 
-                    public int getZongyiji() {
+                    public long getZongyiji() {
                         return zongyiji;
                     }
 
-                    public void setZongyiji(int zongyiji) {
+                    public void setZongyiji(long zongyiji) {
                         this.zongyiji = zongyiji;
                     }
 
-                    public int getVip_activity1() {
+                    public long getVip_activity1() {
                         return vip_activity1;
                     }
 
-                    public void setVip_activity1(int vip_activity1) {
+                    public void setVip_activity1(long vip_activity1) {
                         this.vip_activity1 = vip_activity1;
                     }
 
-                    public int getUnread_pool() {
+                    public long getUnread_pool() {
                         return unread_pool;
                     }
 
-                    public void setUnread_pool(int unread_pool) {
+                    public void setUnread_pool(long unread_pool) {
                         this.unread_pool = unread_pool;
                     }
 
-                    public int getDaiyan() {
+                    public long getDaiyan() {
                         return daiyan;
                     }
 
-                    public void setDaiyan(int daiyan) {
+                    public void setDaiyan(long daiyan) {
                         this.daiyan = daiyan;
                     }
 
-                    public int getAli_1688() {
+                    public long getAli_1688() {
                         return ali_1688;
                     }
 
-                    public void setAli_1688(int ali_1688) {
+                    public void setAli_1688(long ali_1688) {
                         this.ali_1688 = ali_1688;
                     }
 
-                    public int getVip_activity2() {
+                    public long getVip_activity2() {
                         return vip_activity2;
                     }
 
-                    public void setVip_activity2(int vip_activity2) {
+                    public void setVip_activity2(long vip_activity2) {
                         this.vip_activity2 = vip_activity2;
                     }
 
-                    public int getSuishoupai_2016() {
+                    public long getSuishoupai_2016() {
                         return suishoupai_2016;
                     }
 
-                    public void setSuishoupai_2016(int suishoupai_2016) {
+                    public void setSuishoupai_2016(long suishoupai_2016) {
                         this.suishoupai_2016 = suishoupai_2016;
                     }
 
-                    public int getFools_day_2016() {
+                    public long getFools_day_2016() {
                         return fools_day_2016;
                     }
 
-                    public void setFools_day_2016(int fools_day_2016) {
+                    public void setFools_day_2016(long fools_day_2016) {
                         this.fools_day_2016 = fools_day_2016;
                     }
 
-                    public int getUefa_euro_2016() {
+                    public long getUefa_euro_2016() {
                         return uefa_euro_2016;
                     }
 
-                    public void setUefa_euro_2016(int uefa_euro_2016) {
+                    public void setUefa_euro_2016(long uefa_euro_2016) {
                         this.uefa_euro_2016 = uefa_euro_2016;
                     }
 
-                    public int getSuper_star_2016() {
+                    public long getSuper_star_2016() {
                         return super_star_2016;
                     }
 
-                    public void setSuper_star_2016(int super_star_2016) {
+                    public void setSuper_star_2016(long super_star_2016) {
                         this.super_star_2016 = super_star_2016;
                     }
 
-                    public int getUnread_pool_ext() {
+                    public long getUnread_pool_ext() {
                         return unread_pool_ext;
                     }
 
-                    public void setUnread_pool_ext(int unread_pool_ext) {
+                    public void setUnread_pool_ext(long unread_pool_ext) {
                         this.unread_pool_ext = unread_pool_ext;
                     }
 
-                    public int getSelf_media() {
+                    public long getSelf_media() {
                         return self_media;
                     }
 
-                    public void setSelf_media(int self_media) {
+                    public void setSelf_media(long self_media) {
                         this.self_media = self_media;
                     }
 
-                    public int getOlympic_2016() {
+                    public long getOlympic_2016() {
                         return olympic_2016;
                     }
 
-                    public void setOlympic_2016(int olympic_2016) {
+                    public void setOlympic_2016(long olympic_2016) {
                         this.olympic_2016 = olympic_2016;
                     }
 
-                    public int getDzwbqlx_2016() {
+                    public long getDzwbqlx_2016() {
                         return dzwbqlx_2016;
                     }
 
-                    public void setDzwbqlx_2016(int dzwbqlx_2016) {
+                    public void setDzwbqlx_2016(long dzwbqlx_2016) {
                         this.dzwbqlx_2016 = dzwbqlx_2016;
                     }
 
-                    public int getDiscount_2016() {
+                    public long getDiscount_2016() {
                         return discount_2016;
                     }
 
-                    public void setDiscount_2016(int discount_2016) {
+                    public void setDiscount_2016(long discount_2016) {
                         this.discount_2016 = discount_2016;
                     }
 
-                    public int getWedding_2016() {
+                    public long getWedding_2016() {
                         return wedding_2016;
                     }
 
-                    public void setWedding_2016(int wedding_2016) {
+                    public void setWedding_2016(long wedding_2016) {
                         this.wedding_2016 = wedding_2016;
                     }
 
-                    public int getShuang11_2016() {
+                    public long getShuang11_2016() {
                         return shuang11_2016;
                     }
 
-                    public void setShuang11_2016(int shuang11_2016) {
+                    public void setShuang11_2016(long shuang11_2016) {
                         this.shuang11_2016 = shuang11_2016;
                     }
 
-                    public int getFollow_whitelist_video() {
+                    public long getFollow_whitelist_video() {
                         return follow_whitelist_video;
                     }
 
-                    public void setFollow_whitelist_video(int follow_whitelist_video) {
+                    public void setFollow_whitelist_video(long follow_whitelist_video) {
                         this.follow_whitelist_video = follow_whitelist_video;
                     }
 
-                    public int getWbzy_2016() {
+                    public long getWbzy_2016() {
                         return wbzy_2016;
                     }
 
-                    public void setWbzy_2016(int wbzy_2016) {
+                    public void setWbzy_2016(long wbzy_2016) {
                         this.wbzy_2016 = wbzy_2016;
                     }
 
-                    public int getHongbao_2017() {
+                    public long getHongbao_2017() {
                         return hongbao_2017;
                     }
 
-                    public void setHongbao_2017(int hongbao_2017) {
+                    public void setHongbao_2017(long hongbao_2017) {
                         this.hongbao_2017 = hongbao_2017;
                     }
 
-                    public int getHongbao_2017_2() {
+                    public long getHongbao_2017_2() {
                         return hongbao_2017_2;
                     }
 
-                    public void setHongbao_2017_2(int hongbao_2017_2) {
+                    public void setHongbao_2017_2(long hongbao_2017_2) {
                         this.hongbao_2017_2 = hongbao_2017_2;
                     }
 
-                    public int getCaishen_2017() {
+                    public long getCaishen_2017() {
                         return caishen_2017;
                     }
 
-                    public void setCaishen_2017(int caishen_2017) {
+                    public void setCaishen_2017(long caishen_2017) {
                         this.caishen_2017 = caishen_2017;
                     }
 
-                    public int getWedding_2017() {
+                    public long getWedding_2017() {
                         return wedding_2017;
                     }
 
-                    public void setWedding_2017(int wedding_2017) {
+                    public void setWedding_2017(long wedding_2017) {
                         this.wedding_2017 = wedding_2017;
                     }
 
-                    public int getLeague_badge() {
+                    public long getLeague_badge() {
                         return league_badge;
                     }
 
-                    public void setLeague_badge(int league_badge) {
+                    public void setLeague_badge(long league_badge) {
                         this.league_badge = league_badge;
                     }
                 }
@@ -2571,13 +2554,13 @@ public class CommonComment {
                          * mobile : 1
                          */
 
-                        private int mobile;
+                        private long mobile;
 
-                        public int getMobile() {
+                        public long getMobile() {
                             return mobile;
                         }
 
-                        public void setMobile(int mobile) {
+                        public void setMobile(long mobile) {
                             this.mobile = mobile;
                         }
                     }
@@ -2629,11 +2612,11 @@ public class CommonComment {
                 private String mid;
                 private String idstr;
                 private String text;
-                private int textLength;
-                private int source_allowclick;
-                private int source_type;
+                private long textLength;
+                private long source_allowclick;
+                private long source_type;
                 private String source;
-                private int appid;
+                private long appid;
                 private boolean favorited;
                 private boolean truncated;
                 private String in_reply_to_status_id;
@@ -2641,18 +2624,18 @@ public class CommonComment {
                 private String in_reply_to_screen_name;
                 private Object geo;
                 private UserBeanXX user;
-                private int reposts_count;
-                private int comments_count;
-                private int attitudes_count;
+                private long reposts_count;
+                private long comments_count;
+                private long attitudes_count;
                 private boolean isLongText;
                 private long mlevel;
                 private VisibleBean visible;
-                private int biz_feature;
-                private int hasActionTypeCard;
-                private int userType;
-                private int positive_recom_flag;
+                private long biz_feature;
+                private long hasActionTypeCard;
+                private long userType;
+                private long positive_recom_flag;
                 private String gif_ids;
-                private int is_show_bulletin;
+                private long is_show_bulletin;
                 private List<?> pic_ids;
                 private List<?> url_objects;
                 private List<?> darwin_tags;
@@ -2699,27 +2682,27 @@ public class CommonComment {
                     this.text = text;
                 }
 
-                public int getTextLength() {
+                public long getTextLength() {
                     return textLength;
                 }
 
-                public void setTextLength(int textLength) {
+                public void setTextLength(long textLength) {
                     this.textLength = textLength;
                 }
 
-                public int getSource_allowclick() {
+                public long getSource_allowclick() {
                     return source_allowclick;
                 }
 
-                public void setSource_allowclick(int source_allowclick) {
+                public void setSource_allowclick(long source_allowclick) {
                     this.source_allowclick = source_allowclick;
                 }
 
-                public int getSource_type() {
+                public long getSource_type() {
                     return source_type;
                 }
 
-                public void setSource_type(int source_type) {
+                public void setSource_type(long source_type) {
                     this.source_type = source_type;
                 }
 
@@ -2731,11 +2714,11 @@ public class CommonComment {
                     this.source = source;
                 }
 
-                public int getAppid() {
+                public long getAppid() {
                     return appid;
                 }
 
-                public void setAppid(int appid) {
+                public void setAppid(long appid) {
                     this.appid = appid;
                 }
 
@@ -2795,27 +2778,27 @@ public class CommonComment {
                     this.user = user;
                 }
 
-                public int getReposts_count() {
+                public long getReposts_count() {
                     return reposts_count;
                 }
 
-                public void setReposts_count(int reposts_count) {
+                public void setReposts_count(long reposts_count) {
                     this.reposts_count = reposts_count;
                 }
 
-                public int getComments_count() {
+                public long getComments_count() {
                     return comments_count;
                 }
 
-                public void setComments_count(int comments_count) {
+                public void setComments_count(long comments_count) {
                     this.comments_count = comments_count;
                 }
 
-                public int getAttitudes_count() {
+                public long getAttitudes_count() {
                     return attitudes_count;
                 }
 
-                public void setAttitudes_count(int attitudes_count) {
+                public void setAttitudes_count(long attitudes_count) {
                     this.attitudes_count = attitudes_count;
                 }
 
@@ -2843,35 +2826,35 @@ public class CommonComment {
                     this.visible = visible;
                 }
 
-                public int getBiz_feature() {
+                public long getBiz_feature() {
                     return biz_feature;
                 }
 
-                public void setBiz_feature(int biz_feature) {
+                public void setBiz_feature(long biz_feature) {
                     this.biz_feature = biz_feature;
                 }
 
-                public int getHasActionTypeCard() {
+                public long getHasActionTypeCard() {
                     return hasActionTypeCard;
                 }
 
-                public void setHasActionTypeCard(int hasActionTypeCard) {
+                public void setHasActionTypeCard(long hasActionTypeCard) {
                     this.hasActionTypeCard = hasActionTypeCard;
                 }
 
-                public int getUserType() {
+                public long getUserType() {
                     return userType;
                 }
 
-                public void setUserType(int userType) {
+                public void setUserType(long userType) {
                     this.userType = userType;
                 }
 
-                public int getPositive_recom_flag() {
+                public long getPositive_recom_flag() {
                     return positive_recom_flag;
                 }
 
-                public void setPositive_recom_flag(int positive_recom_flag) {
+                public void setPositive_recom_flag(long positive_recom_flag) {
                     this.positive_recom_flag = positive_recom_flag;
                 }
 
@@ -2883,11 +2866,11 @@ public class CommonComment {
                     this.gif_ids = gif_ids;
                 }
 
-                public int getIs_show_bulletin() {
+                public long getIs_show_bulletin() {
                     return is_show_bulletin;
                 }
 
-                public void setIs_show_bulletin(int is_show_bulletin) {
+                public void setIs_show_bulletin(long is_show_bulletin) {
                     this.is_show_bulletin = is_show_bulletin;
                 }
 
@@ -2995,7 +2978,7 @@ public class CommonComment {
                     private long id;
                     private String idstr;
                     @SerializedName("class")
-                    private int classX;
+                    private long classX;
                     private String screen_name;
                     private String name;
                     private String province;
@@ -3009,20 +2992,20 @@ public class CommonComment {
                     private String domain;
                     private String weihao;
                     private String gender;
-                    private int followers_count;
-                    private int friends_count;
-                    private int pagefriends_count;
-                    private int statuses_count;
-                    private int favourites_count;
+                    private long followers_count;
+                    private long friends_count;
+                    private long pagefriends_count;
+                    private long statuses_count;
+                    private long favourites_count;
                     private String created_at;
                     private boolean following;
                     private boolean allow_all_act_msg;
                     private boolean geo_enabled;
                     private boolean verified;
-                    private int verified_type;
+                    private long verified_type;
                     private String remark;
                     private InsecurityBeanXX insecurity;
-                    private int ptype;
+                    private long ptype;
                     private boolean allow_all_comment;
                     private String avatar_large;
                     private String avatar_hd;
@@ -3032,24 +3015,24 @@ public class CommonComment {
                     private String verified_source;
                     private String verified_source_url;
                     private boolean follow_me;
-                    private int online_status;
-                    private int bi_followers_count;
+                    private long online_status;
+                    private long bi_followers_count;
                     private String lang;
-                    private int star;
-                    private int mbtype;
-                    private int mbrank;
-                    private int block_word;
-                    private int block_app;
+                    private long star;
+                    private long mbtype;
+                    private long mbrank;
+                    private long block_word;
+                    private long block_app;
                     private long level;
-                    private int type;
+                    private long type;
                     private long ulevel;
                     private BadgeBeanXX badge;
                     private String badge_top;
-                    private int has_ability_tag;
+                    private long has_ability_tag;
                     private ExtendBeanXX extend;
-                    private int credit_score;
-                    private int user_ability;
-                    private int urank;
+                    private long credit_score;
+                    private long user_ability;
+                    private long urank;
 
                     public long getId() {
                         return id;
@@ -3067,11 +3050,11 @@ public class CommonComment {
                         this.idstr = idstr;
                     }
 
-                    public int getClassX() {
+                    public long getClassX() {
                         return classX;
                     }
 
-                    public void setClassX(int classX) {
+                    public void setClassX(long classX) {
                         this.classX = classX;
                     }
 
@@ -3179,43 +3162,43 @@ public class CommonComment {
                         this.gender = gender;
                     }
 
-                    public int getFollowers_count() {
+                    public long getFollowers_count() {
                         return followers_count;
                     }
 
-                    public void setFollowers_count(int followers_count) {
+                    public void setFollowers_count(long followers_count) {
                         this.followers_count = followers_count;
                     }
 
-                    public int getFriends_count() {
+                    public long getFriends_count() {
                         return friends_count;
                     }
 
-                    public void setFriends_count(int friends_count) {
+                    public void setFriends_count(long friends_count) {
                         this.friends_count = friends_count;
                     }
 
-                    public int getPagefriends_count() {
+                    public long getPagefriends_count() {
                         return pagefriends_count;
                     }
 
-                    public void setPagefriends_count(int pagefriends_count) {
+                    public void setPagefriends_count(long pagefriends_count) {
                         this.pagefriends_count = pagefriends_count;
                     }
 
-                    public int getStatuses_count() {
+                    public long getStatuses_count() {
                         return statuses_count;
                     }
 
-                    public void setStatuses_count(int statuses_count) {
+                    public void setStatuses_count(long statuses_count) {
                         this.statuses_count = statuses_count;
                     }
 
-                    public int getFavourites_count() {
+                    public long getFavourites_count() {
                         return favourites_count;
                     }
 
-                    public void setFavourites_count(int favourites_count) {
+                    public void setFavourites_count(long favourites_count) {
                         this.favourites_count = favourites_count;
                     }
 
@@ -3259,11 +3242,11 @@ public class CommonComment {
                         this.verified = verified;
                     }
 
-                    public int getVerified_type() {
+                    public long getVerified_type() {
                         return verified_type;
                     }
 
-                    public void setVerified_type(int verified_type) {
+                    public void setVerified_type(long verified_type) {
                         this.verified_type = verified_type;
                     }
 
@@ -3283,11 +3266,11 @@ public class CommonComment {
                         this.insecurity = insecurity;
                     }
 
-                    public int getPtype() {
+                    public long getPtype() {
                         return ptype;
                     }
 
-                    public void setPtype(int ptype) {
+                    public void setPtype(long ptype) {
                         this.ptype = ptype;
                     }
 
@@ -3363,19 +3346,19 @@ public class CommonComment {
                         this.follow_me = follow_me;
                     }
 
-                    public int getOnline_status() {
+                    public long getOnline_status() {
                         return online_status;
                     }
 
-                    public void setOnline_status(int online_status) {
+                    public void setOnline_status(long online_status) {
                         this.online_status = online_status;
                     }
 
-                    public int getBi_followers_count() {
+                    public long getBi_followers_count() {
                         return bi_followers_count;
                     }
 
-                    public void setBi_followers_count(int bi_followers_count) {
+                    public void setBi_followers_count(long bi_followers_count) {
                         this.bi_followers_count = bi_followers_count;
                     }
 
@@ -3387,43 +3370,43 @@ public class CommonComment {
                         this.lang = lang;
                     }
 
-                    public int getStar() {
+                    public long getStar() {
                         return star;
                     }
 
-                    public void setStar(int star) {
+                    public void setStar(long star) {
                         this.star = star;
                     }
 
-                    public int getMbtype() {
+                    public long getMbtype() {
                         return mbtype;
                     }
 
-                    public void setMbtype(int mbtype) {
+                    public void setMbtype(long mbtype) {
                         this.mbtype = mbtype;
                     }
 
-                    public int getMbrank() {
+                    public long getMbrank() {
                         return mbrank;
                     }
 
-                    public void setMbrank(int mbrank) {
+                    public void setMbrank(long mbrank) {
                         this.mbrank = mbrank;
                     }
 
-                    public int getBlock_word() {
+                    public long getBlock_word() {
                         return block_word;
                     }
 
-                    public void setBlock_word(int block_word) {
+                    public void setBlock_word(long block_word) {
                         this.block_word = block_word;
                     }
 
-                    public int getBlock_app() {
+                    public long getBlock_app() {
                         return block_app;
                     }
 
-                    public void setBlock_app(int block_app) {
+                    public void setBlock_app(long block_app) {
                         this.block_app = block_app;
                     }
 
@@ -3435,11 +3418,11 @@ public class CommonComment {
                         this.level = level;
                     }
 
-                    public int getType() {
+                    public long getType() {
                         return type;
                     }
 
-                    public void setType(int type) {
+                    public void setType(long type) {
                         this.type = type;
                     }
 
@@ -3467,11 +3450,11 @@ public class CommonComment {
                         this.badge_top = badge_top;
                     }
 
-                    public int getHas_ability_tag() {
+                    public long getHas_ability_tag() {
                         return has_ability_tag;
                     }
 
-                    public void setHas_ability_tag(int has_ability_tag) {
+                    public void setHas_ability_tag(long has_ability_tag) {
                         this.has_ability_tag = has_ability_tag;
                     }
 
@@ -3483,27 +3466,27 @@ public class CommonComment {
                         this.extend = extend;
                     }
 
-                    public int getCredit_score() {
+                    public long getCredit_score() {
                         return credit_score;
                     }
 
-                    public void setCredit_score(int credit_score) {
+                    public void setCredit_score(long credit_score) {
                         this.credit_score = credit_score;
                     }
 
-                    public int getUser_ability() {
+                    public long getUser_ability() {
                         return user_ability;
                     }
 
-                    public void setUser_ability(int user_ability) {
+                    public void setUser_ability(long user_ability) {
                         this.user_ability = user_ability;
                     }
 
-                    public int getUrank() {
+                    public long getUrank() {
                         return urank;
                     }
 
-                    public void setUrank(int urank) {
+                    public void setUrank(long urank) {
                         this.urank = urank;
                     }
 
@@ -3562,319 +3545,319 @@ public class CommonComment {
                          * league_badge : 0
                          */
 
-                        private int uc_domain;
-                        private int enterprise;
-                        private int anniversary;
-                        private int taobao;
-                        private int travel2013;
-                        private int gongyi;
-                        private int gongyi_level;
-                        private int bind_taobao;
-                        private int hongbao_2014;
-                        private int suishoupai_2014;
-                        private int dailv;
-                        private int zongyiji;
-                        private int vip_activity1;
-                        private int unread_pool;
-                        private int daiyan;
-                        private int ali_1688;
-                        private int vip_activity2;
-                        private int suishoupai_2016;
-                        private int fools_day_2016;
-                        private int uefa_euro_2016;
-                        private int super_star_2016;
-                        private int unread_pool_ext;
-                        private int self_media;
-                        private int olympic_2016;
-                        private int dzwbqlx_2016;
-                        private int discount_2016;
-                        private int wedding_2016;
-                        private int shuang11_2016;
-                        private int follow_whitelist_video;
-                        private int wbzy_2016;
-                        private int hongbao_2017;
-                        private int hongbao_2017_2;
-                        private int caishen_2017;
-                        private int wedding_2017;
-                        private int league_badge;
+                        private long uc_domain;
+                        private long enterprise;
+                        private long anniversary;
+                        private long taobao;
+                        private long travel2013;
+                        private long gongyi;
+                        private long gongyi_level;
+                        private long bind_taobao;
+                        private long hongbao_2014;
+                        private long suishoupai_2014;
+                        private long dailv;
+                        private long zongyiji;
+                        private long vip_activity1;
+                        private long unread_pool;
+                        private long daiyan;
+                        private long ali_1688;
+                        private long vip_activity2;
+                        private long suishoupai_2016;
+                        private long fools_day_2016;
+                        private long uefa_euro_2016;
+                        private long super_star_2016;
+                        private long unread_pool_ext;
+                        private long self_media;
+                        private long olympic_2016;
+                        private long dzwbqlx_2016;
+                        private long discount_2016;
+                        private long wedding_2016;
+                        private long shuang11_2016;
+                        private long follow_whitelist_video;
+                        private long wbzy_2016;
+                        private long hongbao_2017;
+                        private long hongbao_2017_2;
+                        private long caishen_2017;
+                        private long wedding_2017;
+                        private long league_badge;
 
-                        public int getUc_domain() {
+                        public long getUc_domain() {
                             return uc_domain;
                         }
 
-                        public void setUc_domain(int uc_domain) {
+                        public void setUc_domain(long uc_domain) {
                             this.uc_domain = uc_domain;
                         }
 
-                        public int getEnterprise() {
+                        public long getEnterprise() {
                             return enterprise;
                         }
 
-                        public void setEnterprise(int enterprise) {
+                        public void setEnterprise(long enterprise) {
                             this.enterprise = enterprise;
                         }
 
-                        public int getAnniversary() {
+                        public long getAnniversary() {
                             return anniversary;
                         }
 
-                        public void setAnniversary(int anniversary) {
+                        public void setAnniversary(long anniversary) {
                             this.anniversary = anniversary;
                         }
 
-                        public int getTaobao() {
+                        public long getTaobao() {
                             return taobao;
                         }
 
-                        public void setTaobao(int taobao) {
+                        public void setTaobao(long taobao) {
                             this.taobao = taobao;
                         }
 
-                        public int getTravel2013() {
+                        public long getTravel2013() {
                             return travel2013;
                         }
 
-                        public void setTravel2013(int travel2013) {
+                        public void setTravel2013(long travel2013) {
                             this.travel2013 = travel2013;
                         }
 
-                        public int getGongyi() {
+                        public long getGongyi() {
                             return gongyi;
                         }
 
-                        public void setGongyi(int gongyi) {
+                        public void setGongyi(long gongyi) {
                             this.gongyi = gongyi;
                         }
 
-                        public int getGongyi_level() {
+                        public long getGongyi_level() {
                             return gongyi_level;
                         }
 
-                        public void setGongyi_level(int gongyi_level) {
+                        public void setGongyi_level(long gongyi_level) {
                             this.gongyi_level = gongyi_level;
                         }
 
-                        public int getBind_taobao() {
+                        public long getBind_taobao() {
                             return bind_taobao;
                         }
 
-                        public void setBind_taobao(int bind_taobao) {
+                        public void setBind_taobao(long bind_taobao) {
                             this.bind_taobao = bind_taobao;
                         }
 
-                        public int getHongbao_2014() {
+                        public long getHongbao_2014() {
                             return hongbao_2014;
                         }
 
-                        public void setHongbao_2014(int hongbao_2014) {
+                        public void setHongbao_2014(long hongbao_2014) {
                             this.hongbao_2014 = hongbao_2014;
                         }
 
-                        public int getSuishoupai_2014() {
+                        public long getSuishoupai_2014() {
                             return suishoupai_2014;
                         }
 
-                        public void setSuishoupai_2014(int suishoupai_2014) {
+                        public void setSuishoupai_2014(long suishoupai_2014) {
                             this.suishoupai_2014 = suishoupai_2014;
                         }
 
-                        public int getDailv() {
+                        public long getDailv() {
                             return dailv;
                         }
 
-                        public void setDailv(int dailv) {
+                        public void setDailv(long dailv) {
                             this.dailv = dailv;
                         }
 
-                        public int getZongyiji() {
+                        public long getZongyiji() {
                             return zongyiji;
                         }
 
-                        public void setZongyiji(int zongyiji) {
+                        public void setZongyiji(long zongyiji) {
                             this.zongyiji = zongyiji;
                         }
 
-                        public int getVip_activity1() {
+                        public long getVip_activity1() {
                             return vip_activity1;
                         }
 
-                        public void setVip_activity1(int vip_activity1) {
+                        public void setVip_activity1(long vip_activity1) {
                             this.vip_activity1 = vip_activity1;
                         }
 
-                        public int getUnread_pool() {
+                        public long getUnread_pool() {
                             return unread_pool;
                         }
 
-                        public void setUnread_pool(int unread_pool) {
+                        public void setUnread_pool(long unread_pool) {
                             this.unread_pool = unread_pool;
                         }
 
-                        public int getDaiyan() {
+                        public long getDaiyan() {
                             return daiyan;
                         }
 
-                        public void setDaiyan(int daiyan) {
+                        public void setDaiyan(long daiyan) {
                             this.daiyan = daiyan;
                         }
 
-                        public int getAli_1688() {
+                        public long getAli_1688() {
                             return ali_1688;
                         }
 
-                        public void setAli_1688(int ali_1688) {
+                        public void setAli_1688(long ali_1688) {
                             this.ali_1688 = ali_1688;
                         }
 
-                        public int getVip_activity2() {
+                        public long getVip_activity2() {
                             return vip_activity2;
                         }
 
-                        public void setVip_activity2(int vip_activity2) {
+                        public void setVip_activity2(long vip_activity2) {
                             this.vip_activity2 = vip_activity2;
                         }
 
-                        public int getSuishoupai_2016() {
+                        public long getSuishoupai_2016() {
                             return suishoupai_2016;
                         }
 
-                        public void setSuishoupai_2016(int suishoupai_2016) {
+                        public void setSuishoupai_2016(long suishoupai_2016) {
                             this.suishoupai_2016 = suishoupai_2016;
                         }
 
-                        public int getFools_day_2016() {
+                        public long getFools_day_2016() {
                             return fools_day_2016;
                         }
 
-                        public void setFools_day_2016(int fools_day_2016) {
+                        public void setFools_day_2016(long fools_day_2016) {
                             this.fools_day_2016 = fools_day_2016;
                         }
 
-                        public int getUefa_euro_2016() {
+                        public long getUefa_euro_2016() {
                             return uefa_euro_2016;
                         }
 
-                        public void setUefa_euro_2016(int uefa_euro_2016) {
+                        public void setUefa_euro_2016(long uefa_euro_2016) {
                             this.uefa_euro_2016 = uefa_euro_2016;
                         }
 
-                        public int getSuper_star_2016() {
+                        public long getSuper_star_2016() {
                             return super_star_2016;
                         }
 
-                        public void setSuper_star_2016(int super_star_2016) {
+                        public void setSuper_star_2016(long super_star_2016) {
                             this.super_star_2016 = super_star_2016;
                         }
 
-                        public int getUnread_pool_ext() {
+                        public long getUnread_pool_ext() {
                             return unread_pool_ext;
                         }
 
-                        public void setUnread_pool_ext(int unread_pool_ext) {
+                        public void setUnread_pool_ext(long unread_pool_ext) {
                             this.unread_pool_ext = unread_pool_ext;
                         }
 
-                        public int getSelf_media() {
+                        public long getSelf_media() {
                             return self_media;
                         }
 
-                        public void setSelf_media(int self_media) {
+                        public void setSelf_media(long self_media) {
                             this.self_media = self_media;
                         }
 
-                        public int getOlympic_2016() {
+                        public long getOlympic_2016() {
                             return olympic_2016;
                         }
 
-                        public void setOlympic_2016(int olympic_2016) {
+                        public void setOlympic_2016(long olympic_2016) {
                             this.olympic_2016 = olympic_2016;
                         }
 
-                        public int getDzwbqlx_2016() {
+                        public long getDzwbqlx_2016() {
                             return dzwbqlx_2016;
                         }
 
-                        public void setDzwbqlx_2016(int dzwbqlx_2016) {
+                        public void setDzwbqlx_2016(long dzwbqlx_2016) {
                             this.dzwbqlx_2016 = dzwbqlx_2016;
                         }
 
-                        public int getDiscount_2016() {
+                        public long getDiscount_2016() {
                             return discount_2016;
                         }
 
-                        public void setDiscount_2016(int discount_2016) {
+                        public void setDiscount_2016(long discount_2016) {
                             this.discount_2016 = discount_2016;
                         }
 
-                        public int getWedding_2016() {
+                        public long getWedding_2016() {
                             return wedding_2016;
                         }
 
-                        public void setWedding_2016(int wedding_2016) {
+                        public void setWedding_2016(long wedding_2016) {
                             this.wedding_2016 = wedding_2016;
                         }
 
-                        public int getShuang11_2016() {
+                        public long getShuang11_2016() {
                             return shuang11_2016;
                         }
 
-                        public void setShuang11_2016(int shuang11_2016) {
+                        public void setShuang11_2016(long shuang11_2016) {
                             this.shuang11_2016 = shuang11_2016;
                         }
 
-                        public int getFollow_whitelist_video() {
+                        public long getFollow_whitelist_video() {
                             return follow_whitelist_video;
                         }
 
-                        public void setFollow_whitelist_video(int follow_whitelist_video) {
+                        public void setFollow_whitelist_video(long follow_whitelist_video) {
                             this.follow_whitelist_video = follow_whitelist_video;
                         }
 
-                        public int getWbzy_2016() {
+                        public long getWbzy_2016() {
                             return wbzy_2016;
                         }
 
-                        public void setWbzy_2016(int wbzy_2016) {
+                        public void setWbzy_2016(long wbzy_2016) {
                             this.wbzy_2016 = wbzy_2016;
                         }
 
-                        public int getHongbao_2017() {
+                        public long getHongbao_2017() {
                             return hongbao_2017;
                         }
 
-                        public void setHongbao_2017(int hongbao_2017) {
+                        public void setHongbao_2017(long hongbao_2017) {
                             this.hongbao_2017 = hongbao_2017;
                         }
 
-                        public int getHongbao_2017_2() {
+                        public long getHongbao_2017_2() {
                             return hongbao_2017_2;
                         }
 
-                        public void setHongbao_2017_2(int hongbao_2017_2) {
+                        public void setHongbao_2017_2(long hongbao_2017_2) {
                             this.hongbao_2017_2 = hongbao_2017_2;
                         }
 
-                        public int getCaishen_2017() {
+                        public long getCaishen_2017() {
                             return caishen_2017;
                         }
 
-                        public void setCaishen_2017(int caishen_2017) {
+                        public void setCaishen_2017(long caishen_2017) {
                             this.caishen_2017 = caishen_2017;
                         }
 
-                        public int getWedding_2017() {
+                        public long getWedding_2017() {
                             return wedding_2017;
                         }
 
-                        public void setWedding_2017(int wedding_2017) {
+                        public void setWedding_2017(long wedding_2017) {
                             this.wedding_2017 = wedding_2017;
                         }
 
-                        public int getLeague_badge() {
+                        public long getLeague_badge() {
                             return league_badge;
                         }
 
-                        public void setLeague_badge(int league_badge) {
+                        public void setLeague_badge(long league_badge) {
                             this.league_badge = league_badge;
                         }
                     }
@@ -3909,13 +3892,13 @@ public class CommonComment {
                              * mobile : 1
                              */
 
-                            private int mobile;
+                            private long mobile;
 
-                            public int getMobile() {
+                            public long getMobile() {
                                 return mobile;
                             }
 
-                            public void setMobile(int mobile) {
+                            public void setMobile(long mobile) {
                                 this.mobile = mobile;
                             }
                         }
@@ -3928,22 +3911,22 @@ public class CommonComment {
                      * list_id : 0
                      */
 
-                    private int type;
-                    private int list_id;
+                    private long type;
+                    private long list_id;
 
-                    public int getType() {
+                    public long getType() {
                         return type;
                     }
 
-                    public void setType(int type) {
+                    public void setType(long type) {
                         this.type = type;
                     }
 
-                    public int getList_id() {
+                    public long getList_id() {
                         return list_id;
                     }
 
-                    public void setList_id(int list_id) {
+                    public void setList_id(long list_id) {
                         this.list_id = list_id;
                     }
                 }
@@ -3955,22 +3938,22 @@ public class CommonComment {
                  * list_id : 0
                  */
 
-                private int type;
-                private int list_id;
+                private long type;
+                private long list_id;
 
-                public int getType() {
+                public long getType() {
                     return type;
                 }
 
-                public void setType(int type) {
+                public void setType(long type) {
                     this.type = type;
                 }
 
-                public int getList_id() {
+                public long getList_id() {
                     return list_id;
                 }
 
-                public void setList_id(int list_id) {
+                public void setList_id(long list_id) {
                     this.list_id = list_id;
                 }
             }

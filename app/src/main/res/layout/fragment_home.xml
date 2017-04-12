@@ -1,88 +1,138 @@
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <!--标题-->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:popupTheme="@style/ToolbarPopupTheme"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="首页"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"/>
-
-        <ImageView
-            android:id="@+id/fragment_home_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:padding="8dp"
-            android:src="@drawable/ic_action_restart"/>
-    </android.support.v7.widget.Toolbar>
+    android:layout_height="match_parent">
 
 
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-
-        <android.support.design.widget.AppBarLayout
+        android:orientation="vertical">
+        <!--标题-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/ToolbarPopupTheme"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             >
-            <!-- 主体-->
-            <LinearLayout
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:text="首页"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"/>
+
+            <ImageView
+                android:id="@+id/fragment_home_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:padding="8dp"
+                android:src="@drawable/ic_action_restart"/>
+        </android.support.v7.widget.Toolbar>
+
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
-                android:orientation="vertical"
-                android:padding="8dp"
-                app:layout_scrollFlags="scroll|snap">
-                <!--  用户信息-->
-                <RelativeLayout
+                >
+                <!-- 主体-->
+                <LinearLayout
+                    android:id="@+id/fragment_home_boty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
-
-                    <ImageView
-                        android:id="@+id/fragment_home_user_head"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:padding="8dp"/>
-
-                    <TextView
-                        android:id="@+id/fragment_home_user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_toRightOf="@id/fragment_home_user_head"
-                        android:textColor="@android:color/white"/>
-
-                    <TextView
-                        android:id="@+id/fragment_home_user_desc"
+                    android:fitsSystemWindows="true"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    app:layout_scrollFlags="scroll|snap">
+                    <!--  用户信息-->
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/fragment_home_user_name"
-                        android:layout_toRightOf="@id/fragment_home_user_head"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="8dp"
-                        android:textColor="@android:color/white"/>
-                </RelativeLayout>
+                        >
 
+                        <ImageView
+                            android:id="@+id/fragment_home_user_head"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:id="@+id/fragment_home_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@id/fragment_home_user_head"
+                            android:textColor="@android:color/white"/>
+
+                        <TextView
+                            android:id="@+id/fragment_home_user_desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/fragment_home_user_name"
+                            android:layout_toRightOf="@id/fragment_home_user_head"
+                            android:paddingBottom="8dp"
+                            android:paddingLeft="8dp"
+                            android:textColor="@android:color/white"/>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@android:color/holo_green_light"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="8dp"
+                            android:text="功能"
+                            android:textColor="@android:color/white"
+
+                            android:textStyle="bold"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@android:color/holo_green_dark"/>
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/fragment_home_function"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="8dp">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+                <!-- 用户动态-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -93,16 +143,15 @@
                         android:layout_height="1dp"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:background="@android:color/holo_green_light"/>
+                        android:background="@android:color/holo_green_dark"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:gravity="center_vertical"
                         android:padding="8dp"
-                        android:text="功能"
+                        android:text="关注用户动态"
                         android:textColor="@android:color/white"
-
                         android:textStyle="bold"/>
 
                     <View
@@ -112,61 +161,13 @@
                         android:layout_weight="1"
                         android:background="@android:color/holo_green_dark"/>
                 </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/fragment_home_function"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingTop="8dp">
-
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-
-            <!-- 用户动态-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@android:color/holo_green_dark"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:padding="8dp"
-                    android:text="关注用户动态"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@android:color/holo_green_dark"/>
-            </LinearLayout>
-        </android.support.design.widget.AppBarLayout>
-
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            </android.support.design.widget.AppBarLayout>
 
             <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
                 android:id="@+id/swipeToLoadLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:swipe_style="classic">
 
 
@@ -179,7 +180,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/swipe_target"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:scrollbars="vertical"
                     >
                 </android.support.v7.widget.RecyclerView>
@@ -190,10 +191,19 @@
                     android:layout_height="50dp"
                     android:gravity="center"/>
             </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+        </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
 
-            <include
-                layout="@layout/layout_empty_view"/>
-        </FrameLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
-</LinearLayout>
+    <!--回到顶部-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fragment_home_back_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_action_up"
+        android:visibility="gone"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"/>
+</FrameLayout>

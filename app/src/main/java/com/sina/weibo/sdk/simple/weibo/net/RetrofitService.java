@@ -6,6 +6,7 @@ import com.sina.weibo.sdk.simple.weibo.model.CommonWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.model.CommonUserInfo;
 import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
 
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -123,7 +124,68 @@ public interface RetrofitService {
      */
     @FormUrlEncoded
     @POST("2/statuses/update.json")
-    Observable<UpdateWeiboInfo> setUserWeiboInfo(@Field("access_token") String token, @Field("status") String status);
+    Call<String> sendWeibo(@Field("access_token") String token, @Field("status") String status);
 
+
+    /**
+     * 删除一条微博
+     *
+     * @param token
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("2/statuses/destroy.json")
+    Call<String> deleteWeibo(@Field("access_token") String token, @Field("id") long id);
+
+
+    /**
+     * 转发微博
+     *
+     * @param token
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("2/statuses/repost.json")
+    Call<String> transpondWeibo(@Field("access_token") String token, @Field("id") long id);
+
+    /**
+     * 获取某条微博评论
+     *
+     * @param token
+     * @param id
+     * @param count
+     * @param page
+     * @return
+     */
+    @GET("2/comments/show.json")
+    Observable<CommonComment> getWeiboComment(@Query("access_token") String token, @Query("id") long id, @Query("count") int count, @Query("page") int page);
+
+
+    /**
+     * 获取某条微博评论
+     *
+     * @param token
+     * @param id
+     * @param count
+     * @param page
+     * @return
+     */
+    @GET("2/comments/show.json")
+    Call<String> getWeiboComment2Str(@Query("access_token") String token, @Query("id") long id, @Query("count") int count, @Query("page") int page);
+
+
+    /**
+     * 评论某条微博
+     *
+     * @param token
+     * @param comment
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("2/comments/create.json")
+    Call<String> sendCommonForWeibo(@Field("access_token") String token, @Field("comment") String comment, @Field("id") long id);
 }
 

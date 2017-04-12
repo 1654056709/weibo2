@@ -4,18 +4,18 @@ package com.sina.weibo.sdk.simple.weibo.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
@@ -38,9 +38,11 @@ import com.sina.weibo.sdk.simple.weibo.ui.activity.PublicTimeLineActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFansActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFriendsActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserTimeLineActivity;
+import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
 import com.sina.weibo.sdk.simple.weibo.ui.view.LoadMoreFooterView;
 import com.sina.weibo.sdk.simple.weibo.ui.view.RefreshHeaderView;
 import com.sina.weibo.sdk.simple.weibo.util.SpaceItemDecoration;
+import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.WeiboInfoView;
 
@@ -50,6 +52,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -72,6 +75,8 @@ public class HomeFragment extends Fragment {
     TextView mFragmentHomeUserDesc;
     @BindView(R.id.fragment_home_function)
     RecyclerView mFragmentHomeFunction;
+    @BindView(R.id.fragment_home_boty)
+    LinearLayout mFragmentHomeBoty;
     @BindView(R.id.swipe_refresh_header)
     RefreshHeaderView mSwipeRefreshHeader;
     @BindView(R.id.swipe_target)
@@ -80,8 +85,8 @@ public class HomeFragment extends Fragment {
     LoadMoreFooterView mSwipeLoadMoreFooter;
     @BindView(R.id.swipeToLoadLayout)
     SwipeToLoadLayout mSwipeToLoadLayout;
-    @BindView(R.id.empty_view)
-    RelativeLayout mEmptyView;
+    @BindView(R.id.fragment_home_back_top)
+    FloatingActionButton mFragmentHomeBackTop;
 
 
     private Oauth2AccessToken mAccessToken;
@@ -140,6 +145,19 @@ public class HomeFragment extends Fragment {
         mWeibos = new ArrayList<>();
         mWeiboAdapter = new WeiboAdapter(getActivity(), mWeibos);
         mSwipeTarget.setAdapter(mWeiboAdapter);
+
+        Tools.scrollLinstener(getActivity(), mSwipeTarget, new Tools.ScrollCallback() {
+
+            @Override
+            public void up() {
+                mFragmentHomeBackTop.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void down() {
+                mFragmentHomeBackTop.setVisibility(View.VISIBLE);
+            }
+        });
 
         mFragmentHomeFunction.addItemDecoration(new SpaceItemDecoration(2));
         mDataList = Arrays.asList(getActivity().getResources().getStringArray(R.array.function_list));
@@ -219,6 +237,11 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @OnClick(R.id.fragment_home_back_top)
+    public void onClick() {
+        mSwipeTarget.smoothScrollToPosition(0);
+    }
+
 
     class FunctionAdapter extends RecyclerView.Adapter<FunctionHolder> {
         private List<String> mData;
@@ -271,7 +294,18 @@ public class HomeFragment extends Fragment {
             } else if (mData.equals(mDataList.get(4))) {
                 goToPage(PublicTimeLineActivity.class);
             } else if (mData.equals(mDataList.get(5))) {
-                Tools.openWriteWeibo(getActivity().getSupportFragmentManager(), HomeActivity.TAG);
+                Tools.openWriteWeibo(getActivity().getSupportFragmentManager(), HomeActivity.TAG, -1)
+                        .addCallback(new WriteInfoDialog.DialogDismissCallback() {
+                            @Override
+                            public void success() {
+                                mSwipeToLoadLayout.setRefreshing(true);
+                            }
+
+                            @Override
+                            public void failure() {
+
+                            }
+                        });
             }
         }
 
@@ -314,9 +348,8 @@ public class HomeFragment extends Fragment {
             mWeiboInfoPresenter.onAttachView(new WeiboInfoView() {
                 @Override
                 public void onSuccess(List<WeiboInfo> weibos) {
-                    int positionStart = mWeibos.size() - 1;
                     mWeibos.addAll(weibos);
-                    mWeiboAdapter.notifyItemRangeChanged(positionStart, WEIBO_COUNT);
+                    mWeiboAdapter.notifyDataSetChanged();
                     Tools.MoveToPosition(mLinearLayoutManager, mSwipeTarget);
                     swipeToLoadLayout.setLoadingMore(false);
                 }
@@ -343,7 +376,6 @@ public class HomeFragment extends Fragment {
                     mWeibos.clear();
                     mWeibos.addAll(weibos);
                     mWeiboAdapter.notifyDataSetChanged();
-                    Tools.showEmptyView(mEmptyView, mSwipeToLoadLayout, mSwipeTarget);
                     swipeToLoadLayout.setRefreshing(false);
                 }
 

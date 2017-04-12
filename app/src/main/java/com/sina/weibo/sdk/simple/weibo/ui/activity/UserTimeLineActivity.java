@@ -1,10 +1,18 @@
 package com.sina.weibo.sdk.simple.weibo.ui.activity;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,6 +37,8 @@ import com.sina.weibo.sdk.simple.weibo.view.WeiboInfoView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.ManagerFactoryParameters;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -38,7 +48,8 @@ import butterknife.OnClick;
  * 用自己所发的微博信息
  */
 public class UserTimeLineActivity extends AppCompatActivity {
-
+    public static final String DELETE = "UserTimeLineActivity_delete";
+    public static final String CANCEL = "UserTimeLineActivity_cancel";
 
     private static final int WEIBO_COUNT = 10;
     private static int sWeiboPage = 0;
@@ -62,9 +73,22 @@ public class UserTimeLineActivity extends AppCompatActivity {
     RelativeLayout mEmptyView;
     private WeiboInfoPresenter mWeiboInfoPresenter;
     private Oauth2AccessToken mAccessToken;
-    private List<WeiboInfo> mWeibos;
-    private WeiboAdapter mWeiboAdapter;
+    private static List<WeiboInfo> sWeiboInfos;
+    private static WeiboAdapter sWeiboAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+
+
+    public static Handler mHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            WeiboInfo weiboInfo = (WeiboInfo) msg.obj;
+            int index = sWeiboInfos.indexOf(weiboInfo);
+            sWeiboInfos.remove(index);
+            sWeiboAdapter.notifyItemRemoved(index);
+
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +106,11 @@ public class UserTimeLineActivity extends AppCompatActivity {
         mWeiboInfoPresenter = new WeiboInfoPresenter(this);
         mWeiboInfoPresenter.onCreate();
 
-        mWeibos = new ArrayList<>();
+        sWeiboInfos = new ArrayList<>();
         mLinearLayoutManager = new LinearLayoutManager(this);
         mSwipeTarget.setLayoutManager(mLinearLayoutManager);
-        mWeiboAdapter = new WeiboAdapter(this, mWeibos);
-        mSwipeTarget.setAdapter(mWeiboAdapter);
+        sWeiboAdapter = new WeiboAdapter(this, sWeiboInfos);
+        mSwipeTarget.setAdapter(sWeiboAdapter);
 
 
         mSwipeToLoadLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -129,8 +153,8 @@ public class UserTimeLineActivity extends AppCompatActivity {
             public void onSuccess(List<WeiboInfo> weibos) {
                 int size = weibos.size();
                 if (size > 0) {
-                    mWeibos.addAll(weibos);
-                    mWeiboAdapter.notifyDataSetChanged();
+                    sWeiboInfos.addAll(weibos);
+                    sWeiboAdapter.notifyDataSetChanged();
                     Tools.MoveToPosition(mLinearLayoutManager, mSwipeTarget);
                 } else {
                     hint();
@@ -155,9 +179,9 @@ public class UserTimeLineActivity extends AppCompatActivity {
         mWeiboInfoPresenter.onAttachView(new WeiboInfoView() {
             @Override
             public void onSuccess(List<WeiboInfo> weibos) {
-                mWeibos.clear();
-                mWeibos.addAll(weibos);
-                mWeiboAdapter.notifyDataSetChanged();
+                sWeiboInfos.clear();
+                sWeiboInfos.addAll(weibos);
+                sWeiboAdapter.notifyDataSetChanged();
                 Tools.showEmptyView(mEmptyView, mSwipeToLoadLayout, mSwipeTarget);
                 mSwipeToLoadLayout.setRefreshing(false);
             }
@@ -170,6 +194,7 @@ public class UserTimeLineActivity extends AppCompatActivity {
     }
 
 
+
     /**
      * 数据提示
      */
@@ -177,7 +202,17 @@ public class UserTimeLineActivity extends AppCompatActivity {
         ToastUtil.showToasts(UserTimeLineActivity.this, "没有数据了");
     }
 
+    private boolean mFlag;
+
     @OnClick(R.id.title_bar_write_image_view)
     public void onClick() {
+        if (!mFlag) {
+            sWeiboAdapter.setEditType(CANCEL);
+            mTitleBarWriteImageView.setBackgroundResource(R.drawable.ic_action_write);
+        } else {
+            sWeiboAdapter.setEditType(DELETE);
+            mTitleBarWriteImageView.setBackgroundResource(R.drawable.ic_action_close);
+        }
+        mFlag = !mFlag;
     }
 }

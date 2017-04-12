@@ -9,5 +9,7 @@ import com.sina.weibo.sdk.simple.weibo.model.CommonComment;
 public interface CommentInfoView extends View {
     void onSuccess(CommonComment commonComment);
 
+    void onSuccess(String commonComment);
+
     void onFailure(String errorMsg);
 }

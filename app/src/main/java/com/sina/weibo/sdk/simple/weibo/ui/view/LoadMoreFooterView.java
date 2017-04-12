@@ -1,6 +1,7 @@
 package com.sina.weibo.sdk.simple.weibo.ui.view;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -12,7 +13,7 @@ import com.aspsine.swipetoloadlayout.SwipeTrigger;
  * 加载更多底部视图
  */
 
-public class LoadMoreFooterView extends TextView implements SwipeTrigger, SwipeLoadMoreTrigger {
+public class LoadMoreFooterView extends AppCompatTextView implements SwipeTrigger, SwipeLoadMoreTrigger {
     public LoadMoreFooterView(Context context) {
         super(context);
     }

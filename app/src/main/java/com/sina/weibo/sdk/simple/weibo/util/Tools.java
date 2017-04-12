@@ -7,17 +7,22 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.system.StructStat;
 import android.text.format.DateUtils;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.animation.Animation;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.simple.weibo.R;
-import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteWeiboDialog;
-import com.sina.weibo.sdk.simple.weibo.view.View;
+import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -158,9 +163,24 @@ public class Tools {
      * @param fragmentManager
      * @param tag
      */
-    public static void openWriteWeibo(FragmentManager fragmentManager, String tag) {
-        WriteWeiboDialog writeWeiboDialog = new WriteWeiboDialog();
-        writeWeiboDialog.show(fragmentManager, tag);
+    public static final String WRITE_WEIBO = "write_weibo";
+
+    public static WriteInfoDialog openWriteWeibo(FragmentManager fragmentManager, String tag, long weiboId) {
+        WriteInfoDialog writeInfoDialog = WriteInfoDialog.newWriteInfoDialog(WRITE_WEIBO, weiboId);
+        writeInfoDialog.show(fragmentManager, tag);
+        return writeInfoDialog;
+    }
+
+
+    /**
+     * 评论
+     */
+    public static final String WRITE_COMMENT = "write_comment";
+
+    public static WriteInfoDialog openWriteComment(FragmentManager fragmentManager, String tag, long weiboId) {
+        WriteInfoDialog writeInfoDialog = WriteInfoDialog.newWriteInfoDialog(WRITE_COMMENT, weiboId);
+        writeInfoDialog.show(fragmentManager, tag);
+        return writeInfoDialog;
     }
 
     /**
@@ -179,5 +199,48 @@ public class Tools {
             numStr = num / 10000 + "W";
         }
         return numStr;
+    }
+
+
+    /**
+     * 抖动动画
+     *
+     * @param view
+     */
+    public static void shakeAnimation(View view) {
+        TranslateAnimation animation = new TranslateAnimation(0, -5, 0, -5);
+        animation.setInterpolator(new OvershootInterpolator());
+        animation.setDuration(100);
+        animation.setRepeatCount(-1);
+        animation.setRepeatMode(Animation.REVERSE);
+        view.startAnimation(animation);
+    }
+
+
+    /**
+     * RecyclerView上滑 下滑监听
+     */
+    public interface ScrollCallback {
+
+        void up();
+
+        void down();
+    }
+
+    public static void scrollLinstener(final Context context, RecyclerView recyclerView, final ScrollCallback callback) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int slopDistance = ViewConfiguration.get(context).getScaledDoubleTapSlop() / 4;
+                if (Math.abs(dy) > slopDistance) {
+                    if (dy > 0) {
+                        callback.up();
+                    } else if (dy < 0) {
+                        callback.down();
+                    }
+                }
+
+            }
+        });
     }
 }

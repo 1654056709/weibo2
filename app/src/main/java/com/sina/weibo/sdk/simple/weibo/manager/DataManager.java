@@ -1,17 +1,16 @@
 package com.sina.weibo.sdk.simple.weibo.manager;
 
 import android.content.Context;
-import android.provider.ContactsContract;
-import android.provider.UserDictionary;
 
 import com.sina.weibo.sdk.simple.weibo.model.CommonComment;
 import com.sina.weibo.sdk.simple.weibo.model.CommonFriendsInfo;
-import com.sina.weibo.sdk.simple.weibo.model.CommonWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.model.CommonUserInfo;
+import com.sina.weibo.sdk.simple.weibo.model.CommonWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.net.RetrofitHelper;
 import com.sina.weibo.sdk.simple.weibo.net.RetrofitService;
 
+import retrofit2.Call;
 import rx.Observable;
 
 /**
@@ -20,9 +19,11 @@ import rx.Observable;
 
 public class DataManager {
     private RetrofitService mRetrofitService;
+    private RetrofitService mRetrofitService2Str;
 
     public DataManager(Context context) {
         mRetrofitService = RetrofitHelper.getInstance(context).getServer();
+        mRetrofitService2Str = RetrofitHelper.getInstance(context).getServer2Str();
     }
 
     /**
@@ -143,7 +144,58 @@ public class DataManager {
      * @param status
      * @return
      */
-    public Observable<UpdateWeiboInfo> setUserWeiboInfo(String token, String status) {
-        return mRetrofitService.setUserWeiboInfo(token, status);
+    public Call<String> sendWeibo(String token, String status) {
+        return mRetrofitService2Str.sendWeibo(token, status);
+    }
+
+
+    /**
+     * 删除一条微博
+     *
+     * @param token
+     * @param id
+     * @return
+     */
+    public Call<String> deleteWeibo(String token, long id) {
+        return mRetrofitService2Str.deleteWeibo(token, id);
+    }
+
+
+    /**
+     * 转发一条微博
+     *
+     * @param token
+     * @param weiboId
+     * @return
+     */
+    public Call<String> transpondWeibo(String token, long weiboId) {
+        return mRetrofitService2Str.transpondWeibo(token, weiboId);
+    }
+
+
+    /**
+     * 获取某条微博评论列表
+     *
+     * @param token
+     * @param weiboId
+     * @param count
+     * @param page
+     * @return
+     */
+    public Observable<CommonComment> getWeiboComment(String token, long weiboId, int count, int page) {
+        return mRetrofitService.getWeiboComment(token, weiboId, count, page);
+    }
+
+
+    /**
+     * 评论某条微博
+     *
+     * @param token
+     * @param comment
+     * @param weiboId
+     * @return
+     */
+    public Call<String> sendCommentForWeibo(String token, String comment, long weiboId) {
+        return mRetrofitService2Str.sendCommonForWeibo(token, comment, weiboId);
     }
 }

@@ -1,6 +1,7 @@
 package com.sina.weibo.sdk.simple.weibo.ui.view;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -10,7 +11,7 @@ import com.aspsine.swipetoloadlayout.SwipeTrigger;
 /**
  * Created by John on 2017/4/5.
  */
-public class RefreshHeaderView extends TextView implements SwipeRefreshTrigger, SwipeTrigger {
+public class RefreshHeaderView extends AppCompatTextView implements SwipeRefreshTrigger, SwipeTrigger {
 
     public RefreshHeaderView(Context context) {
         super(context);

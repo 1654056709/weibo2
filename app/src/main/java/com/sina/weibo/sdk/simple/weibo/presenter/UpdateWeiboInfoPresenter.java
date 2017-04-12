@@ -1,7 +1,10 @@
 package com.sina.weibo.sdk.simple.weibo.presenter;
 
 import android.content.Context;
+import android.media.session.MediaSession;
 
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.simple.weibo.manager.DataManager;
 import com.sina.weibo.sdk.simple.weibo.model.CommonWeiboInfo;
@@ -14,6 +17,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -57,33 +63,28 @@ public class UpdateWeiboInfoPresenter implements Presenter {
         mUpdateWeiboInfoView = (UpdateWeiboInfoView) view;
     }
 
-
     /**
-     * 发微博
+     * 发送微博
      *
      * @param accessToken
      * @param status
      */
-    public void setUserWeiboInfo(Oauth2AccessToken accessToken, String status) {
-        mCompositeSubscription.add(
-                mDataManager.setUserWeiboInfo(accessToken.getToken(), status)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                new Action1<UpdateWeiboInfo>() {
-                                    @Override
-                                    public void call(UpdateWeiboInfo updateWeiboInfo) {
-                                        mUpdateWeiboInfoView.onSuccess(updateWeiboInfo);
-                                    }
-                                },
-                                new Action1<Throwable>() {
-                                    @Override
-                                    public void call(Throwable throwable) {
-                                        mUpdateWeiboInfoView.onFailure(throwable.getMessage());
-                                    }
-                                }
-                        )
-        );
+    public void sendWeibo(Oauth2AccessToken accessToken, String status) {
+        mDataManager.sendWeibo(accessToken.getToken(), status)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        UpdateWeiboInfo updateWeiboInfo = new Gson().fromJson(response.body(), UpdateWeiboInfo.class);
+                        mUpdateWeiboInfoView.onSuccess(updateWeiboInfo);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Logger.d(t.getMessage());
+                        mUpdateWeiboInfoView.onFailure(t.getMessage());
+                    }
+                });
     }
 
 
@@ -94,6 +95,39 @@ public class UpdateWeiboInfoPresenter implements Presenter {
      * @param id
      */
     public void deleteWeiboinfo(Oauth2AccessToken accessToken, long id) {
+        mDataManager.deleteWeibo(accessToken.getToken(), id)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        mUpdateWeiboInfoView.onSuccess(response.body());
+                    }
 
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        mUpdateWeiboInfoView.onFailure(t.getMessage());
+                    }
+                });
+    }
+
+
+    /**
+     * 转发一条微博
+     *
+     * @param accessToken
+     * @param weiboId
+     */
+    public void transpondWeibo(Oauth2AccessToken accessToken, long weiboId) {
+        mDataManager.transpondWeibo(accessToken.getToken(), weiboId)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        mUpdateWeiboInfoView.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        mUpdateWeiboInfoView.onFailure(t.getMessage());
+                    }
+                });
     }
 }

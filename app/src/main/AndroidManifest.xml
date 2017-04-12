@@ -66,6 +66,9 @@
         <!--用户粉丝界面-->
         <activity android:name=".ui.activity.UserFansActivity"></activity>
 
+        <!-- 单条微博评论页面-->
+        <activity android:name=".ui.activity.CommentActivity"></activity>
+
     </application>
 
 </manifest>
