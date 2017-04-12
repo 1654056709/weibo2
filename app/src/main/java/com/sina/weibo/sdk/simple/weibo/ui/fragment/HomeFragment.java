@@ -4,6 +4,7 @@ package com.sina.weibo.sdk.simple.weibo.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,6 +29,7 @@ import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.WeiboAdapter;
 import com.sina.weibo.sdk.simple.weibo.dao.UserDao;
+import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
 import com.sina.weibo.sdk.simple.weibo.model.UserInfo;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.WeiboInfoPresenter;
@@ -45,6 +47,10 @@ import com.sina.weibo.sdk.simple.weibo.util.SpaceItemDecoration;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.WeiboInfoView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,6 +116,12 @@ public class HomeFragment extends Fragment {
         args.putSerializable(USER_INFO, userInfo);
         homeFragment.setArguments(args);
         return homeFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
 
@@ -196,6 +208,11 @@ public class HomeFragment extends Fragment {
             });
         }
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private void initToolbar() {
@@ -295,9 +312,9 @@ public class HomeFragment extends Fragment {
                 goToPage(PublicTimeLineActivity.class);
             } else if (mData.equals(mDataList.get(5))) {
                 Tools.openWriteWeibo(getActivity().getSupportFragmentManager(), HomeActivity.TAG, -1)
-                        .addCallback(new WriteInfoDialog.DialogDismissCallback() {
+                        .addCommentFinishedCallback(new WriteInfoDialog.CommentFinishedCallback() {
                             @Override
-                            public void success() {
+                            public void success(long weiboId) {
                                 mSwipeToLoadLayout.setRefreshing(true);
                             }
 
@@ -326,16 +343,24 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCommentEvent(CommentEvent commentEvent) {
+
+    }
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mWeiboInfoPresenter.onStop();
+        EventBus.getDefault().unregister(this);
+
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+        mWeiboInfoPresenter.onStop();
     }
 
     /**

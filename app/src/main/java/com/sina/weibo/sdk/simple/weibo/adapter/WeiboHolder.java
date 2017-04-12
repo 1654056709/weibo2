@@ -26,6 +26,7 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.constant.WBConstants;
 import com.sina.weibo.sdk.simple.weibo.R;
+import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
 import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.net.HttpUtil;
@@ -35,9 +36,14 @@ import com.sina.weibo.sdk.simple.weibo.ui.activity.ShowImageActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserTimeLineActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.WeiboContentActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
+import com.sina.weibo.sdk.simple.weibo.ui.fragment.CommentFragment;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.UpdateWeiboInfoView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,8 +58,8 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  */
 
 public class WeiboHolder extends RecyclerView.ViewHolder {
-    private static WeiboInfo mWeibo;
-    private static Context mContext;
+    private WeiboInfo mWeibo;
+    private Context mContext;
 
     @BindView(R.id.item_user_weibo_user_head)
     ImageView mItemUserWeiboUserHead;
@@ -83,6 +89,7 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
         mContext = context;
         initListener(itemView);
     }
+
 
     /**
      * 初始化监听

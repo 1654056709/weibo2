@@ -38,6 +38,14 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboHolder> {
     }
 
 
+    public List<WeiboInfo> getWeibos() {
+        return mWeibos;
+    }
+
+    public void setWeibos(List<WeiboInfo> weibos) {
+        mWeibos = weibos;
+    }
+
     /**
      * 设置编辑模式
      *
@@ -74,5 +82,7 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboHolder> {
     public int getItemCount() {
         return mWeibos.size();
     }
+
+
 
 }

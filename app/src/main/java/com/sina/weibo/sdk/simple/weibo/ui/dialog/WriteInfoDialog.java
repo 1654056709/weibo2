@@ -21,6 +21,7 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.WeiboHolder;
+import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
 import com.sina.weibo.sdk.simple.weibo.model.CommonComment;
 import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.CommentPresenter;
@@ -29,6 +30,8 @@ import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.CommentInfoView;
 import com.sina.weibo.sdk.simple.weibo.view.UpdateWeiboInfoView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,7 +61,7 @@ public class WriteInfoDialog extends DialogFragment {
     private CommentPresenter mCommentPresenter;
     private final static String SEND_TYPE = "send_type";
     private final static String WEIBO_ID = "weibo_id";
-    private DialogDismissCallback mDialogDismissCallback;
+    private CommentFinishedCallback mCommentFinishedCallback;
 
     public WriteInfoDialog() {
     }
@@ -70,6 +73,11 @@ public class WriteInfoDialog extends DialogFragment {
         args.putLong(WEIBO_ID, weiboId);
         writeInfoDialog.setArguments(args);
         return writeInfoDialog;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -124,14 +132,14 @@ public class WriteInfoDialog extends DialogFragment {
     }
 
 
-    public interface DialogDismissCallback {
-        void success();
+    public interface CommentFinishedCallback {
+        void success(long weiboId);
 
         void failure();
     }
 
-    public void addCallback(DialogDismissCallback callback) {
-        mDialogDismissCallback = callback;
+    public void addCommentFinishedCallback(CommentFinishedCallback callback) {
+        mCommentFinishedCallback = callback;
     }
 
     @Override
@@ -190,16 +198,16 @@ public class WriteInfoDialog extends DialogFragment {
             @Override
             public void onSuccess(String commonComment) {
                 ToastUtil.showToasts(mContext, "评论成功");
-                if (mDialogDismissCallback != null) {
-                    mDialogDismissCallback.success();
+                if (mCommentFinishedCallback != null) {
+                    mCommentFinishedCallback.success(mWeiboId);
                 }
             }
 
             @Override
-            public void onFailure(String errorMsg) {
-                ToastUtil.showToasts(mContext, "评论失败");
-                if (mDialogDismissCallback != null) {
-                    mDialogDismissCallback.failure();
+            public void onFailure(String errorMsg) {                ToastUtil.showToasts(mContext, "评论失败");
+
+                if (mCommentFinishedCallback != null) {
+                    mCommentFinishedCallback.failure();
                 }
             }
         });
@@ -219,8 +227,8 @@ public class WriteInfoDialog extends DialogFragment {
             @Override
             public void onSuccess(UpdateWeiboInfo updateWeiboInfo) {
                 ToastUtil.showToasts(mContext, "微博发送成功");
-                if (mDialogDismissCallback != null) {
-                    mDialogDismissCallback.success();
+                if (mCommentFinishedCallback != null) {
+                    mCommentFinishedCallback.success(mWeiboId);
                 }
             }
 
@@ -232,11 +240,16 @@ public class WriteInfoDialog extends DialogFragment {
             @Override
             public void onFailure(String errorMsg) {
                 ToastUtil.showToasts(mContext, "微博发送失败");
-                if (mDialogDismissCallback != null) {
-                    mDialogDismissCallback.failure();
+                if (mCommentFinishedCallback != null) {
+                    mCommentFinishedCallback.failure();
                 }
             }
         });
         dismiss();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

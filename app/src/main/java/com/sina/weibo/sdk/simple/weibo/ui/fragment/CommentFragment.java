@@ -205,12 +205,13 @@ public class CommentFragment extends Fragment {
         mCommentPresenter.onStop();
     }
 
+
     @OnClick(R.id.title_bar_write_image_view)
     public void onClick() {
         Tools.openWriteComment(getActivity().getSupportFragmentManager(), TAG, mWeiboId)
-                .addCallback(new WriteInfoDialog.DialogDismissCallback() {
+                .addCommentFinishedCallback(new WriteInfoDialog.CommentFinishedCallback() {
                     @Override
-                    public void success() {
+                    public void success(long weiboId) {
                         mSwipeToLoadLayout.setRefreshing(true);
                     }
 
