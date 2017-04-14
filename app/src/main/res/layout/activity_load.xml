@@ -5,8 +5,8 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:background="@android:color/holo_orange_dark"
         android:id="@+id/activity_load_image_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/load_bg"/>
 </LinearLayout>

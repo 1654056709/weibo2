@@ -29,7 +29,9 @@
         </activity>
 
         <!-- 用户登录界面 -->
-        <activity android:name=".ui.activity.LoginActivity">
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:launchMode="singleTask">
         </activity>
 
         <!-- 公共微博信息界面 -->
@@ -67,7 +69,10 @@
         <activity android:name=".ui.activity.UserFansActivity"></activity>
 
         <!-- 单条微博评论页面-->
-        <activity android:name=".ui.activity.CommentActivity"></activity>
+        <activity
+            android:name=".ui.activity.CommentActivity"
+            android:windowSoftInputMode="adjustResize"
+            ></activity>
 
     </application>
 

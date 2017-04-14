@@ -15,8 +15,11 @@ import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.simple.weibo.R;
+import com.sina.weibo.sdk.simple.weibo.event.CloseEvent;
 import com.sina.weibo.sdk.simple.weibo.util.Constants;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 微博授权认证
@@ -27,15 +30,26 @@ public class OAuthActivity extends AppCompatActivity {
     private AuthInfo mAuthInfo;
     private SsoHandler mSsoHandler;
     private Oauth2AccessToken mAccessToken;
+    private AlertDialog mDialog;
+    public static final String TYPE = "type";
+    public static final String FROM_LOAD = "from_load";
+    public static final String FROM_LOGIN = "from_login";
+
+    private String mType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        if (intent != null) {
+            mType = intent.getStringExtra(TYPE);
+        }
+
         setContentView(R.layout.activity_oauth);
         final View dialogView = View.inflate(this, R.layout.dialog_oauth, null);
-        final AlertDialog dialog = new AlertDialog.Builder(this).setView(dialogView).create();
-        dialog.setCancelable(false);
-        dialog.show();
+        mDialog = new AlertDialog.Builder(this).setView(dialogView).create();
+        mDialog.setCancelable(false);
+        mDialog.show();
 
         mOAuthButton = (Button) dialogView.findViewById(R.id.dialog_oauth_image_button);
         mOAuthButton.setOnClickListener(
@@ -44,19 +58,16 @@ public class OAuthActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         mAuthInfo = new AuthInfo(OAuthActivity.this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
                         mSsoHandler = new SsoHandler(OAuthActivity.this, mAuthInfo);
-                        //网页认证
                         mSsoHandler.authorizeWeb(new AuthListener());
-                        dialog.dismiss();
-                        //关闭认证页面
-                        finish();
                     }
                 }
         );
     }
 
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntent(Context context, String type) {
         Intent intent = new Intent(context, OAuthActivity.class);
+        intent.putExtra(TYPE, type);
         return intent;
     }
 
@@ -68,13 +79,21 @@ public class OAuthActivity extends AppCompatActivity {
         //授权完成
         @Override
         public void onComplete(Bundle values) {
+            EventBus.getDefault().post(new CloseEvent());
             // 从 Bundle 中解析 Token
             mAccessToken = Oauth2AccessToken.parseAccessToken(values);
             if (mAccessToken.isSessionValid()) {
                 // 保存 Token 到 SharedPreferences
                 AccessTokenKeeper.writeAccessToken(OAuthActivity.this, mAccessToken);
-                //跳转到登录界面
-                startActivity(LoginActivity.newIntent(OAuthActivity.this, LoginActivity.FROM_OAUTH_ACTIVITY));
+                if (mType.equals(FROM_LOAD)) {
+                    //跳转到登录界面
+                    startActivity(LoginActivity.newIntent(OAuthActivity.this, LoginActivity.FROM_OAUTH_ACTIVITY));
+                } else if (mType.equals(FROM_LOGIN)) {
+                    Intent intent = new Intent();
+                    intent.putExtra(LoginActivity.TYPE, LoginActivity.FROM_OAUTH_ACTIVITY);
+                    setResult(RESULT_OK, intent);
+                }
+                finish();
             }
         }
 
@@ -82,10 +101,15 @@ public class OAuthActivity extends AppCompatActivity {
         //取消授权
         @Override
         public void onCancel() {
-            finish();
             ToastUtil.showToasts(OAuthActivity.this, getResources().getString(R.string.cancel_oauth));
-            //跳转到登录界面
-            startActivity(LoginActivity.newIntent(OAuthActivity.this, LoginActivity.FROM_LOAD_ACTIVITY));
+            if (mType.equals(FROM_LOGIN)) {
+                Intent intent = new Intent();
+                intent.putExtra(LoginActivity.TYPE, LoginActivity.FROM_LOAD_ACTIVITY);
+                setResult(RESULT_OK, intent);
+            } else if (mType.equals(FROM_LOAD)) {
+                startActivity(LoginActivity.newIntent(OAuthActivity.this, LoginActivity.FROM_LOAD_ACTIVITY));
+            }
+            finish();
         }
 
 
@@ -99,9 +123,6 @@ public class OAuthActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // SSO 授权回调
-        // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
         if (mSsoHandler != null) {
             mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
         }

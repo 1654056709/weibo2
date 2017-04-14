@@ -10,7 +10,6 @@ import android.net.NetworkInfo;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.system.StructStat;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -20,7 +19,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
-import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
 
@@ -182,6 +180,8 @@ public class Tools {
         writeInfoDialog.show(fragmentManager, tag);
         return writeInfoDialog;
     }
+
+
 
     /**
      * 转换字符串

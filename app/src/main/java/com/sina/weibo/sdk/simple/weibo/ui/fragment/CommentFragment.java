@@ -22,7 +22,10 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.CommentAdapter;
+import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
+import com.sina.weibo.sdk.simple.weibo.event.CommentFinishedEvent;
 import com.sina.weibo.sdk.simple.weibo.model.CommonComment;
+import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.CommentPresenter;
 import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
 import com.sina.weibo.sdk.simple.weibo.ui.view.LoadMoreFooterView;
@@ -30,6 +33,10 @@ import com.sina.weibo.sdk.simple.weibo.ui.view.RefreshHeaderView;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.CommentInfoView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +73,7 @@ public class CommentFragment extends Fragment {
 
     private static final String WEIBO_ID = "weibo_id";
 
-    private long mWeiboId;
+    private WeiboInfo mWeiboInfo;
     private Context mContext;
     private CommentPresenter mCommentPresenter;
     private Oauth2AccessToken mAccessToken;
@@ -76,12 +83,10 @@ public class CommentFragment extends Fragment {
     private LinearLayoutManager mLinearLayoutManager;
     private CommentAdapter mCommentAdapter;
 
-    public static CommentFragment newCommentFragment(long weiboId) {
-        CommentFragment commentFragment = new CommentFragment();
-        Bundle args = new Bundle();
-        args.putLong(WEIBO_ID, weiboId);
-        commentFragment.setArguments(args);
-        return commentFragment;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Nullable
@@ -89,10 +94,7 @@ public class CommentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_comment, null);
         unbinder = ButterKnife.bind(this, view);
-        Bundle args = getArguments();
-        mWeiboId = args.getLong(WEIBO_ID, -1);
         mContext = getActivity();
-
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +141,7 @@ public class CommentFragment extends Fragment {
      */
     private void LoadMoreData(final SwipeToLoadLayout swipeToLoadLayout) {
         sCommentPage++;
-        mCommentPresenter.getWeiboComment(mAccessToken, mWeiboId, COMMENT_COUNT, sCommentPage);
+        mCommentPresenter.getWeiboComment(mAccessToken, Long.valueOf(mWeiboInfo.getWeiboId()), COMMENT_COUNT, sCommentPage);
         mCommentPresenter.onAttachView(new CommentInfoView() {
             @Override
             public void onSuccess(CommonComment commonComment) {
@@ -173,7 +175,7 @@ public class CommentFragment extends Fragment {
      */
     private void refreshData(final SwipeToLoadLayout swipeToLoadLayout) {
         sCommentPage = 1;
-        mCommentPresenter.getWeiboComment(mAccessToken, mWeiboId, COMMENT_COUNT, sCommentPage);
+        mCommentPresenter.getWeiboComment(mAccessToken, Long.valueOf(mWeiboInfo.getWeiboId()), COMMENT_COUNT, sCommentPage);
         mCommentPresenter.onAttachView(new CommentInfoView() {
             @Override
             public void onSuccess(CommonComment commonComment) {
@@ -197,6 +199,16 @@ public class CommentFragment extends Fragment {
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onCommentEvent(CommentEvent commentEvent) {
+        mWeiboInfo = commentEvent.getWeiboInfo();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public void onDestroyView() {
@@ -208,11 +220,12 @@ public class CommentFragment extends Fragment {
 
     @OnClick(R.id.title_bar_write_image_view)
     public void onClick() {
-        Tools.openWriteComment(getActivity().getSupportFragmentManager(), TAG, mWeiboId)
+        Tools.openWriteComment(getActivity().getSupportFragmentManager(), TAG, Long.valueOf(mWeiboInfo.getWeiboId()))
                 .addCommentFinishedCallback(new WriteInfoDialog.CommentFinishedCallback() {
                     @Override
                     public void success(long weiboId) {
                         mSwipeToLoadLayout.setRefreshing(true);
+                        EventBus.getDefault().post(new CommentFinishedEvent(mWeiboInfo));
                     }
 
                     @Override

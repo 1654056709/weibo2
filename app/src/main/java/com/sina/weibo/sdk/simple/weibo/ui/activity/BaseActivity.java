@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.sina.weibo.sdk.simple.weibo.R;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 /**
  * Created by John on 2017/4/4.
  * 用户主页面
@@ -28,5 +31,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .beginTransaction()
                 .add(R.id.activity_fragment_container, createFragment())
                 .commit();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSignOutEvent(){
+        finish();
     }
 }

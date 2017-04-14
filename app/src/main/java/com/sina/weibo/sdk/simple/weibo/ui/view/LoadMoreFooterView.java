@@ -24,7 +24,7 @@ public class LoadMoreFooterView extends AppCompatTextView implements SwipeTrigge
 
     @Override
     public void onLoadMore() {
-        setText("LOADING MORE");
+        setText("正在加载...");
     }
 
     @Override
@@ -36,23 +36,23 @@ public class LoadMoreFooterView extends AppCompatTextView implements SwipeTrigge
     public void onMove(int yScrolled, boolean isComplete, boolean automatic) {
         if (!isComplete) {
             if (yScrolled <= -getHeight()) {
-                setText("RELEASE TO LOAD MORE");
+                setText("释放加载更多");
             } else {
-                setText("SWIPE TO LOAD MORE");
+                setText("上拉加载更多");
             }
         } else {
-            setText("LOAD MORE RETURNING");
+            setText("正在加载...");
         }
     }
 
     @Override
     public void onRelease() {
-        setText("LOADING MORE");
+        setText("正在加载...");
     }
 
     @Override
     public void onComplete() {
-        setText("COMPLETE");
+        setText("加载完成");
     }
 
     @Override

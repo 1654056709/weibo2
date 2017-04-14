@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.dao.UserDao;
@@ -65,27 +66,30 @@ public class UserInfoPresenter implements Presenter {
     }
 
     public void getUserInfo(final Oauth2AccessToken accessToken) {
-        mCompositeSubscription.add(mDataManager.getUserInfo(accessToken.getToken(), accessToken.getUid())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Subscriber<CommonUserInfo>() {
-                            @Override
-                            public void onCompleted() {
-                                isPersistentUser(accessToken);
-                            }
+        mCompositeSubscription.add(
+                mDataManager.getUserInfo(accessToken.getToken(), accessToken.getUid())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                new Subscriber<CommonUserInfo>() {
+                                    @Override
+                                    public void onCompleted() {
+                                        Logger.d("onCompleted");
+                                        isPersistentUser(accessToken);
+                                    }
 
-                            @Override
-                            public void onError(Throwable e) {
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        mUserInfoView.onFailure(e.getMessage());
+                                        Logger.d("error : ---- " + e.getMessage());
+                                    }
 
-                            }
-
-                            @Override
-                            public void onNext(CommonUserInfo commonUserInfo) {
-                                mCommonUserInfo = commonUserInfo;
-                            }
-                        }
-                )
+                                    @Override
+                                    public void onNext(CommonUserInfo commonUserInfo) {
+                                        mCommonUserInfo = commonUserInfo;
+                                    }
+                                }
+                        )
         );
     }
 
@@ -98,10 +102,10 @@ public class UserInfoPresenter implements Presenter {
         UserInfo userInfo = getLoginUser(String.valueOf(mCommonUserInfo.getId()));
         if (userInfo != null) {
             ToastUtil.showToasts(mContext, "该用户已存在,请直接登录");
-            AccessTokenKeeper.writeAccessToken(
+/*            AccessTokenKeeper.writeAccessToken(
                     mContext,
                     Oauth2AccessToken.parseAccessToken(UserInfo.createBundle(userInfo))
-            );
+            );*/
             mUserInfoView.onUserExistUpdateView(userInfo);
         } else {
             persistentUser(accessToken);

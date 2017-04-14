@@ -56,7 +56,7 @@ public interface RetrofitService {
      * @return
      */
     @GET("2/statuses/show.json")
-    Observable<CommonWeiboInfo> getSingleWeiboInfo(@Query("access_token") String token, @Query("id") long id);
+    Call<String> getSingleWeiboInfo(@Query("access_token") String token, @Query("id") long id);
 
 
     /**

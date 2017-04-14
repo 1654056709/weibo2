@@ -68,6 +68,7 @@ public class UserFriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_friends);
         ButterKnife.bind(this);
+        mTitleBarWriteImageView.setVisibility(View.GONE);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

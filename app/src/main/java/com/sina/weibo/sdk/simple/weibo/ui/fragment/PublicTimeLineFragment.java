@@ -2,6 +2,7 @@ package com.sina.weibo.sdk.simple.weibo.ui.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,8 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.WeiboAdapter;
+import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
+import com.sina.weibo.sdk.simple.weibo.event.CommentFinishedEvent;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.WeiboInfoPresenter;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.PublicTimeLineActivity;
@@ -29,6 +32,10 @@ import com.sina.weibo.sdk.simple.weibo.ui.view.RefreshHeaderView;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.WeiboInfoView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.LineNumberReader;
 import java.util.ArrayList;
@@ -75,11 +82,18 @@ public class PublicTimeLineFragment extends Fragment {
 
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.fragment_public_time_line, null);
         unbinder = ButterKnife.bind(this, view);
         mTitleBarTitle.setText("公共微博");
+        mTitleBarWriteImageView.setVisibility(View.GONE);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +142,11 @@ public class PublicTimeLineFragment extends Fragment {
     public void onClick() {
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     /**
      * 下拉加载更多数据
@@ -179,6 +198,15 @@ public class PublicTimeLineFragment extends Fragment {
                 Log.d(PublicTimeLineActivity.TAG, errorMsg + "---errorMsg");
             }
         });
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
+    public void onCommentEvent(CommentFinishedEvent commentEvent) {
+        int index = mWeiboInfos.indexOf(commentEvent.getWeiboInfo());
+        long count = commentEvent.getWeiboInfo().getComment() + 1;
+        mWeiboInfos.get(index).setComment(count);
+        mWeiboAdapter.notifyItemChanged(index);
     }
 
 }

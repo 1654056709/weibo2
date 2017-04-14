@@ -19,6 +19,7 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.CommentAdapter;
+import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
 import com.sina.weibo.sdk.simple.weibo.model.CommonComment;
 import com.sina.weibo.sdk.simple.weibo.presenter.CommentPresenter;
 import com.sina.weibo.sdk.simple.weibo.ui.view.LoadMoreFooterView;
@@ -26,6 +27,9 @@ import com.sina.weibo.sdk.simple.weibo.ui.view.RefreshHeaderView;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.CommentInfoView;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -177,6 +181,4 @@ public class MentionUserCommentFragment extends Fragment {
         mCommentPresenter.onStop();
         unbinder.unbind();
     }
-
-
 }

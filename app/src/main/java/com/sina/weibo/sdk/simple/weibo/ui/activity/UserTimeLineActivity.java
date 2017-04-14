@@ -22,10 +22,13 @@ import android.widget.TextView;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.WeiboAdapter;
+import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
+import com.sina.weibo.sdk.simple.weibo.event.CommentFinishedEvent;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.WeiboInfoPresenter;
 import com.sina.weibo.sdk.simple.weibo.ui.view.LoadMoreFooterView;
@@ -33,6 +36,10 @@ import com.sina.weibo.sdk.simple.weibo.ui.view.RefreshHeaderView;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.WeiboInfoView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +100,7 @@ public class UserTimeLineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_user_time_line);
         ButterKnife.bind(this);
         mTitleBarTitle.setText("个人微博");
@@ -139,8 +147,18 @@ public class UserTimeLineActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mWeiboInfoPresenter.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
+    public void onCommentEvent(CommentFinishedEvent commentEvent) {
+        Logger.d("UserTimeLine");
+        int index = sWeiboInfos.indexOf(commentEvent.getWeiboInfo());
+        long count = commentEvent.getWeiboInfo().getComment() + 1;
+        sWeiboInfos.get(index).setComment(count);
+        sWeiboAdapter.notifyItemChanged(index);
+    }
 
     /**
      * 下拉加载更多数据
@@ -192,7 +210,6 @@ public class UserTimeLineActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     /**

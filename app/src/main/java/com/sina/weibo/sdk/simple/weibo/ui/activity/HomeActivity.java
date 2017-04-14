@@ -9,11 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.sina.weibo.sdk.simple.weibo.R;
+import com.sina.weibo.sdk.simple.weibo.event.CloseEvent;
 import com.sina.weibo.sdk.simple.weibo.ui.fragment.HomeFragment;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class HomeActivity extends BaseActivity {
-    public static final String TAG="HomeActivity";
+    public static final String TAG = "HomeActivity";
+
     @Override
     protected Fragment createFragment() {
         return new HomeFragment();
@@ -21,6 +25,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected int createView() {
+        EventBus.getDefault().post(new CloseEvent());
         return R.layout.activity_fragment;
     }
 

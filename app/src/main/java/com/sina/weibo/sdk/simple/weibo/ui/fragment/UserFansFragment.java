@@ -80,6 +80,7 @@ public class UserFansFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_fans, container, false);
         unbinder = ButterKnife.bind(this, view);
+        mTitleBarWriteImageView.setVisibility(View.GONE);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,6 +189,7 @@ public class UserFansFragment extends Fragment {
                 mSwipeToLoadLayout.setRefreshing(false);
 
             }
+
             @Override
             public void onFailure(String errorMsg) {
                 Log.d(PublicTimeLineActivity.TAG, errorMsg);

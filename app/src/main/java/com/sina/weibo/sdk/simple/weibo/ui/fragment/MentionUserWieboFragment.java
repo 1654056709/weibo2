@@ -2,6 +2,7 @@ package com.sina.weibo.sdk.simple.weibo.ui.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,8 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.WeiboAdapter;
+import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
+import com.sina.weibo.sdk.simple.weibo.event.CommentFinishedEvent;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.WeiboInfoPresenter;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.PublicTimeLineActivity;
@@ -25,6 +28,10 @@ import com.sina.weibo.sdk.simple.weibo.ui.view.LoadMoreFooterView;
 import com.sina.weibo.sdk.simple.weibo.ui.view.RefreshHeaderView;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.WeiboInfoView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +71,12 @@ public class MentionUserWieboFragment extends Fragment {
     public MentionUserWieboFragment() {
     }
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -160,6 +173,7 @@ public class MentionUserWieboFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
 
     }
 
@@ -168,5 +182,14 @@ public class MentionUserWieboFragment extends Fragment {
         super.onDestroyView();
         mWeiboInfoPresenter.onStop();
         unbinder.unbind();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
+    public void onCommentEvent(CommentFinishedEvent commentEvent) {
+        int index = mWeibos.indexOf(commentEvent.getWeiboInfo());
+        long count = commentEvent.getWeiboInfo().getComment() + 1;
+        mWeibos.get(index).setComment(count);
+        mWeiboAdapter.notifyItemChanged(index);
     }
 }

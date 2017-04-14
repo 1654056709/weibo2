@@ -30,6 +30,7 @@ import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.WeiboAdapter;
 import com.sina.weibo.sdk.simple.weibo.dao.UserDao;
 import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
+import com.sina.weibo.sdk.simple.weibo.event.CommentFinishedEvent;
 import com.sina.weibo.sdk.simple.weibo.model.UserInfo;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.WeiboInfoPresenter;
@@ -232,6 +233,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().startActivity(LoginActivity.newIntent(getActivity(), LoginActivity.FROM_LOAD_ACTIVITY));
                 mPopupWindow.dismiss();
+                getActivity().finish();
             }
         });
 
@@ -240,7 +242,7 @@ public class HomeFragment extends Fragment {
         ButterKnife.findById(view, R.id.popup_window_login_out).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getActivity().finish();
             }
         });
 
@@ -256,7 +258,7 @@ public class HomeFragment extends Fragment {
 
     @OnClick(R.id.fragment_home_back_top)
     public void onClick() {
-        mSwipeTarget.smoothScrollToPosition(0);
+        mSwipeTarget.scrollToPosition(0);
     }
 
 
@@ -343,17 +345,10 @@ public class HomeFragment extends Fragment {
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onCommentEvent(CommentEvent commentEvent) {
-
-    }
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
     }
 
     @Override
@@ -410,5 +405,13 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = false)
+    public void onCommentEvent(CommentFinishedEvent commentEvent) {
+        int index = mWeibos.indexOf(commentEvent.getWeiboInfo());
+        long count = commentEvent.getWeiboInfo().getComment() + 1;
+        mWeibos.get(index).setComment(count);
+        mWeiboAdapter.notifyItemChanged(index);
     }
 }

@@ -2,10 +2,11 @@
 学习客户端开发和复习android框架
 
 ####框架
-* Retrofit
-* RxJava
+* Retrofit(网络请求框架)
+* RxJava(线程调度)
 * RxAndroid
-* Glide
+* Glide(图片处理)
+* EventBus(通信)
 * SwipeToLoadLayout(第三方开源UI控件)
 
 ####git

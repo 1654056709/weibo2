@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.ui.fragment.CommentFragment;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 /**
  * Created by John on 2017/4/12.
  */
@@ -18,12 +21,7 @@ public class CommentActivity extends BaseActivity {
 
     @Override
     protected Fragment createFragment() {
-        Intent intent = getIntent();
-        long weiboId = -1;
-        if (intent != null) {
-            weiboId = intent.getLongExtra(WEIBO_ID, -1);
-        }
-        return CommentFragment.newCommentFragment(weiboId);
+        return new CommentFragment();
     }
 
     @Override
@@ -32,9 +30,8 @@ public class CommentActivity extends BaseActivity {
     }
 
 
-    public static Intent newIntent(Context context, long weiboId) {
+    public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, CommentActivity.class);
-        intent.putExtra(WEIBO_ID, weiboId);
         return intent;
     }
 }

@@ -68,8 +68,8 @@ public class DataManager {
      * @param id
      * @return
      */
-    public Observable<CommonWeiboInfo> getSingleWeiboInfo(String token, long id) {
-        return mRetrofitService.getSingleWeiboInfo(token, id);
+    public Call<String> getSingleWeiboInfo(String token, long id) {
+        return mRetrofitService2Str.getSingleWeiboInfo(token, id);
     }
 
 

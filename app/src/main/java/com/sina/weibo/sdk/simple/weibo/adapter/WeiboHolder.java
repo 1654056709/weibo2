@@ -1,5 +1,6 @@
 package com.sina.weibo.sdk.simple.weibo.adapter;
 
+import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -101,8 +102,9 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Long weiboId = Long.valueOf(mWeibo.getWeiboId());
-                mContext.startActivity(WeiboContentActivity.newIntent(mContext, weiboId));
+//                Long weiboId = Long.valueOf(mWeibo.getWeiboId());
+//                mContext.startActivity(WeiboContentActivity.newIntent(mContext, weiboId));
+                ToastUtil.showToasts(mContext, "您没有权限查看");
             }
         });
 
@@ -152,7 +154,9 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
         mWeiboCommentCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = CommentActivity.newIntent(mContext, Long.valueOf(mWeibo.getWeiboId()));
+                //发送粘性事件
+                EventBus.getDefault().postSticky(new CommentEvent(mWeibo));
+                Intent intent = CommentActivity.newIntent(mContext);
                 mContext.startActivity(intent);
             }
         });

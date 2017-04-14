@@ -1,8 +1,10 @@
 package com.sina.weibo.sdk.simple.weibo.presenter;
 
 import android.content.Context;
+import android.os.Looper;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.simple.weibo.manager.DataManager;
@@ -15,6 +17,9 @@ import com.sina.weibo.sdk.simple.weibo.view.WeiboInfoView;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -130,28 +135,33 @@ public class WeiboInfoPresenter implements Presenter {
 
     }
 
+
+    /**
+     * 获取单条微博信息
+     *
+     * @param accessToken
+     * @param id
+     */
     public void getWeiboContent(Oauth2AccessToken accessToken, long id) {
-        mCompositeSubscription.add(
-                mDataManager.getSingleWeiboInfo(accessToken.getToken(), id)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                new Action1<CommonWeiboInfo>() {
-                                    @Override
-                                    public void call(CommonWeiboInfo commonWeiboInfo) {
-                                        Log.d(PublicTimeLineActivity.TAG, commonWeiboInfo.getStatuses().size() + " ");
-                                    }
-                                },
-                                new Action1<Throwable>() {
-                                    @Override
-                                    public void call(Throwable throwable) {
-                                        Log.d(PublicTimeLineActivity.TAG, throwable.getMessage());
-                                    }
-                                }
+        mDataManager.getSingleWeiboInfo(accessToken.getToken(), id)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Logger.json(response.body());
+                        Gson gson = new Gson();
+                        try {
+                            CommonWeiboInfo commonWeiboInfo = gson.fromJson(response.body(), CommonWeiboInfo.class);
+                            Logger.d(commonWeiboInfo.getStatuses().get(0).getUser().getName());
+                        }catch (Exception e){
+                            Logger.d(e.getMessage());
+                        }
+                    }
 
-                        )
-        );
-
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Logger.d(t.getMessage());
+                    }
+                });
     }
 
     /**

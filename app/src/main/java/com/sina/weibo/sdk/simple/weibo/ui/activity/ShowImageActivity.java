@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -19,7 +19,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.sina.weibo.sdk.simple.weibo.R;
 
 import java.io.File;
-import java.util.zip.DeflaterOutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,11 +30,13 @@ import butterknife.OnClick;
 
 public class ShowImageActivity extends AppCompatActivity {
     private static final String IMG_URL = "img_url";
-
-    @BindView(R.id.activity_show_img)
-    ImageView mActivityShowImg;
     @BindView(R.id.activity_show_img_close)
     ImageView mActivityShowImgClose;
+    @BindView(R.id.activity_show_img)
+    ImageView mActivityShowImg;
+    @BindView(R.id.activity_show_image)
+    LinearLayout mActivityShowImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
