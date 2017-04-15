@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.model.UserInfo;
 
@@ -46,8 +47,8 @@ public class SpinnerAdapter extends BaseAdapter {
         }
         UserInfo userInfo = mUserInfos.get(i);
         SpinnerViewHolder viewHolder = getViewHolder(view);
-        viewHolder.mUserHeadImageView.setImageBitmap(userInfo.getUserHead());
-        viewHolder.mUserNameTextView.setText(userInfo.getUserName());
+        viewHolder.bindUserInfo(userInfo);
+
         return view;
     }
 
@@ -64,10 +65,18 @@ public class SpinnerAdapter extends BaseAdapter {
     class SpinnerViewHolder {
         public ImageView mUserHeadImageView;
         public TextView mUserNameTextView;
+        private UserInfo mUserInfo;
 
         public SpinnerViewHolder(View view) {
             mUserHeadImageView = (ImageView) view.findViewById(R.id.item_select_user_login_user_head_image_view);
             mUserNameTextView = (TextView) view.findViewById(R.id.item_select_user_login_user_name_text_view);
+
+        }
+
+        public void bindUserInfo(UserInfo userInfo) {
+            mUserInfo = userInfo;
+            mUserHeadImageView.setImageBitmap(userInfo.getUserHead());
+            mUserNameTextView.setText(userInfo.getUserName());
         }
     }
 }

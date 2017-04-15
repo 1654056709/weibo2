@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.sina.weibo.sdk.simple.weibo.R;
+import com.sina.weibo.sdk.simple.weibo.ui.activity.LoadActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
 
 import java.text.SimpleDateFormat;
@@ -52,7 +53,7 @@ public class Tools {
         return false;
     }
 
-    public static void checkNetWork(final Context context) {
+    public static boolean checkNetWork(final Context context) {
         if (!isNetWorkConnected(context)) {
             //没有网络连接
             new AlertDialog.Builder(context)
@@ -67,7 +68,9 @@ public class Tools {
                         }
                     })
                     .create().show();
+            return  false;
         }
+        return true;
     }
 
 

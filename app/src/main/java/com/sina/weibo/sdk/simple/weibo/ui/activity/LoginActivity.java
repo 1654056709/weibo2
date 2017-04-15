@@ -1,11 +1,14 @@
 package com.sina.weibo.sdk.simple.weibo.ui.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,6 +22,7 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.SpinnerAdapter;
+import com.sina.weibo.sdk.simple.weibo.dao.UserDao;
 import com.sina.weibo.sdk.simple.weibo.event.CloseEvent;
 import com.sina.weibo.sdk.simple.weibo.model.UserInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.UserInfoPresenter;
@@ -112,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
         mSpinnerAdapter = new SpinnerAdapter(LoginActivity.this, mUserInfos);
         mUserInfoNameSpinner.setAdapter(mSpinnerAdapter);
 
-
         mUserInfoNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -122,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
                 //更新视图
                 updateUserUI(userInfo);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -169,15 +171,16 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onUserNotExistUpdateView(UserInfo userInfo) {
                     Logger.d("onUserNotExistUpdateView");
-                    mUserInfos.add(userInfo);
-                    updateUserUI(userInfo);
-
                     mAccessToken = Oauth2AccessToken.parseAccessToken(UserInfo.createBundle(userInfo));
                     AccessTokenKeeper.writeAccessToken(LoginActivity.this, mAccessToken);
+                    mUserInfos.add(userInfo);
+                    updateUserUI(userInfo);
                 }
 
                 @Override
                 public void onUserExistUpdateView(UserInfo userInfo) {
+                    mAccessToken = Oauth2AccessToken.parseAccessToken(UserInfo.createBundle(userInfo));
+                    AccessTokenKeeper.writeAccessToken(LoginActivity.this, mAccessToken);
                     Logger.d("onUserExistUpdateView");
                     updateUserUI(userInfo);
                 }
@@ -191,8 +194,8 @@ public class LoginActivity extends AppCompatActivity {
      * @param userInfo
      */
     private void updateUserUI(UserInfo userInfo) {
+        mUserInfoNameSpinner.setSelection((int) (userInfo.get_id() - 1),true);
         mSpinnerAdapter.notifyDataSetChanged();
-        mUserInfoNameSpinner.setSelection((int) (userInfo.get_id() - 1));
 
         Glide.with(LoginActivity.this)
                 .load(UserInfo.getByteArrayOutputStream(userInfo.getUserHead()).toByteArray())

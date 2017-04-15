@@ -14,6 +14,7 @@
         android:theme="@style/NoActionBar">
         <activity
             android:name=".ui.activity.LoadActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/LoadActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,53 +26,71 @@
         <activity
             android:name=".ui.activity.OAuthActivity"
             android:label="@string/title_activity_oauth"
+            android:screenOrientation="portrait"
             android:theme="@style/OAuthDialogTheme">
         </activity>
 
         <!-- 用户登录界面 -->
         <activity
             android:name=".ui.activity.LoginActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
 
         <!-- 公共微博信息界面 -->
-        <activity android:name=".ui.activity.PublicTimeLineActivity">
+        <activity
+            android:name=".ui.activity.PublicTimeLineActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <!-- 用户个人微博 -->
-        <activity android:name=".ui.activity.UserTimeLineActivity">
+        <activity
+            android:name=".ui.activity.UserTimeLineActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <!-- 用户及所关注用户的最新微博 -->
 
         <!-- 单条微博具体内容 -->
-        <activity android:name=".ui.activity.WeiboContentActivity">
+        <activity
+            android:name=".ui.activity.WeiboContentActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <!-- 关注者列表 -->
-        <activity android:name=".ui.activity.UserFriendsActivity">
+        <activity
+            android:name=".ui.activity.UserFriendsActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <!-- 查看图片界面 -->
         <activity
             android:name=".ui.activity.ShowImageActivity"
-            android:hardwareAccelerated="false">
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait">
         </activity>
         <!-- 主页 -->
-        <activity android:name=".ui.activity.HomeActivity">
+        <activity
+            android:name=".ui.activity.HomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
 
         <!-- @当前用户的微博信息 -->
-        <activity android:name=".ui.activity.MentionUserActivity">
+        <activity
+            android:name=".ui.activity.MentionUserActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <!--用户粉丝界面-->
-        <activity android:name=".ui.activity.UserFansActivity"></activity>
+        <activity
+            android:name=".ui.activity.UserFansActivity"
+            android:screenOrientation="portrait"></activity>
 
         <!-- 单条微博评论页面-->
         <activity
             android:name=".ui.activity.CommentActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
             ></activity>
 
     </application>

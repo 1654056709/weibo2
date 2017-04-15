@@ -98,18 +98,37 @@ public class UserInfoPresenter implements Presenter {
      *
      * @param accessToken
      */
-    private void isPersistentUser(Oauth2AccessToken accessToken) {
-        UserInfo userInfo = getLoginUser(String.valueOf(mCommonUserInfo.getId()));
-        if (userInfo != null) {
-            ToastUtil.showToasts(mContext, "该用户已存在,请直接登录");
-/*            AccessTokenKeeper.writeAccessToken(
-                    mContext,
-                    Oauth2AccessToken.parseAccessToken(UserInfo.createBundle(userInfo))
-            );*/
-            mUserInfoView.onUserExistUpdateView(userInfo);
-        } else {
-            persistentUser(accessToken);
-        }
+    private void isPersistentUser(final Oauth2AccessToken accessToken) {
+        Observable.create(
+                new Observable.OnSubscribe<UserInfo>() {
+                    @Override
+                    public void call(Subscriber<? super UserInfo> subscriber) {
+                        //耗时
+                        UserInfo userInfo = getLoginUser(String.valueOf(mCommonUserInfo.getId()));
+                        subscriber.onNext(userInfo);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Action1<UserInfo>() {
+                            @Override
+                            public void call(UserInfo userInfo) {
+                                if (userInfo != null) {
+                                    ToastUtil.showToasts(mContext, "该用户已存在,请直接登录");
+                                    mUserInfoView.onUserExistUpdateView(userInfo);
+                                } else {
+                                    persistentUser(accessToken);
+                                }
+                            }
+                        },
+                        new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+
+                            }
+                        }
+                );
     }
 
     private void persistentUser(final Oauth2AccessToken accessToken) {
@@ -119,22 +138,23 @@ public class UserInfoPresenter implements Presenter {
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(final Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        Observable.create(new Observable.OnSubscribe<UserInfo>() {
-                            @Override
-                            public void call(Subscriber<? super UserInfo> subscriber) {
-                                //插入数据到数据库
-                                UserInfo userInfo = new UserInfo(
-                                        accessToken.getUid(),
-                                        mCommonUserInfo.getName(),
-                                        accessToken.getToken(),
-                                        accessToken.getPhoneNum(),
-                                        mCommonUserInfo.getDescription(),
-                                        resource);
-                                UserDao.getInstance(mContext)
-                                        .insertUser(userInfo);
-                                subscriber.onNext(userInfo);
-                            }
-                        })
+                        Observable.create(
+                                new Observable.OnSubscribe<UserInfo>() {
+                                    @Override
+                                    public void call(Subscriber<? super UserInfo> subscriber) {
+                                        //插入数据到数据库
+                                        UserInfo userInfo = new UserInfo(
+                                                accessToken.getUid(),
+                                                mCommonUserInfo.getName(),
+                                                accessToken.getToken(),
+                                                accessToken.getPhoneNum(),
+                                                mCommonUserInfo.getDescription(),
+                                                resource);
+                                        UserDao.getInstance(mContext)
+                                                .insertUser(userInfo);
+                                        subscriber.onNext(userInfo);
+                                    }
+                                })
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(

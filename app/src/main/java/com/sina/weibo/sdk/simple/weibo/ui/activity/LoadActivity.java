@@ -27,6 +27,8 @@ public class LoadActivity extends AppCompatActivity {
      */
     private ImageView mLoadImageView;
     private Oauth2AccessToken mAccessToken;
+    private AlphaAnimation mAnimation;
+    private boolean mFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,11 @@ public class LoadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
         mLoadImageView = (ImageView) findViewById(R.id.activity_load_image_view);
-        AlphaAnimation animation = new AlphaAnimation(0.1f, 1.0f);
-        animation.setDuration(5000);
-        mLoadImageView.setAnimation(animation);
+        mAnimation = new AlphaAnimation(0.1f, 1.0f);
+        mAnimation.setDuration(5000);
+        mLoadImageView.setAnimation(mAnimation);
         //设置动画监听
-        animation.setAnimationListener(new Animation.AnimationListener() {
+        mAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
                 init();
@@ -46,12 +48,14 @@ public class LoadActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                //判断是否授权
-                mAccessToken = AccessTokenKeeper.readAccessToken(LoadActivity.this);
-                if (!mAccessToken.isSessionValid()) {
-                    startActivity(OAuthActivity.newIntent(LoadActivity.this, OAuthActivity.FROM_LOAD));
-                } else {
-                    startActivity(HomeActivity.newIntent(LoadActivity.this));
+                if (mFlag) {
+                    //判断是否授权
+                    mAccessToken = AccessTokenKeeper.readAccessToken(LoadActivity.this);
+                    if (!mAccessToken.isSessionValid()) {
+                        startActivity(OAuthActivity.newIntent(LoadActivity.this, OAuthActivity.FROM_LOAD));
+                    } else {
+                        startActivity(HomeActivity.newIntent(LoadActivity.this));
+                    }
                 }
             }
 
@@ -71,7 +75,7 @@ public class LoadActivity extends AppCompatActivity {
 
     private void init() {
         //判断是否有网络连接
-        Tools.checkNetWork(LoadActivity.this);
+        mFlag = Tools.checkNetWork(LoadActivity.this);
     }
 
     @Override

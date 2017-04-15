@@ -38,6 +38,7 @@ import com.sina.weibo.sdk.simple.weibo.ui.activity.UserTimeLineActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.WeiboContentActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
 import com.sina.weibo.sdk.simple.weibo.ui.fragment.CommentFragment;
+import com.sina.weibo.sdk.simple.weibo.util.TimeUtils;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.UpdateWeiboInfoView;
@@ -247,7 +248,8 @@ public class WeiboHolder extends RecyclerView.ViewHolder {
                 .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                 .into(mItemUserWeiboUserHead);
         mItemUserWeiboUserName.setText(weibo.getUserName());
-        mItemUserWeiboContentDate.setText(Tools.dateFormat(weibo.getDate()));
+//        mItemUserWeiboContentDate.setText(Tools.dateFormat(weibo.getDate()));
+        mItemUserWeiboContentDate.setText(TimeUtils.instance(mContext).buildTimeString(weibo.getDate()));
         mItemUserWeiboContent.setText(weibo.getContent());
         if (weibo.getHaveImg()) {
             mItemUserWeiboUserContentImage.setVisibility(View.VISIBLE);
