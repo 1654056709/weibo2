@@ -19,4 +19,5 @@
         <item>广场</item>
         <item>写微博</item>
     </string-array>
+    <string name="title_activity_user_friends_wb">UserFriendsWbActivity</string>
 </resources>

@@ -36,7 +36,6 @@ public class CustomItemDecoration extends RecyclerView.ItemDecoration {
             int top = child.getBottom() + params.bottomMargin;
             int bottom = top + 1;
             c.drawRect(new Rect(left, top, right, bottom), mPaint);
-//            Log.d(HomeActivity.TAG, left + "--" + right);
         }
     }
 

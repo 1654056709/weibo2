@@ -18,9 +18,9 @@
             android:theme="@style/LoadActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
         <!-- 认证界面 -->
         <activity
@@ -50,6 +50,7 @@
         </activity>
 
         <!-- 用户及所关注用户的最新微博 -->
+
 
         <!-- 单条微博具体内容 -->
         <activity
@@ -82,17 +83,20 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <!--用户粉丝界面-->
+        <!-- 用户粉丝界面 -->
         <activity
             android:name=".ui.activity.UserFansActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
-        <!-- 单条微博评论页面-->
+        <!-- 单条微博评论页面 -->
         <activity
             android:name=".ui.activity.CommentActivity"
-            android:screenOrientation="portrait"
-            ></activity>
-
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.UserFriendsWbActivity"
+            android:label="@string/title_activity_user_friends_wb"
+            android:theme="@style/NoActionBar">
+        </activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.sina.weibo.sdk.simple.weibo.ui.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -95,6 +96,8 @@ public class CommentFragment extends Fragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_comment, null);
         unbinder = ButterKnife.bind(this, view);
         mContext = getActivity();
+        mToolbar.setTitle("评论");
+        mToolbar.setTitleTextColor(Color.WHITE);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

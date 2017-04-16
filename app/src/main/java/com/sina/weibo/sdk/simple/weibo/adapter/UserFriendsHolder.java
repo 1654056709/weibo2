@@ -1,20 +1,29 @@
 package com.sina.weibo.sdk.simple.weibo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.simple.weibo.R;
+import com.sina.weibo.sdk.simple.weibo.event.ShowUserFriendsWebEvent;
 import com.sina.weibo.sdk.simple.weibo.model.CommonFriendsInfo;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
+import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFansActivity;
+import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFriendsWbActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by John on 2017/4/2.
@@ -38,7 +47,8 @@ public class UserFriendsHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mContext.startActivity(new Intent(mContext, UserFriendsWbActivity.class));
+                EventBus.getDefault().postSticky(new ShowUserFriendsWebEvent(mUsersBean));
             }
         });
     }
@@ -48,9 +58,10 @@ public class UserFriendsHolder extends RecyclerView.ViewHolder {
         Glide.with(mContext)
                 .load(usersBean.getProfile_image_url())
                 .centerCrop()
-                .bitmapTransform(new CropCircleTransformation(mContext))
+                .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                 .into(mItemUserFriendHead);
         mItemUserFriendScreenName.setText(usersBean.getScreen_name());
         mItemUserFriendWeiboContent.setText(usersBean.getDescription());
+
     }
 }

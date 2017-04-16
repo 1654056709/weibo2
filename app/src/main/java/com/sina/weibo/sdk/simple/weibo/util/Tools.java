@@ -234,7 +234,7 @@ public class Tools {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                int slopDistance = ViewConfiguration.get(context).getScaledDoubleTapSlop() / 4;
+                int slopDistance = ViewConfiguration.get(context).getScaledTouchSlop();
                 if (Math.abs(dy) > slopDistance) {
                     if (dy > 0) {
                         callback.up();
