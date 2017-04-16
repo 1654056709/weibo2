@@ -5,8 +5,11 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.renderscript.ScriptGroup;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +26,11 @@ import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.LoadActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -68,7 +76,7 @@ public class Tools {
                         }
                     })
                     .create().show();
-            return  false;
+            return false;
         }
         return true;
     }
@@ -185,7 +193,6 @@ public class Tools {
     }
 
 
-
     /**
      * 转换字符串
      *
@@ -245,5 +252,17 @@ public class Tools {
 
             }
         });
+    }
+
+    /**
+     * 将图片转换为字节数组
+     *
+     * @param bitmap
+     * @return
+     */
+    public static byte[] bitmap2OutputStream(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
     }
 }

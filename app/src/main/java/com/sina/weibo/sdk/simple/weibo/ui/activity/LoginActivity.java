@@ -67,7 +67,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.d("onCreate");
         setContentView(R.layout.activity_login);
         //上一个Activity
         mPreActivity = getIntent().getStringExtra(TYPE);
@@ -130,6 +129,8 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     @Override
@@ -154,10 +155,8 @@ public class LoginActivity extends AppCompatActivity {
         if (mPreActivity.equals(LoginActivity.FROM_LOAD_ACTIVITY)) {
             if (mAccessToken.isSessionValid()) {
                 UserInfo userInfo = mUserInfoPresenter.getLoginUser(mAccessToken.getUid());
-                updateUserUI(userInfo);
             }
         } else if (mPreActivity.equals(LoginActivity.FROM_OAUTH_ACTIVITY)) {
-            Logger.d("mPreActivity===from_oauth");
             mUserInfoPresenter.getUserInfo(mAccessToken);
             mUserInfoPresenter.onAttachView(new UserInfoView() {
                 @Override

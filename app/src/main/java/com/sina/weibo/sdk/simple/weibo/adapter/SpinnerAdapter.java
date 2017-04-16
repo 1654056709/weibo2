@@ -7,9 +7,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.model.UserInfo;
+import com.sina.weibo.sdk.simple.weibo.util.Tools;
 
 import java.util.List;
 
@@ -75,7 +77,10 @@ public class SpinnerAdapter extends BaseAdapter {
 
         public void bindUserInfo(UserInfo userInfo) {
             mUserInfo = userInfo;
-            mUserHeadImageView.setImageBitmap(userInfo.getUserHead());
+            Glide.with(mContext)
+                    .load(Tools.bitmap2OutputStream(userInfo.getUserHead()))
+                    .crossFade()
+                    .into(mUserHeadImageView);
             mUserNameTextView.setText(userInfo.getUserName());
         }
     }

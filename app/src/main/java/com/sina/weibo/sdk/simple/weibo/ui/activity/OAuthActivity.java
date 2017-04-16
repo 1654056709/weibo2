@@ -1,6 +1,7 @@
 package com.sina.weibo.sdk.simple.weibo.ui.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -49,7 +50,15 @@ public class OAuthActivity extends AppCompatActivity {
         setContentView(R.layout.activity_oauth);
         final View dialogView = View.inflate(this, R.layout.dialog_oauth, null);
         mDialog = new AlertDialog.Builder(this).setView(dialogView).create();
-        mDialog.setCancelable(false);
+        mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Intent intent = new Intent();
+                intent.putExtra(LoginActivity.TYPE, LoginActivity.FROM_LOAD_ACTIVITY);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
         mDialog.show();
 
         mOAuthButton = (Button) dialogView.findViewById(R.id.dialog_oauth_image_button);
@@ -59,7 +68,7 @@ public class OAuthActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         mAuthInfo = new AuthInfo(OAuthActivity.this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
                         mSsoHandler = new SsoHandler(OAuthActivity.this, mAuthInfo);
-                        mSsoHandler.authorizeWeb(new AuthListener());
+                        mSsoHandler.authorize(new AuthListener());
                     }
                 }
         );

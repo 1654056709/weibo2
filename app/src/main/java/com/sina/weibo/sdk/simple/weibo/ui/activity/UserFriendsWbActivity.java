@@ -107,6 +107,6 @@ public class UserFriendsWbActivity extends AppCompatActivity {
             mActivityUserFriendsWebShow.goBack();
             return true;
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyDown(keyCode,event);
     }
 }

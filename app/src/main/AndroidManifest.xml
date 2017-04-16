@@ -49,8 +49,6 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <!-- 用户及所关注用户的最新微博 -->
-
 
         <!-- 单条微博具体内容 -->
         <activity
