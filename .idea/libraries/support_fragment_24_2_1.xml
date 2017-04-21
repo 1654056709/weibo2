@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="support-fragment-24.2.1">
     <CLASSES>
-      <root url="jar://F:/android_avd/.android/build-cache/7b7cae97effbc8e8494f66caeadf11f422831540/output/jars/libs/internal_impl-24.2.1.jar!/" />
-      <root url="file://F:/android_avd/.android/build-cache/7b7cae97effbc8e8494f66caeadf11f422831540/output/res" />
-      <root url="jar://F:/android_avd/.android/build-cache/7b7cae97effbc8e8494f66caeadf11f422831540/output/jars/classes.jar!/" />
+      <root url="jar://F:/android_avd/.android/build-cache/29eb29f2c401f672fef73ebacda1e6406836c647/output/jars/classes.jar!/" />
+      <root url="file://F:/android_avd/.android/build-cache/29eb29f2c401f672fef73ebacda1e6406836c647/output/res" />
+      <root url="jar://F:/android_avd/.android/build-cache/29eb29f2c401f672fef73ebacda1e6406836c647/output/jars/libs/internal_impl-24.2.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

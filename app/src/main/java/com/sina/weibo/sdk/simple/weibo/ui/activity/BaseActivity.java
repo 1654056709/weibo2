@@ -29,12 +29,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(createView());
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.activity_fragment_container, createFragment())
+                .replace(R.id.activity_fragment_container, createFragment())
                 .commit();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onSignOutEvent(){
+    public void onSignOutEvent() {
         finish();
     }
 }
