@@ -16,6 +16,7 @@ import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.adapter.CommentViewPagerAdapter;
 import com.sina.weibo.sdk.simple.weibo.ui.fragment.MentionUserCommentFragment;
 import com.sina.weibo.sdk.simple.weibo.ui.fragment.MentionUserWieboFragment;
+import com.sina.weibo.sdk.simple.weibo.util.Tools;
 
 import java.util.ArrayList;
 import java.util.List;

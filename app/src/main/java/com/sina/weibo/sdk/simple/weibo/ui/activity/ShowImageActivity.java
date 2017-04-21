@@ -17,6 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.sina.weibo.sdk.simple.weibo.R;
+import com.sina.weibo.sdk.simple.weibo.util.Tools;
 
 import java.io.File;
 
@@ -50,8 +51,8 @@ public class ShowImageActivity extends AppCompatActivity {
                 .downloadOnly(new SimpleTarget<File>() {
                     @Override
                     public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-                        BitmapFactory.Options options = getOptions(resource);
-                        DisplayMetrics metrics = getDisplayMetrics(ShowImageActivity.this);
+                        BitmapFactory.Options options = Tools.getOptions(resource);
+                        DisplayMetrics metrics = Tools.getDisplayMetrics(ShowImageActivity.this);
                         float width = metrics.widthPixels;
                         float height = Math.round(options.outHeight * (width / options.outWidth));
                         Glide.with(ShowImageActivity.this)
@@ -70,33 +71,6 @@ public class ShowImageActivity extends AppCompatActivity {
         return intent;
     }
 
-    /**
-     * 得到图片的宽和高
-     *
-     * @param resource
-     * @return
-     */
-    @NonNull
-    private BitmapFactory.Options getOptions(File resource) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(resource.getAbsolutePath(), options);
-        return options;
-    }
-
-
-    /**
-     * 得到屏幕宽和高
-     *
-     * @return
-     */
-    @NonNull
-    private DisplayMetrics getDisplayMetrics(Context context) {
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        final DisplayMetrics metrics = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(metrics);
-        return metrics;
-    }
 
     @OnClick(R.id.activity_show_img_close)
     public void onClick() {

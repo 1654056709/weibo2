@@ -14,6 +14,7 @@
         android:theme="@style/NoActionBar">
         <activity
             android:name=".ui.activity.LoadActivity"
+            android:screenOrientation="portrait"
 
             android:theme="@style/LoadActivityTheme">
             <intent-filter>
@@ -33,6 +34,7 @@
         <activity
             android:name=".ui.activity.LoginActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             >
         </activity>
 

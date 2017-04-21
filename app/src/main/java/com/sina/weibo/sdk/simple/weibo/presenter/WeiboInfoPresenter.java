@@ -90,7 +90,7 @@ public class WeiboInfoPresenter implements Presenter {
                         }, new Action1<Throwable>() {
                             @Override
                             public void call(Throwable throwable) {
-                                errorHint();
+                                Logger.d(throwable.getMessage());
                             }
                         })
         );
@@ -127,7 +127,6 @@ public class WeiboInfoPresenter implements Presenter {
                                     @Override
                                     public void call(Throwable throwable) {
                                         Logger.d(throwable.getMessage());
-                                        errorHint();
                                     }
                                 }
                         )
@@ -152,7 +151,7 @@ public class WeiboInfoPresenter implements Presenter {
                         try {
                             CommonWeiboInfo commonWeiboInfo = gson.fromJson(response.body(), CommonWeiboInfo.class);
                             Logger.d(commonWeiboInfo.getStatuses().get(0).getUser().getName());
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             Logger.d(e.getMessage());
                         }
                     }

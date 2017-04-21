@@ -10,12 +10,15 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.renderscript.ScriptGroup;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -28,6 +31,7 @@ import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -264,5 +268,32 @@ public class Tools {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         return baos.toByteArray();
+    }
+
+    /**
+     * 得到屏幕宽和高
+     *
+     * @return
+     */
+    @NonNull
+    public static DisplayMetrics getDisplayMetrics(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        final DisplayMetrics metrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        return metrics;
+    }
+
+    /**
+     * 得到图片的宽和高
+     *
+     * @param resource
+     * @return
+     */
+    @NonNull
+    public static BitmapFactory.Options getOptions(File resource) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(resource.getAbsolutePath(), options);
+        return options;
     }
 }
