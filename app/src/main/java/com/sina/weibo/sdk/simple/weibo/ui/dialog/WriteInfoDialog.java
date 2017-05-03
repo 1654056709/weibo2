@@ -2,7 +2,6 @@ package com.sina.weibo.sdk.simple.weibo.ui.dialog;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -20,8 +19,6 @@ import android.widget.TextView;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
-import com.sina.weibo.sdk.simple.weibo.adapter.WeiboHolder;
-import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
 import com.sina.weibo.sdk.simple.weibo.model.CommonComment;
 import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.CommentPresenter;
@@ -30,8 +27,6 @@ import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
 import com.sina.weibo.sdk.simple.weibo.view.CommentInfoView;
 import com.sina.weibo.sdk.simple.weibo.view.UpdateWeiboInfoView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

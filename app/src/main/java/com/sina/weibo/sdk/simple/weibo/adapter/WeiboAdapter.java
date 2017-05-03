@@ -9,18 +9,12 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.simple.weibo.R;
+import com.sina.weibo.sdk.simple.weibo.adapter.holder.WeiboHolder;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * RecyclerView的Adapter

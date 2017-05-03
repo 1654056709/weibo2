@@ -105,6 +105,7 @@ public class HomeFragment extends Fragment {
     private WeiboAdapter mWeiboAdapter;
     private PopupWindow mPopupWindow;
     private List<String> mDataList;
+    private boolean mRefresh;
 
 
     public HomeFragment() {
@@ -118,6 +119,7 @@ public class HomeFragment extends Fragment {
         homeFragment.setArguments(args);
         return homeFragment;
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -189,7 +191,7 @@ public class HomeFragment extends Fragment {
             mFragmentHomeUserName.setText(userInfo.getUserName());
             mFragmentHomeUserDesc.setText(userInfo.getDescription());
 
-            //第一次自动加载数据
+            //第一次加载刷新数据
             mSwipeToLoadLayout.setRefreshing(true);
 
             //上拉刷新
@@ -243,6 +245,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
+                Tools.quitProcess();
             }
         });
 
@@ -404,6 +407,7 @@ public class HomeFragment extends Fragment {
                     Logger.d(errorMsg);
                 }
             });
+            mRefresh = true;
         }
     }
 

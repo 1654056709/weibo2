@@ -27,7 +27,6 @@ public class CommentPresenter implements Presenter {
     private CommentInfoView mCommentInfoView;
     private DataManager mDataManager;
     private CompositeSubscription mCompositeSubscription;
-
     public CommentPresenter(Context context) {
         mContext = context;
     }

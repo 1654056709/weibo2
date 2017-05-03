@@ -50,8 +50,7 @@ import butterknife.Unbinder;
  * 公共微博信息
  */
 public class PublicTimeLineFragment extends Fragment {
-
-
+    
     Unbinder unbinder;
     private static int sCount = 10;
     @BindView(R.id.title_bar_title)

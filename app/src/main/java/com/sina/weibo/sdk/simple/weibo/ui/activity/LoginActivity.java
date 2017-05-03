@@ -96,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                Tools.quitProcess();
             }
         });
 
@@ -124,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                 //更新视图
                 updateUserUI(userInfo);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -193,7 +195,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param userInfo
      */
     private void updateUserUI(UserInfo userInfo) {
-        mUserInfoNameSpinner.setSelection((int) (userInfo.get_id() - 1),true);
+        mUserInfoNameSpinner.setSelection((int) (userInfo.get_id() - 1), true);
         mSpinnerAdapter.notifyDataSetChanged();
 
         Glide.with(LoginActivity.this)

@@ -42,7 +42,6 @@ import butterknife.Unbinder;
  */
 public class UserFansFragment extends Fragment {
 
-
     @BindView(R.id.title_bar_title)
     TextView mTitleBarTitle;
     @BindView(R.id.title_bar_write_image_view)
@@ -87,6 +86,8 @@ public class UserFansFragment extends Fragment {
                 getActivity().finish();
             }
         });
+        mTitleBarTitle.setText("粉丝列表");
+
         mSwipeTarget.setLayoutManager(new LinearLayoutManager(getActivity()));
         mUsersBeanList = new ArrayList<>();
         mUserFriendsAdapter = new UserFriendsAdapter(getActivity(), mUsersBeanList);
@@ -118,15 +119,6 @@ public class UserFansFragment extends Fragment {
         return view;
     }
 
-    private void initToobar() {
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -148,12 +140,7 @@ public class UserFansFragment extends Fragment {
             @Override
             public void onSuccess(CommonFriendsInfo commonFriendsInfo) {
                 List<CommonFriendsInfo.UsersBean> usersBeanList = commonFriendsInfo.getUsers();
-                mUsersBeanList.clear();
-                mUsersBeanList.addAll(usersBeanList);
-                mUserFriendsAdapter.notifyDataSetChanged();
-                mNextCursor = commonFriendsInfo.getNext_cursor();
-                mPreCursor = commonFriendsInfo.getPrevious_cursor();
-                Tools.initTitle(mNextCursor, commonFriendsInfo.getTotal_number(), mTitleBarTitle);
+                loadData(commonFriendsInfo, usersBeanList);
                 mSwipeToLoadLayout.setLoadingMore(false);
                 Log.d(PublicTimeLineActivity.TAG, mPreCursor + "---" + mNextCursor);
             }
@@ -179,15 +166,9 @@ public class UserFansFragment extends Fragment {
             @Override
             public void onSuccess(CommonFriendsInfo commonFriendsInfo) {
                 List<CommonFriendsInfo.UsersBean> usersBeanList = commonFriendsInfo.getUsers();
-                mUsersBeanList.clear();
-                mUsersBeanList.addAll(usersBeanList);
-                mUserFriendsAdapter.notifyDataSetChanged();
-                mNextCursor = commonFriendsInfo.getNext_cursor();
-                mPreCursor = commonFriendsInfo.getPrevious_cursor();
-                Tools.initTitle(mNextCursor, commonFriendsInfo.getTotal_number(), mTitleBarTitle);
+                loadData(commonFriendsInfo, usersBeanList);
                 Tools.showEmptyView(mEmptyView, mSwipeToLoadLayout, mSwipeTarget);
                 mSwipeToLoadLayout.setRefreshing(false);
-
             }
 
             @Override
@@ -197,5 +178,12 @@ public class UserFansFragment extends Fragment {
         });
     }
 
-
+    private void loadData(CommonFriendsInfo commonFriendsInfo, List<CommonFriendsInfo.UsersBean> usersBeanList) {
+        mUsersBeanList.clear();
+        mUsersBeanList.addAll(usersBeanList);
+        mUserFriendsAdapter.notifyDataSetChanged();
+//        mNextCursor = commonFriendsInfo.getNext_cursor();
+//        mPreCursor = commonFriendsInfo.getPrevious_cursor();
+//        Tools.initTitle(mNextCursor, commonFriendsInfo.getTotal_number(), mTitleBarTitle);
+    }
 }

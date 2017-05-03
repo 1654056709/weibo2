@@ -47,8 +47,7 @@
 
     <style name="NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="ButtonStyle" parent="@android:style/Widget.Button">
-        <item name="android:background">@android:color/holo_blue_light</item>
+    <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="android:textColor">@android:color/white</item>
     </style>
 

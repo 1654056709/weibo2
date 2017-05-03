@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Process;
 import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +26,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.LoadActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
@@ -295,5 +297,14 @@ public class Tools {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(resource.getAbsolutePath(), options);
         return options;
+    }
+
+
+    /**
+     * 关闭当前进程
+     */
+    public static void quitProcess() {
+        int pid = Process.myPid();
+        Process.killProcess(pid);
     }
 }

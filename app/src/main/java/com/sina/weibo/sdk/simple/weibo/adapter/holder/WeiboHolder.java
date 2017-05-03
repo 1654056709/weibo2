@@ -1,4 +1,4 @@
-package com.sina.weibo.sdk.simple.weibo.adapter;
+package com.sina.weibo.sdk.simple.weibo.adapter.holder;
 
 import android.app.usage.UsageEvents;
 import android.content.Context;

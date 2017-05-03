@@ -28,7 +28,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UserFriendsWbActivity extends AppCompatActivity {
-
     @BindView(R.id.title_bar_title)
     TextView mTitleBarTitle;
     @BindView(R.id.title_bar_write_image_view)
@@ -60,8 +59,9 @@ public class UserFriendsWbActivity extends AppCompatActivity {
             }
         });
 
-        Logger.d(mUserBean.getUrl());
+
         mActivityUserFriendsWebShow.loadUrl(mUserBean.getUrl());
+        Logger.d(mUserBean.getUrl());
 
 
         mActivityUserFriendsWebShow.setWebChromeClient(new WebChromeClient() {
@@ -75,6 +75,8 @@ public class UserFriendsWbActivity extends AppCompatActivity {
                 }
             }
         });
+
+
         mActivityUserFriendsWebShow.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -82,6 +84,7 @@ public class UserFriendsWbActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         WebSettings settings = mActivityUserFriendsWebShow.getSettings();
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         settings.setJavaScriptEnabled(true);
@@ -107,6 +110,6 @@ public class UserFriendsWbActivity extends AppCompatActivity {
             mActivityUserFriendsWebShow.goBack();
             return true;
         }
-        return super.onKeyDown(keyCode,event);
+        return super.onKeyDown(keyCode, event);
     }
 }

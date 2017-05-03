@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
@@ -68,6 +69,7 @@ public class UserFriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_friends);
         ButterKnife.bind(this);
+
         mTitleBarWriteImageView.setVisibility(View.GONE);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +77,8 @@ public class UserFriendsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        mTitleBarTitle.setText("关注用户列表");
         mSwipeTarget.setLayoutManager(new LinearLayoutManager(this));
         mUsersBeanList = new ArrayList<>();
         mUserFriendsAdapter = new UserFriendsAdapter(this, mUsersBeanList);
@@ -112,15 +116,8 @@ public class UserFriendsActivity extends AppCompatActivity {
         mUserFriendsPresenter.onAttachView(new UserFriendsInfoView() {
             @Override
             public void onSuccess(CommonFriendsInfo commonFriendsInfo) {
-                List<CommonFriendsInfo.UsersBean> usersBeanList = commonFriendsInfo.getUsers();
-                mUsersBeanList.clear();
-                mUsersBeanList.addAll(usersBeanList);
-                mUserFriendsAdapter.notifyDataSetChanged();
-                mNextCursor = commonFriendsInfo.getNext_cursor();
-                mPreCursor = commonFriendsInfo.getPrevious_cursor();
-                Tools.initTitle(mNextCursor, commonFriendsInfo.getTotal_number(), mTitleBarTitle);
+                loadData(commonFriendsInfo);
                 mSwipeToLoadLayout.setLoadingMore(false);
-                Log.d(PublicTimeLineActivity.TAG, mPreCursor + "---" + mNextCursor);
             }
 
             @Override
@@ -143,16 +140,9 @@ public class UserFriendsActivity extends AppCompatActivity {
         mUserFriendsPresenter.onAttachView(new UserFriendsInfoView() {
             @Override
             public void onSuccess(CommonFriendsInfo commonFriendsInfo) {
-                List<CommonFriendsInfo.UsersBean> usersBeanList = commonFriendsInfo.getUsers();
-                mUsersBeanList.clear();
-                mUsersBeanList.addAll(usersBeanList);
-                mUserFriendsAdapter.notifyDataSetChanged();
-                mNextCursor = commonFriendsInfo.getNext_cursor();
-                mPreCursor = commonFriendsInfo.getPrevious_cursor();
-                Tools.initTitle(mNextCursor, commonFriendsInfo.getTotal_number(), mTitleBarTitle);
+                loadData(commonFriendsInfo);
                 Tools.showEmptyView(mEmptyView, mSwipeToLoadLayout, mSwipeTarget);
                 mSwipeToLoadLayout.setRefreshing(false);
-
             }
 
             @Override
@@ -160,6 +150,22 @@ public class UserFriendsActivity extends AppCompatActivity {
                 Log.d(PublicTimeLineActivity.TAG, errorMsg);
             }
         });
+    }
+
+
+    /**
+     * 加载数据
+     *
+     * @param commonFriendsInfo
+     */
+    private void loadData(CommonFriendsInfo commonFriendsInfo) {
+        List<CommonFriendsInfo.UsersBean> usersBeanList = commonFriendsInfo.getUsers();
+        mUsersBeanList.clear();
+        mUsersBeanList.addAll(usersBeanList);
+        mUserFriendsAdapter.notifyDataSetChanged();
+//        mNextCursor = commonFriendsInfo.getNext_cursor();
+//        mPreCursor = commonFriendsInfo.getPrevious_cursor();
+//        Tools.initTitle(mNextCursor, commonFriendsInfo.getTotal_number(), mTitleBarTitle);
     }
 
     @Override
