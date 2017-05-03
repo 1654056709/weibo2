@@ -65,6 +65,7 @@ public class ShowImageActivity extends AppCompatActivity {
                 });
     }
 
+
     public static Intent newIntent(Context context, String imgUrl) {
         Intent intent = new Intent(context, ShowImageActivity.class);
         intent.putExtra(IMG_URL, imgUrl);

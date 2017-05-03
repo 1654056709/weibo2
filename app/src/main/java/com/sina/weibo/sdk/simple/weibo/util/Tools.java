@@ -5,40 +5,53 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Process;
-import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.format.DateUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.URLSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.GridView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.orhanobut.logger.Logger;
+import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
-import com.sina.weibo.sdk.simple.weibo.ui.activity.LoadActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.dialog.WriteInfoDialog;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by John on 2017/3/21.
@@ -307,4 +320,69 @@ public class Tools {
         int pid = Process.myPid();
         Process.killProcess(pid);
     }
+
+    public static void setListViewHeightBasedOnChildren(GridView listView) {
+        // 获取listview的adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        // 固定列宽，有多少列
+        int col = 3;// listView.getNumColumns();
+        int totalHeight = 0;
+        int totalWidth = 0;
+        // i每次加4，相当于listAdapter.getCount()小于等于4时 循环一次，计算一次item的高度，
+        // listAdapter.getCount()小于等于8时计算两次高度相加
+        for (int i = 0; i < listAdapter.getCount(); i += col) {
+            // 获取listview的每一个item
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            // 获取item的高度和
+            totalHeight += listItem.getMeasuredHeight();
+            if (totalWidth == 0) {
+                totalWidth = 3 * listItem.getMeasuredWidth();
+            }
+        }
+
+        // 获取listview的布局参数
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        // 设置高度
+        params.height = totalHeight;
+        params.width = totalWidth;
+        // 设置参数
+        listView.setLayoutParams(params);
+    }
+
+    public static void getNewContent(final Context context, final String content, TextView textView) {
+        String regex = "(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?";
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        Pattern p = Pattern.compile(regex);
+        Matcher matcher = p.matcher(content);
+
+        String[] urls = content.split(regex);
+        if (urls.length > 0) {
+            for (int i = 0; i < urls.length; i++) {
+                builder.append(urls[i]);
+                if (matcher.find()) {
+                    final String url = matcher.group(0);
+                    final SpannableString spannableString = new SpannableString(url);
+                    spannableString.setSpan(new ClickableSpan() {
+                        @Override
+                        public void onClick(View widget) {
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_VIEW);
+                            Uri uri = Uri.parse(url.replaceAll("[\\s]+", ""));
+                            intent.setData(uri);
+                            context.startActivity(intent);
+                        }
+                    }, 0, url.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    spannableString.setSpan(new ForegroundColorSpan(Color.BLUE), 0, url.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.append(spannableString);
+                }
+            }
+            textView.setText(builder);
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+    }
 }
+

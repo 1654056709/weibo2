@@ -1,16 +1,30 @@
 package com.sina.weibo.sdk.simple.weibo.model;
 
+import android.hardware.usb.UsbRequest;
+import android.os.Looper;
 import android.test.suitebuilder.TestSuiteBuilder;
 
+import com.google.gson.JsonArray;
+import com.google.gson.internal.LinkedTreeMap;
+import com.orhanobut.logger.Logger;
+import com.sina.weibo.sdk.simple.weibo.util.Tools;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.locks.ReadWriteLock;
 
 /**
  * Created by John on 2017/3/29.
  */
 
 public class WeiboInfo {
-
     // 文章id
     private String mWeiboId;
     // 文章内容
@@ -27,6 +41,8 @@ public class WeiboInfo {
     private Boolean mIsHaveImg;
     //显示图片内容
     private String mImageUrl;
+    //所有图片
+    private List<String> mImgs;
     //图片源地址
     private String mOriginPicUrl;
     //喜欢
@@ -35,6 +51,14 @@ public class WeiboInfo {
     private long mComment;
     //转发
     private long mTranspond;
+
+    public void setImgs(List<String> imgs) {
+        mImgs = imgs;
+    }
+
+    public List<String> getImgs() {
+        return mImgs;
+    }
 
     public long getFavorite() {
         return mFavorite;
@@ -160,6 +184,7 @@ public class WeiboInfo {
         //内容
         String content = null;
         String originPic = null;
+        List<LinkedTreeMap<String, String>> imgs = null;
 
         for (CommonWeiboInfo.StatusesBean statusesBean : statusesBeen) {
 
@@ -181,25 +206,43 @@ public class WeiboInfo {
                 isHaveimage = retweetedStatus.getThumbnail_pic() != null ? true : false;
                 imgUrl = retweetedStatus.getBmiddle_pic();
                 originPic = retweetedStatus.getBmiddle_pic();
+                imgs = (List<LinkedTreeMap<String, String>>) retweetedStatus.getPic_urls();
+
             } else {
                 content = statusesBean.getText();
                 isHaveimage = statusesBean.getThumbnail_pic() != null ? true : false;
                 imgUrl = statusesBean.getBmiddle_pic();
                 originPic = statusesBean.getBmiddle_pic();
+                imgs = (List<LinkedTreeMap<String, String>>) statusesBean.getPic_urls();
             }
+
             weibo.setContent(content);
             weibo.setHaveImg(isHaveimage);
             weibo.setImageUrl(imgUrl);
             weibo.setOriginPicUrl(originPic);
 
-
             //用户头像
             weibo.setUserHead(statusesBean.getUser().getAvatar_hd());
             //用户姓名
             weibo.setUserName(statusesBean.getUser().getName());
+            //多图
+            weibo.setImgs(parseImgs(null, imgs));
             weibos.add(weibo);
         }
         return weibos;
     }
 
+    private static List<String> parseImgs(String baseUrl, List<LinkedTreeMap<String, String>> linkedTreeMaps) {
+        List<String> imgs = new ArrayList<>();
+        for (int i = 0; i < linkedTreeMaps.size(); i++) {
+            LinkedTreeMap<String, String> linkedTreeMap = linkedTreeMaps.get(i);
+            Set<Map.Entry<String, String>> entrySet = linkedTreeMap.entrySet();
+            Iterator<Map.Entry<String, String>> iterator = entrySet.iterator();
+            while (iterator.hasNext()) {
+                String url = iterator.next().getValue();
+                imgs.add(url);
+            }
+        }
+        return imgs;
+    }
 }
