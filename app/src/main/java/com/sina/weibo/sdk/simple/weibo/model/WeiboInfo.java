@@ -1,27 +1,16 @@
 package com.sina.weibo.sdk.simple.weibo.model;
 
-import android.hardware.usb.UsbRequest;
-import android.os.Looper;
-import android.test.suitebuilder.TestSuiteBuilder;
-
-import com.google.gson.JsonArray;
 import com.google.gson.internal.LinkedTreeMap;
-import com.orhanobut.logger.Logger;
-import com.sina.weibo.sdk.simple.weibo.util.Tools;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
 
 /**
  * Created by John on 2017/3/29.
+ * 根据CommonWeiboInfo抽出部分数据构成WeiboInfo实体
  */
 
 public class WeiboInfo {
@@ -51,6 +40,16 @@ public class WeiboInfo {
     private long mComment;
     //转发
     private long mTranspond;
+    //微博地址
+    private String mProfileUrl;
+
+    public String getProfileUrl() {
+        return mProfileUrl;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        mProfileUrl = profileUrl;
+    }
 
     public void setImgs(List<String> imgs) {
         mImgs = imgs;
@@ -199,6 +198,8 @@ public class WeiboInfo {
             weibo.setTranspond(statusesBean.getReposts_count());
             //表态
             weibo.setFavorite(statusesBean.getAttitudes_count());
+            //微博地址
+            weibo.setProfileUrl(statusesBean.getUser().getProfile_url());
 
             if (statusesBean.getRetweeted_status() != null) {
                 retweetedStatus = statusesBean.getRetweeted_status();
@@ -226,23 +227,34 @@ public class WeiboInfo {
             //用户姓名
             weibo.setUserName(statusesBean.getUser().getName());
             //多图
-            weibo.setImgs(parseImgs(null, imgs));
+            weibo.setImgs(parseImgs(imgs));
+
             weibos.add(weibo);
         }
         return weibos;
     }
 
-    private static List<String> parseImgs(String baseUrl, List<LinkedTreeMap<String, String>> linkedTreeMaps) {
+
+    /**
+     * 解析多图片地址
+     *
+     * @param linkedTreeMaps
+     * @return
+     */
+    private static List<String> parseImgs(List<LinkedTreeMap<String, String>> linkedTreeMaps) {
         List<String> imgs = new ArrayList<>();
-        for (int i = 0; i < linkedTreeMaps.size(); i++) {
-            LinkedTreeMap<String, String> linkedTreeMap = linkedTreeMaps.get(i);
-            Set<Map.Entry<String, String>> entrySet = linkedTreeMap.entrySet();
-            Iterator<Map.Entry<String, String>> iterator = entrySet.iterator();
-            while (iterator.hasNext()) {
-                String url = iterator.next().getValue();
-                imgs.add(url);
+        if (linkedTreeMaps != null) {
+            for (int i = 0; i < linkedTreeMaps.size(); i++) {
+                LinkedTreeMap<String, String> linkedTreeMap = linkedTreeMaps.get(i);
+                Set<Map.Entry<String, String>> entrySet = linkedTreeMap.entrySet();
+                Iterator<Map.Entry<String, String>> iterator = entrySet.iterator();
+                while (iterator.hasNext()) {
+                    String url = iterator.next().getValue();
+                    imgs.add(url);
+                }
             }
+            return imgs;
         }
-        return imgs;
+        return null;
     }
 }

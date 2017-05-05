@@ -1,6 +1,7 @@
 package com.sina.weibo.sdk.simple.weibo.ui.fragment;
 
 
+import android.app.ActivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
@@ -65,8 +67,6 @@ public class UserFansFragment extends Fragment {
     private Oauth2AccessToken mAccessToken;
     List<CommonFriendsInfo.UsersBean> mUsersBeanList;
     private UserFriendsAdapter mUserFriendsAdapter;
-    private int mNextCursor;
-    private int mPreCursor;
     private UserFriendsPresenter mUserFriendsPresenter;
 
     public UserFansFragment() {
@@ -79,27 +79,25 @@ public class UserFansFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_fans, container, false);
         unbinder = ButterKnife.bind(this, view);
-        mTitleBarWriteImageView.setVisibility(View.GONE);
+        //加载数据
+        initData();
+        //加载监听
+        initListener();
+        return view;
+    }
+
+
+    /**
+     * 初始化监听
+     */
+    private void initListener() {
+
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
             }
         });
-        mTitleBarTitle.setText("粉丝列表");
-
-        mSwipeTarget.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mUsersBeanList = new ArrayList<>();
-        mUserFriendsAdapter = new UserFriendsAdapter(getActivity(), mUsersBeanList);
-        mSwipeTarget.setAdapter(mUserFriendsAdapter);
-
-        mUserFriendsPresenter = new UserFriendsPresenter(getActivity());
-        mUserFriendsPresenter.onCreate();
-
-        mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
-        if (mAccessToken.isSessionValid()) {
-            mSwipeToLoadLayout.setRefreshing(true);
-        }
 
         mSwipeToLoadLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -116,18 +114,28 @@ public class UserFansFragment extends Fragment {
         });
 
 
-        return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-        mUserFriendsPresenter.onStop();
-    }
 
-    @OnClick(R.id.title_bar_write_image_view)
-    public void onClick() {
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        mTitleBarWriteImageView.setVisibility(View.GONE);
+        mTitleBarTitle.setText(getResources().getString(R.string.user_fans_list));
+
+        mSwipeTarget.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mUsersBeanList = new ArrayList<>();
+        mUserFriendsAdapter = new UserFriendsAdapter(getActivity(), mUsersBeanList);
+        mSwipeTarget.setAdapter(mUserFriendsAdapter);
+
+        mUserFriendsPresenter = new UserFriendsPresenter(getActivity());
+        mUserFriendsPresenter.onCreate();
+
+        mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
+        if (mAccessToken.isSessionValid()) {
+            mSwipeToLoadLayout.setRefreshing(true);
+        }
     }
 
 
@@ -135,19 +143,18 @@ public class UserFansFragment extends Fragment {
      * 加载更多数据
      */
     private void loadMoreData() {
-        mUserFriendsPresenter.getUserFansInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), mNextCursor);
+        mUserFriendsPresenter.getUserFansInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), 0);
         mUserFriendsPresenter.onAttachView(new UserFriendsInfoView() {
             @Override
             public void onSuccess(CommonFriendsInfo commonFriendsInfo) {
                 List<CommonFriendsInfo.UsersBean> usersBeanList = commonFriendsInfo.getUsers();
-                loadData(commonFriendsInfo, usersBeanList);
+                loadData(usersBeanList);
                 mSwipeToLoadLayout.setLoadingMore(false);
-                Log.d(PublicTimeLineActivity.TAG, mPreCursor + "---" + mNextCursor);
             }
 
             @Override
             public void onFailure(String errorMsg) {
-                Log.d(PublicTimeLineActivity.TAG, errorMsg);
+                Logger.d(errorMsg);
             }
         });
     }
@@ -157,33 +164,41 @@ public class UserFansFragment extends Fragment {
      * 刷新数据
      */
     private void refreshData() {
-        int preCursor = 0;
-        if (mPreCursor != 0) {
-            preCursor = mPreCursor - 50;
-        }
-        mUserFriendsPresenter.getUserFansInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), preCursor);
+        mUserFriendsPresenter.getUserFansInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), 0);
         mUserFriendsPresenter.onAttachView(new UserFriendsInfoView() {
             @Override
             public void onSuccess(CommonFriendsInfo commonFriendsInfo) {
                 List<CommonFriendsInfo.UsersBean> usersBeanList = commonFriendsInfo.getUsers();
-                loadData(commonFriendsInfo, usersBeanList);
+                loadData(usersBeanList);
                 Tools.showEmptyView(mEmptyView, mSwipeToLoadLayout, mSwipeTarget);
                 mSwipeToLoadLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(String errorMsg) {
-                Log.d(PublicTimeLineActivity.TAG, errorMsg);
+                Logger.d(errorMsg);
             }
         });
     }
 
-    private void loadData(CommonFriendsInfo commonFriendsInfo, List<CommonFriendsInfo.UsersBean> usersBeanList) {
-        mUsersBeanList.clear();
-        mUsersBeanList.addAll(usersBeanList);
-        mUserFriendsAdapter.notifyDataSetChanged();
-//        mNextCursor = commonFriendsInfo.getNext_cursor();
-//        mPreCursor = commonFriendsInfo.getPrevious_cursor();
-//        Tools.initTitle(mNextCursor, commonFriendsInfo.getTotal_number(), mTitleBarTitle);
+
+    //加载数据
+    private void loadData(final List<CommonFriendsInfo.UsersBean> usersBeanList) {
+        Tools.decideData(getActivity(), usersBeanList, new Tools.LoadMoreCallback() {
+            @Override
+            public void loadMoreData() {
+                mUsersBeanList.clear();
+                mUsersBeanList.addAll(usersBeanList);
+                mUserFriendsAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        mUserFriendsPresenter.onStop();
     }
 }

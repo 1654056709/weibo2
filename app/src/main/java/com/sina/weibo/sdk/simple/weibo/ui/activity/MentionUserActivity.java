@@ -27,7 +27,6 @@ import butterknife.OnClick;
 
 public class MentionUserActivity extends AppCompatActivity {
 
-
     @BindView(R.id.title_bar_title)
     TextView mTitleBarTitle;
     @BindView(R.id.toolbar)
@@ -36,6 +35,7 @@ public class MentionUserActivity extends AppCompatActivity {
     TabLayout mActivityMentionUserTabLayout;
     @BindView(R.id.activity_mention_user_viewpage)
     ViewPager mActivityMentionUserViewpage;
+
     private List<String> mTitles;
     private List<Fragment> mFragments;
     private CommentViewPagerAdapter mCommentViewPagerAdapter;
@@ -45,15 +45,30 @@ public class MentionUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mention_user);
         ButterKnife.bind(this);
+        //加载Toolbar
         initToolbar();
+        //加载TabLayout
         initTabLayout();
+        //加载ViewPager
         initViewPager();
+        //加载数据
+        initData();
+    }
+
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
         mCommentViewPagerAdapter = new CommentViewPagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
         mActivityMentionUserViewpage.setAdapter(mCommentViewPagerAdapter);
         mActivityMentionUserTabLayout.setupWithViewPager(mActivityMentionUserViewpage);
-        mTitleBarTitle.setText("@我");
+        mTitleBarTitle.setText(getResources().getText(R.string.at_me));
     }
 
+    /**
+     * 初始化Toolbar
+     */
     private void initToolbar() {
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +78,9 @@ public class MentionUserActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化ViewPager
+     */
     private void initViewPager() {
         mFragments = new ArrayList<>();
         mFragments.add(new MentionUserWieboFragment());

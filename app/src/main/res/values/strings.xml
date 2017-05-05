@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">weibo</string>
+    <string name="app_name">简单一点</string>
     <string name="network_hint">网络提示</string>
     <string name="have_not_network">当前没有网络连接</string>
     <string name="ok">确定</string>
@@ -19,5 +19,14 @@
         <item>广场</item>
         <item>写微博</item>
     </string-array>
-    <string name="title_activity_user_friends_wb">UserFriendsWbActivity</string>
+    <string name="save_image">保存图片</string>
+    <string name="mention_user_list">关注用户列表</string>
+    <string name="user_fans_list">粉丝列表</string>
+    <string name="weibo_comment_count">评论(%1$s)</string>
+    <string name="weibo_transpond_count">转发(%1$s)</string>
+    <string name="weibo_favorite_count">赞(%1$s)</string>
+    <string name="personal_weibo">个人微博</string>
+    <string name="at_me">\@我</string>
+    <string name="public_weibo">公共微博</string>
+    <string name="no_more_data">没有数据了</string>
 </resources>

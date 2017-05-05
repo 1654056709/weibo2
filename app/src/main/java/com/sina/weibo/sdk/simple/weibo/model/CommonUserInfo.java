@@ -11,60 +11,6 @@ import java.util.List;
  */
 
 public class CommonUserInfo {
-    /**
-     * id : 3903514164
-     * idstr : 3903514164
-     * class : 1
-     * screen_name : 如果爱-就勇敢爱
-     * name : 如果爱-就勇敢爱
-     * province : 100
-     * city : 1000
-     * location : 其他
-     * description : 做真的自我
-     * url :
-     * profile_image_url : http://tva1.sinaimg.cn/crop.0.0.180.180.50/e8aae634jw8eakgk3uvxlj2050050weg.jpg
-     * cover_image_phone : http://ww1.sinaimg.cn/crop.0.0.640.640.640/549d0121tw1egm1kjly3jj20hs0hsq4f.jpg
-     * profile_url : u/3903514164
-     * domain :
-     * weihao :
-     * gender : m
-     * followers_count : 22
-     * friends_count : 209
-     * pagefriends_count : 1
-     * statuses_count : 113
-     * favourites_count : 17
-     * created_at : Thu Nov 14 12:54:49 +0800 2013
-     * following : false
-     * allow_all_act_msg : false
-     * geo_enabled : true
-     * verified : false
-     * verified_type : -1
-     * remark :
-     * insecurity : {"sexual_content":false}
-     * status : {"created_at":"Wed Nov 09 00:28:38 +0800 2016","id":4039697992575880,"mid":"4039697992575880","idstr":"4039697992575880","text":"#小米双11#小米商城狂欢，11月1日-11日惊喜送不停：① #小米Note2#线上独家首发，小米Mix等神秘新机开抢。② 四大重磅智能新品首发，全心生活态度。③ 爆品半价每天有，再有3000万红包等你拿！④ 智能明星产品特惠，全场... http://t.cn/RV1YlaR","textLength":227,"source_allowclick":0,"source_type":1,"source":"<a href=\"http://app.weibo.com/t/feed/cUcI1A\" rel=\"nofollow\">分享按钮<\/a>","favorited":false,"truncated":false,"in_reply_to_status_id":"","in_reply_to_user_id":"","in_reply_to_screen_name":"","pic_urls":[{"thumbnail_pic":"http://ww4.sinaimg.cn/thumbnail/e8aae634jw1f9l60mx292j20k00zk40v.jpg"}],"thumbnail_pic":"http://ww4.sinaimg.cn/thumbnail/e8aae634jw1f9l60mx292j20k00zk40v.jpg","bmiddle_pic":"http://ww4.sinaimg.cn/bmiddle/e8aae634jw1f9l60mx292j20k00zk40v.jpg","original_pic":"http://ww4.sinaimg.cn/large/e8aae634jw1f9l60mx292j20k00zk40v.jpg","geo":null,"reposts_count":0,"comments_count":0,"attitudes_count":0,"isLongText":false,"mlevel":0,
-     * "visible":{"type":0,"list_id":0},"biz_feature":0,"page_type":32,"hasActionTypeCard":0,"darwin_tags":[],"hot_weibo_tags":[],"text_tag_tips":[],"userType":0,"positive_recom_flag":0,"gif_ids":"","is_show_bulletin":2}
-     * ptype : 0
-     * allow_all_comment : true
-     * avatar_large : http://tva1.sinaimg.cn/crop.0.0.180.180.180/e8aae634jw8eakgk3uvxlj2050050weg.jpg
-     * avatar_hd : http://tva1.sinaimg.cn/crop.0.0.180.180.1024/e8aae634jw8eakgk3uvxlj2050050weg.jpg
-     * verified_reason :
-     * verified_trade :
-     * verified_reason_url :
-     * verified_source :
-     * verified_source_url :
-     * follow_me : false
-     * online_status : 0
-     * bi_followers_count : 8
-     * lang : zh-cn
-     * star : 0
-     * mbtype : 0
-     * mbrank : 0
-     * block_word : 0
-     * block_app : 0
-     * credit_score : 80
-     * user_ability : 0
-     * urank : 9
-     */
 
     private long id;
     private String idstr;
@@ -100,43 +46,7 @@ public class CommonUserInfo {
      */
 
     private InsecurityBean insecurity;
-    /**
-     * created_at : Wed Nov 09 00:28:38 +0800 2016
-     * id : 4039697992575880
-     * mid : 4039697992575880
-     * idstr : 4039697992575880
-     * text : #小米双11#小米商城狂欢，11月1日-11日惊喜送不停：① #小米Note2#线上独家首发，小米Mix等神秘新机开抢。② 四大重磅智能新品首发，全心生活态度。③ 爆品半价每天有，再有3000万红包等你拿！④ 智能明星产品特惠，全场... http://t.cn/RV1YlaR
-     * textLength : 227
-     * source_allowclick : 0
-     * source_type : 1
-     * source : <a href="http://app.weibo.com/t/feed/cUcI1A" rel="nofollow">分享按钮</a>
-     * favorited : false
-     * truncated : false
-     * in_reply_to_status_id :
-     * in_reply_to_user_id :
-     * in_reply_to_screen_name :
-     * pic_urls : [{"thumbnail_pic":"http://ww4.sinaimg.cn/thumbnail/e8aae634jw1f9l60mx292j20k00zk40v.jpg"}]
-     * thumbnail_pic : http://ww4.sinaimg.cn/thumbnail/e8aae634jw1f9l60mx292j20k00zk40v.jpg
-     * bmiddle_pic : http://ww4.sinaimg.cn/bmiddle/e8aae634jw1f9l60mx292j20k00zk40v.jpg
-     * original_pic : http://ww4.sinaimg.cn/large/e8aae634jw1f9l60mx292j20k00zk40v.jpg
-     * geo : null
-     * reposts_count : 0
-     * comments_count : 0
-     * attitudes_count : 0
-     * isLongText : false
-     * mlevel : 0
-     * visible : {"type":0,"list_id":0}
-     * biz_feature : 0
-     * page_type : 32
-     * hasActionTypeCard : 0
-     * darwin_tags : []
-     * hot_weibo_tags : []
-     * text_tag_tips : []
-     * userType : 0
-     * positive_recom_flag : 0
-     * gif_ids :
-     * is_show_bulletin : 2
-     */
+
 
     private StatusBean status;
     private int ptype;

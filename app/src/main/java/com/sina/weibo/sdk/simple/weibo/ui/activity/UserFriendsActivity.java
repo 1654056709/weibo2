@@ -3,6 +3,7 @@ package com.sina.weibo.sdk.simple.weibo.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,8 +40,6 @@ import butterknife.OnClick;
  * 用户所关注的用户信息列表
  */
 public class UserFriendsActivity extends AppCompatActivity {
-
-
     @BindView(R.id.title_bar_title)
     TextView mTitleBarTitle;
     @BindView(R.id.title_bar_write_image_view)
@@ -57,20 +56,28 @@ public class UserFriendsActivity extends AppCompatActivity {
     SwipeToLoadLayout mSwipeToLoadLayout;
     @BindView(R.id.empty_view)
     RelativeLayout mEmptyView;
+
     private UserFriendsPresenter mUserFriendsPresenter;
     private Oauth2AccessToken mAccessToken;
     List<CommonFriendsInfo.UsersBean> mUsersBeanList;
     private UserFriendsAdapter mUserFriendsAdapter;
-    private int mNextCursor;
-    private int mPreCursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_friends);
         ButterKnife.bind(this);
+        //加载数据
+        initData();
+        //记载监听
+        initListener();
+    }
 
-        mTitleBarWriteImageView.setVisibility(View.GONE);
+
+    /**
+     * 初始化相关监听
+     */
+    private void initListener() {
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +85,31 @@ public class UserFriendsActivity extends AppCompatActivity {
             }
         });
 
-        mTitleBarTitle.setText("关注用户列表");
+        //加载更多监听
+        mSwipeToLoadLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                loadMoreData();
+            }
+        });
+
+
+        //刷新监听
+        mSwipeToLoadLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
+    }
+
+    /**
+     * 初始化相关数据
+     */
+    private void initData() {
+        mTitleBarWriteImageView.setVisibility(View.GONE);
+        mTitleBarTitle.setText(getResources().getText(R.string.mention_user_list));
+
         mSwipeTarget.setLayoutManager(new LinearLayoutManager(this));
         mUsersBeanList = new ArrayList<>();
         mUserFriendsAdapter = new UserFriendsAdapter(this, mUsersBeanList);
@@ -91,31 +122,18 @@ public class UserFriendsActivity extends AppCompatActivity {
         if (mAccessToken.isSessionValid()) {
             mSwipeToLoadLayout.setRefreshing(true);
         }
-
-        mSwipeToLoadLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                loadMoreData();
-            }
-        });
-
-        mSwipeToLoadLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshData();
-            }
-        });
     }
 
 
     /**
-     * 加载更多数据
+     * 加载更多
      */
     private void loadMoreData() {
-        mUserFriendsPresenter.getUserFriendsInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), mNextCursor);
+        mUserFriendsPresenter.getUserFriendsInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), 0);
         mUserFriendsPresenter.onAttachView(new UserFriendsInfoView() {
             @Override
             public void onSuccess(CommonFriendsInfo commonFriendsInfo) {
+                Logger.d("next_cursor %d ", commonFriendsInfo.getNext_cursor());
                 loadData(commonFriendsInfo);
                 mSwipeToLoadLayout.setLoadingMore(false);
             }
@@ -127,16 +145,11 @@ public class UserFriendsActivity extends AppCompatActivity {
         });
     }
 
-
     /**
-     * 刷新数据
+     * 刷新
      */
     private void refreshData() {
-        int preCursor = 0;
-        if (mPreCursor != 0) {
-            preCursor = mPreCursor - 50;
-        }
-        mUserFriendsPresenter.getUserFriendsInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), preCursor);
+        mUserFriendsPresenter.getUserFriendsInfo(mAccessToken, Long.valueOf(mAccessToken.getUid()), 0);
         mUserFriendsPresenter.onAttachView(new UserFriendsInfoView() {
             @Override
             public void onSuccess(CommonFriendsInfo commonFriendsInfo) {
@@ -147,11 +160,10 @@ public class UserFriendsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String errorMsg) {
-                Log.d(PublicTimeLineActivity.TAG, errorMsg);
+                Logger.d(errorMsg);
             }
         });
     }
-
 
     /**
      * 加载数据
@@ -159,13 +171,15 @@ public class UserFriendsActivity extends AppCompatActivity {
      * @param commonFriendsInfo
      */
     private void loadData(CommonFriendsInfo commonFriendsInfo) {
-        List<CommonFriendsInfo.UsersBean> usersBeanList = commonFriendsInfo.getUsers();
-        mUsersBeanList.clear();
-        mUsersBeanList.addAll(usersBeanList);
-        mUserFriendsAdapter.notifyDataSetChanged();
-//        mNextCursor = commonFriendsInfo.getNext_cursor();
-//        mPreCursor = commonFriendsInfo.getPrevious_cursor();
-//        Tools.initTitle(mNextCursor, commonFriendsInfo.getTotal_number(), mTitleBarTitle);
+        final List<CommonFriendsInfo.UsersBean> usersBeanList = commonFriendsInfo.getUsers();
+        Tools.decideData(this, usersBeanList, new Tools.LoadMoreCallback() {
+            @Override
+            public void loadMoreData() {
+                mUsersBeanList.clear();
+                mUsersBeanList.addAll(usersBeanList);
+                mUserFriendsAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -179,10 +193,5 @@ public class UserFriendsActivity extends AppCompatActivity {
         Intent intent = new Intent(context, UserFriendsActivity.class);
         return intent;
     }
-
-    @OnClick(R.id.title_bar_write_image_view)
-    public void onClick() {
-    }
-
 
 }

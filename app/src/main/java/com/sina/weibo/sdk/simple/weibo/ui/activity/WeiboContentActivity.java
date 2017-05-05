@@ -32,6 +32,7 @@ public class WeiboContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weibo_content);
         Intent intent = getIntent();
+
         if (intent != null) {
             mWeiboId = intent.getLongExtra(WEIBO_ID, 0);
         }

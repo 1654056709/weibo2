@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
@@ -50,7 +51,7 @@ import butterknife.Unbinder;
  * 公共微博信息
  */
 public class PublicTimeLineFragment extends Fragment {
-    
+
     Unbinder unbinder;
     private static int sCount = 10;
     @BindView(R.id.title_bar_title)
@@ -91,8 +92,19 @@ public class PublicTimeLineFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.fragment_public_time_line, null);
         unbinder = ButterKnife.bind(this, view);
-        mTitleBarTitle.setText("公共微博");
-        mTitleBarWriteImageView.setVisibility(View.GONE);
+        //加载数据
+        initData();
+        //加载监听
+        initListener();
+
+        return view;
+    }
+
+
+    /**
+     * 初始化监听
+     */
+    private void initListener() {
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,18 +112,6 @@ public class PublicTimeLineFragment extends Fragment {
             }
         });
 
-        mWeiboInfos = new ArrayList<>();
-        mWeiboAdapter = new WeiboAdapter(getActivity(), mWeiboInfos);
-        mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mSwipeTarget.setLayoutManager(mLinearLayoutManager);
-        mSwipeTarget.setAdapter(mWeiboAdapter);
-
-        mWeiboInfoPresenter = new WeiboInfoPresenter(getActivity());
-        mWeiboInfoPresenter.onCreate();
-        mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
-        if (mAccessToken.isSessionValid()) {
-            mSwipeToLoadLayout.setRefreshing(true);
-        }
 
         mSwipeToLoadLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -126,8 +126,31 @@ public class PublicTimeLineFragment extends Fragment {
                 refreshData();
             }
         });
+    }
 
-        return view;
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        mTitleBarTitle.setText(getResources().getString(R.string.public_weibo));
+        mTitleBarWriteImageView.setVisibility(View.GONE);
+
+
+        mWeiboInfos = new ArrayList<>();
+        mWeiboAdapter = new WeiboAdapter(getActivity(), mWeiboInfos);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        mSwipeTarget.setLayoutManager(mLinearLayoutManager);
+        mSwipeTarget.setAdapter(mWeiboAdapter);
+
+        mWeiboInfoPresenter = new WeiboInfoPresenter(getActivity());
+        mWeiboInfoPresenter.onCreate();
+        mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
+        if (mAccessToken.isSessionValid()) {
+            mSwipeToLoadLayout.setRefreshing(true);
+        }
+
+
     }
 
     @Override
@@ -137,10 +160,6 @@ public class PublicTimeLineFragment extends Fragment {
         mWeiboInfoPresenter.onStop();
     }
 
-    @OnClick(R.id.title_bar_write_image_view)
-    public void onClick() {
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -148,7 +167,7 @@ public class PublicTimeLineFragment extends Fragment {
     }
 
     /**
-     * 下拉加载更多数据
+     * 加载更多
      */
     private void loadMoreData() {
         sCount += 10;
@@ -170,7 +189,7 @@ public class PublicTimeLineFragment extends Fragment {
 
             @Override
             public void onFailure(String errorMsg) {
-                Log.d(PublicTimeLineActivity.TAG, errorMsg + "---errorMsg");
+                Logger.d(errorMsg);
             }
         });
     }

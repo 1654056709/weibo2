@@ -14,6 +14,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by John on 2017/4/12.
+ * 评论Activity
  */
 
 public class CommentActivity extends BaseActivity {

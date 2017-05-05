@@ -7,33 +7,31 @@ package com.sina.weibo.sdk.simple.weibo.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.WifiEnterpriseConfig;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.gson.internal.LinkedTreeMap;
 import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
 import com.sina.weibo.sdk.simple.weibo.event.CommentEvent;
+import com.sina.weibo.sdk.simple.weibo.event.ImageEvent;
+import com.sina.weibo.sdk.simple.weibo.event.WeiboPublisherEvent;
 import com.sina.weibo.sdk.simple.weibo.model.UpdateWeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 import com.sina.weibo.sdk.simple.weibo.presenter.UpdateWeiboInfoPresenter;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.CommentActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.ShowImageActivity;
+import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFriendsWbActivity;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserTimeLineActivity;
-import com.sina.weibo.sdk.simple.weibo.util.DensityUtil;
 import com.sina.weibo.sdk.simple.weibo.util.TimeUtils;
 import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 import com.sina.weibo.sdk.simple.weibo.util.Tools;
@@ -48,8 +46,7 @@ import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
- * RecyclerView的Adapter
- * 将数据和对应视图数据绑定到一起
+ * 显示微博信息RecyclerView适配器
  */
 public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.WeiboHolder> {
     private List<WeiboInfo> mWeibos;
@@ -81,7 +78,6 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.WeiboHolder>
         notifyDataSetChanged();
     }
 
-
     /**
      * 编辑模式
      *
@@ -99,7 +95,7 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.WeiboHolder>
 
     @Override
     public void onBindViewHolder(WeiboHolder holder, int position) {
-        holder.bindWeibo(mWeibos.get(position), mType);
+        holder.bindData(mWeibos.get(position), mType);
     }
 
 
@@ -110,11 +106,7 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.WeiboHolder>
 
 
     /**
-     * Created by John on 2017/4/1.
-     * <p>
-     * RecyclerView的ViewHolder
-     * ViewHolder管理一个ItemView
-     * 1. 让ViewHolder为ItemView监听用户触摸事件
+     * ViewHolder
      */
     public class WeiboHolder extends RecyclerView.ViewHolder {
         private WeiboInfo mWeibo;
@@ -160,20 +152,20 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.WeiboHolder>
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //                Long weiboId = Long.valueOf(mWeibo.getWeiboId());
-                    //                mContext.startActivity(WeiboContentActivity.newIntent(mContext, weiboId));
-                    ToastUtil.showToasts(mContext, "您没有权限查看");
+                    UserFriendsWbActivity.sendShowUserFriendsWebEvent(mContext, new WeiboPublisherEvent(mWeibo.getProfileUrl(), mWeibo.getUserName()));
                 }
             });
 
 
-            //查看微博中图片
-//            mItemUserWeiboUserContentImage.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    mContext.startActivity(ShowImageActivity.newIntent(mContext, mWeibo.getOriginPicUrl()));
-//                }
-//            });
+            //到ShowImageActivity中显示图片
+            mItemUserWeiboUserContentImage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Logger.d(mWeibo.getOriginPicUrl());
+                    ImageEvent event = new ImageEvent(position, mWeibo.getImgs());
+                    ShowImageActivity.sendImageEvent(mContext, event);
+                }
+            });
 
 
             //转发微博
@@ -281,10 +273,36 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.WeiboHolder>
 
         }
 
-        public void bindWeibo(WeiboInfo weibo, String type) {
-            //        Logger.d("type====" + type);
+        /**
+         * 绑定数据
+         *
+         * @param weibo
+         * @param type
+         */
+        public void bindData(WeiboInfo weibo, String type) {
             //当前weibo对象
             mWeibo = weibo;
+            //判断是否删除微博（在个人微博管理中使用）
+            decideWhetherDelWeibo(type);
+            // 设置微博发布者信息
+            setContentPublisherInfo(weibo);
+            //设置日期
+            setWeiboDate(weibo);
+            //设置微博内容
+            setWeiboContent(weibo);
+            //设置微博内容图片
+            setWeiboContentImages(weibo);
+            //设置微博底部内容
+            setWeiboFooter(weibo);
+        }
+
+
+        /**
+         * 判断当前微博页面是否个人微博页面，如果是就可以进行管理
+         *
+         * @param type
+         */
+        private void decideWhetherDelWeibo(String type) {
             if (type != null) {
                 if (type.equals(UserTimeLineActivity.CANCEL)) {
                     mItemUserWeiboDelete.setVisibility(View.GONE);
@@ -297,36 +315,79 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.WeiboHolder>
                 mItemUserWeiboDelete.setVisibility(View.GONE);
                 mItemWeibo.setEnabled(true);
             }
+        }
 
+        /**
+         * 设置微博发布者信息
+         *
+         * @param weibo
+         */
+        private void setContentPublisherInfo(WeiboInfo weibo) {
             Glide.with(mContext)
                     .load(weibo.getUserHead())
                     .crossFade()
                     .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                     .into(mItemUserWeiboUserHead);
             mItemUserWeiboUserName.setText(weibo.getUserName());
-            //        mItemUserWeiboContentDate.setText(Tools.dateFormat(weibo.getDate()));
+        }
+
+        /**
+         * 设置微博发布日期
+         *
+         * @param weibo
+         */
+        private void setWeiboDate(WeiboInfo weibo) {
             mItemUserWeiboContentDate.setText(TimeUtils.instance(mContext).buildTimeString(weibo.getDate()));
+        }
 
-            Tools.getNewContent(mContext, weibo.getContent(), mItemUserWeiboContent);
+
+        /**
+         * 设置微博底部内容
+         *
+         * @param weibo
+         */
+        private void setWeiboFooter(WeiboInfo weibo) {
+
+            mWeiboCommentCount.setText(mContext.getResources().getString(R.string.weibo_comment_count,
+                    Tools.number2Str(weibo.getComment())));
+
+            mWeiboFavoriteCount.setText(mContext.getResources().getString(R.string.weibo_favorite_count,
+                    Tools.number2Str(weibo.getFavorite())));
+
+            mWeiboTranspondCount.setText(mContext.getResources().getString(R.string.weibo_transpond_count,
+                    Tools.number2Str(weibo.getTranspond())));
+        }
 
 
+        /**
+         * 设置微博内容图片
+         *
+         * @param weibo
+         */
+        private void setWeiboContentImages(WeiboInfo weibo) {
             if (weibo.getHaveImg()) {
                 imageShowOrHide(View.VISIBLE);
-
+                List<String> datas = weibo.getImgs();
                 //显示内容图片
-//                Logger.d(weibo.getImgs().get(0).toString());
-                final GridViewAdapter gridViewAdapter = new GridViewAdapter(mContext, weibo.getImgs());
-                mItemUserWeiboUserContentImage.setAdapter(gridViewAdapter);
-                Tools.setListViewHeightBasedOnChildren(mItemUserWeiboUserContentImage);
-                gridViewAdapter.notifyDataSetChanged();
-
+                if (datas != null) {
+                    GridViewAdapter gridViewAdapter = new GridViewAdapter(mContext, datas);
+                    mItemUserWeiboUserContentImage.setAdapter(gridViewAdapter);
+                    Tools.setListViewHeightBasedOnChildren(mItemUserWeiboUserContentImage);
+                    gridViewAdapter.notifyDataSetChanged();
+                }
             } else {
                 imageShowOrHide(View.GONE);
             }
+        }
 
-            mWeiboCommentCount.setText("评论(" + Tools.number2Str(weibo.getComment()) + ")");
-            mWeiboFavoriteCount.setText("赞(" + Tools.number2Str(weibo.getFavorite()) + ")");
-            mWeiboTranspondCount.setText("转发(" + Tools.number2Str(weibo.getTranspond()) + ")");
+
+        /**
+         * 设置微博内容
+         *
+         * @param weibo
+         */
+        private void setWeiboContent(WeiboInfo weibo) {
+            Tools.setWeiboTextContent(mContext, weibo.getContent(), mItemUserWeiboContent);
         }
 
 

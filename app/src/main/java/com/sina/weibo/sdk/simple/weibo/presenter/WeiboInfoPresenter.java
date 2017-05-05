@@ -232,7 +232,6 @@ public class WeiboInfoPresenter implements Presenter {
                                     @Override
                                     public void call(Throwable throwable) {
                                         mWeiboInfoView.onFailure(throwable.getMessage());
-                                        Log.d(PublicTimeLineActivity.TAG, throwable.getMessage());
                                     }
                                 }
                         )

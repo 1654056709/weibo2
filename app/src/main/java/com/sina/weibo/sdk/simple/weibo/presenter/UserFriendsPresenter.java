@@ -52,7 +52,7 @@ public class UserFriendsPresenter implements Presenter {
     }
 
     /**
-     * 得到用户所关注的所有用户
+     * 关注用户列表
      *
      * @param accessToken
      * @param uId
@@ -84,7 +84,7 @@ public class UserFriendsPresenter implements Presenter {
 
 
     /**
-     * 获取用户粉丝列表
+     * 粉丝列表
      *
      * @param accessToken
      * @param uId

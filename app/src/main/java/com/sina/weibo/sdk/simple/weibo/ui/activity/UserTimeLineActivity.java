@@ -52,7 +52,7 @@ import butterknife.OnClick;
 
 
 /**
- * 用自己所发的微博信息
+ * 个人微博
  */
 public class UserTimeLineActivity extends AppCompatActivity {
     public static final String DELETE = "UserTimeLineActivity_delete";
@@ -78,6 +78,7 @@ public class UserTimeLineActivity extends AppCompatActivity {
     ImageView mIvEmpty;
     @BindView(R.id.empty_view)
     RelativeLayout mEmptyView;
+
     private WeiboInfoPresenter mWeiboInfoPresenter;
     private Oauth2AccessToken mAccessToken;
     private static List<WeiboInfo> sWeiboInfos;
@@ -92,7 +93,6 @@ public class UserTimeLineActivity extends AppCompatActivity {
             int index = sWeiboInfos.indexOf(weiboInfo);
             sWeiboInfos.remove(index);
             sWeiboAdapter.notifyItemRemoved(index);
-
         }
     };
 
@@ -103,23 +103,25 @@ public class UserTimeLineActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
         setContentView(R.layout.activity_user_time_line);
         ButterKnife.bind(this);
-        mTitleBarTitle.setText("个人微博");
+
+        //加载数据
+        initData();
+        //记载监听
+        initListener();
+
+
+    }
+
+    /**
+     * 初始化监听
+     */
+    private void initListener() {
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
-        mWeiboInfoPresenter = new WeiboInfoPresenter(this);
-        mWeiboInfoPresenter.onCreate();
-
-        sWeiboInfos = new ArrayList<>();
-        mLinearLayoutManager = new LinearLayoutManager(this);
-        mSwipeTarget.setLayoutManager(mLinearLayoutManager);
-        sWeiboAdapter = new WeiboAdapter(this, sWeiboInfos);
-        mSwipeTarget.setAdapter(sWeiboAdapter);
-
 
         mSwipeToLoadLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -135,11 +137,29 @@ public class UserTimeLineActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+
+        mTitleBarTitle.setText(getResources().getString(R.string.personal_weibo));
+
+        mWeiboInfoPresenter = new WeiboInfoPresenter(this);
+        mWeiboInfoPresenter.onCreate();
+
+        sWeiboInfos = new ArrayList<>();
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mSwipeTarget.setLayoutManager(mLinearLayoutManager);
+        sWeiboAdapter = new WeiboAdapter(this, sWeiboInfos);
+        mSwipeTarget.setAdapter(sWeiboAdapter);
 
         mAccessToken = AccessTokenKeeper.readAccessToken(this);
         if (mAccessToken.isSessionValid()) {
             mSwipeToLoadLayout.setRefreshing(true);
         }
+
     }
 
 

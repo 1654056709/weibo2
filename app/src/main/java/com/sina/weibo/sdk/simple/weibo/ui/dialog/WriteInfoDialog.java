@@ -35,6 +35,7 @@ import butterknife.Unbinder;
 
 /**
  * Created by John on 2017/4/8.
+ * 写信息Dialog
  */
 
 public class WriteInfoDialog extends DialogFragment {
@@ -199,7 +200,8 @@ public class WriteInfoDialog extends DialogFragment {
             }
 
             @Override
-            public void onFailure(String errorMsg) {                ToastUtil.showToasts(mContext, "评论失败");
+            public void onFailure(String errorMsg) {
+                ToastUtil.showToasts(mContext, "评论失败");
 
                 if (mCommentFinishedCallback != null) {
                     mCommentFinishedCallback.failure();

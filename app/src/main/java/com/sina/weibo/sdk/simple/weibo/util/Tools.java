@@ -50,11 +50,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Created by John on 2017/3/21.
+ * 业务处理工具集
  */
 
 public class Tools {
@@ -80,6 +82,13 @@ public class Tools {
         return false;
     }
 
+
+    /**
+     * 检查是否有网络连接
+     *
+     * @param context
+     * @return
+     */
     public static boolean checkNetWork(final Context context) {
         if (!isNetWorkConnected(context)) {
             //没有网络连接
@@ -149,6 +158,12 @@ public class Tools {
     }
 
 
+    /**
+     * RecyclerView移动到指定位置
+     *
+     * @param manager
+     * @param mRecyclerView
+     */
     public static void MoveToPosition(LinearLayoutManager manager, RecyclerView mRecyclerView) {
         int firstItem = manager.findFirstVisibleItemPosition();
         int lastItem = manager.findLastVisibleItemPosition();
@@ -157,6 +172,13 @@ public class Tools {
     }
 
 
+    /**
+     * RecycView为空时，视图
+     *
+     * @param emptyView
+     * @param swipeToLoadLayout
+     * @param recyclerView
+     */
     public static void showEmptyView(android.view.View emptyView, SwipeToLoadLayout swipeToLoadLayout, RecyclerView recyclerView) {
         boolean flag = recyclerView.getAdapter().getItemCount() == 0 ? true : false;
         emptyView.setVisibility(flag ? android.view.View.VISIBLE : android.view.View.GONE);
@@ -256,6 +278,14 @@ public class Tools {
         void down();
     }
 
+
+    /**
+     * RecyclerView滑动监听
+     *
+     * @param context
+     * @param recyclerView
+     * @param callback
+     */
     public static void scrollLinstener(final Context context, RecyclerView recyclerView, final ScrollCallback callback) {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -321,6 +351,12 @@ public class Tools {
         Process.killProcess(pid);
     }
 
+
+    /**
+     * 动态设定GridView宽和高
+     *
+     * @param listView
+     */
     public static void setListViewHeightBasedOnChildren(GridView listView) {
         // 获取listview的adapter
         ListAdapter listAdapter = listView.getAdapter();
@@ -343,7 +379,6 @@ public class Tools {
                 totalWidth = 3 * listItem.getMeasuredWidth();
             }
         }
-
         // 获取listview的布局参数
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         // 设置高度
@@ -353,7 +388,14 @@ public class Tools {
         listView.setLayoutParams(params);
     }
 
-    public static void getNewContent(final Context context, final String content, TextView textView) {
+    /**
+     * 处理微博内容
+     *
+     * @param context
+     * @param content
+     * @param textView
+     */
+    public static void setWeiboTextContent(final Context context, final String content, TextView textView) {
         String regex = "(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?";
         SpannableStringBuilder builder = new SpannableStringBuilder();
         Pattern p = Pattern.compile(regex);
@@ -382,6 +424,23 @@ public class Tools {
             }
             textView.setText(builder);
             textView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+    }
+
+
+    /**
+     * 包装加载更多
+     */
+
+    public interface LoadMoreCallback {
+        void loadMoreData();
+    }
+
+    public static void decideData(Context context, List datas, LoadMoreCallback callback) {
+        if (datas.size() > 0) {
+            callback.loadMoreData();
+        } else {
+            ToastUtil.showToasts(context, context.getResources().getString(R.string.no_more_data));
         }
     }
 }

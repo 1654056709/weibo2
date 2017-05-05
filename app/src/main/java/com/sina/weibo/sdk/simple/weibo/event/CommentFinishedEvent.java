@@ -4,6 +4,7 @@ import com.sina.weibo.sdk.simple.weibo.model.WeiboInfo;
 
 /**
  * Created by John on 2017/4/12.
+ * 评论完成事件
  */
 
 public class CommentFinishedEvent {

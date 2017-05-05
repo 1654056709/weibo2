@@ -13,6 +13,7 @@ public class Weibo extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //初始化日志工具
         Logger.init("weibo")
                 .methodCount(0)
                 .logLevel(LogLevel.FULL)

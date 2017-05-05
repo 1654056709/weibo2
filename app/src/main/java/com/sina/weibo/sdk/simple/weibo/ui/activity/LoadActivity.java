@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.MutableDouble;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -37,8 +38,10 @@ public class LoadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_load);
         mLoadImageView = (ImageView) findViewById(R.id.activity_load_image_view);
         mAnimation = new AlphaAnimation(0.1f, 1.0f);
+
         mAnimation.setDuration(5000);
         mLoadImageView.setAnimation(mAnimation);
+
         //设置动画监听
         mAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override

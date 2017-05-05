@@ -7,12 +7,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sina.weibo.sdk.simple.weibo.R;
 
 import java.util.List;
 
 /**
  * Created by John on 2017/5/3.
+ * GridView适配器
  */
 
 public class GridViewAdapter extends BaseAdapter {
@@ -71,6 +73,8 @@ public class GridViewAdapter extends BaseAdapter {
             url = url.replace("thumbnail", "bmiddle");
             Glide.with(mContext)
                     .load(url)
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .centerCrop()
                     .into(mImageView);
         }
     }

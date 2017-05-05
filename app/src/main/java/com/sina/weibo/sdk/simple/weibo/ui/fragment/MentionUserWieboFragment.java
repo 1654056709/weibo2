@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.AccessTokenKeeper;
 import com.sina.weibo.sdk.simple.weibo.R;
@@ -84,17 +85,20 @@ public class MentionUserWieboFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mention_user, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        mWeibos = new ArrayList<>();
-        mWeiboAdapter = new WeiboAdapter(getActivity(), mWeibos);
-        mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mSwipeTarget.setLayoutManager(mLinearLayoutManager);
-        mSwipeTarget.setAdapter(mWeiboAdapter);
+        //加载数据
+        initData();
+
+        //加载监听
+        initListener();
+
+        return view;
+    }
 
 
-        mWeiboInfoPresenter = new WeiboInfoPresenter(getActivity());
-        mWeiboInfoPresenter.onCreate();
-
-        mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
+    /**
+     * 初始化监听
+     */
+    private void initListener() {
         //加载更多
         mSwipeToLoadLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -110,11 +114,29 @@ public class MentionUserWieboFragment extends Fragment {
                 refreshData(mSwipeToLoadLayout);
             }
         });
+    }
+
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        mWeibos = new ArrayList<>();
+        mWeiboAdapter = new WeiboAdapter(getActivity(), mWeibos);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        mSwipeTarget.setLayoutManager(mLinearLayoutManager);
+        mSwipeTarget.setAdapter(mWeiboAdapter);
+
+
+        mWeiboInfoPresenter = new WeiboInfoPresenter(getActivity());
+        mWeiboInfoPresenter.onCreate();
+
+        mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
+
 
         if (mAccessToken.isSessionValid()) {
             mSwipeToLoadLayout.setRefreshing(true);
         }
-        return view;
     }
 
     /**
@@ -127,17 +149,22 @@ public class MentionUserWieboFragment extends Fragment {
         mWeiboInfoPresenter.getMentionUserWeiboInfo(mAccessToken, WEIBO_COUNT, sWeiboPage);
         mWeiboInfoPresenter.onAttachView(new WeiboInfoView() {
             @Override
-            public void onSuccess(List<WeiboInfo> weibos) {
-                Log.d(PublicTimeLineActivity.TAG, weibos.size() + " ");
-                mWeibos.addAll(weibos);
-                mWeiboAdapter.notifyDataSetChanged();
-                Tools.MoveToPosition(mLinearLayoutManager, mSwipeTarget);
+            public void onSuccess(final List<WeiboInfo> weibos) {
+                Tools.decideData(getActivity(), weibos, new Tools.LoadMoreCallback() {
+                    @Override
+                    public void loadMoreData() {
+                        mWeibos.addAll(weibos);
+                        mWeiboAdapter.notifyDataSetChanged();
+                        Tools.MoveToPosition(mLinearLayoutManager, mSwipeTarget);
+                    }
+                });
+
                 swipeToLoadLayout.setLoadingMore(false);
             }
 
             @Override
             public void onFailure(String errorMsg) {
-                Log.d(PublicTimeLineActivity.TAG, errorMsg);
+                Logger.d(errorMsg);
             }
         });
 
@@ -154,17 +181,24 @@ public class MentionUserWieboFragment extends Fragment {
         mWeiboInfoPresenter.getMentionUserWeiboInfo(mAccessToken, WEIBO_COUNT, sWeiboPage);
         mWeiboInfoPresenter.onAttachView(new WeiboInfoView() {
             @Override
-            public void onSuccess(List<WeiboInfo> weibos) {
-                mWeibos.clear();
-                mWeibos.addAll(weibos);
-                mWeiboAdapter.notifyDataSetChanged();
-                Tools.showEmptyView(mEmptyView, swipeToLoadLayout, mSwipeTarget);
+            public void onSuccess(final List<WeiboInfo> weibos) {
+
+                Tools.decideData(getActivity(), weibos, new Tools.LoadMoreCallback() {
+                    @Override
+                    public void loadMoreData() {
+                        mWeibos.clear();
+                        mWeibos.addAll(weibos);
+                        mWeiboAdapter.notifyDataSetChanged();
+                        Tools.showEmptyView(mEmptyView, swipeToLoadLayout, mSwipeTarget);
+                    }
+                });
+
                 swipeToLoadLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(String errorMsg) {
-
+                Logger.d(errorMsg);
             }
         });
 

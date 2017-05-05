@@ -1,7 +1,6 @@
 package com.sina.weibo.sdk.simple.weibo.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +9,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sina.weibo.sdk.simple.weibo.R;
-import com.sina.weibo.sdk.simple.weibo.event.ShowUserFriendsWebEvent;
+import com.sina.weibo.sdk.simple.weibo.event.WeiboPublisherEvent;
 import com.sina.weibo.sdk.simple.weibo.model.CommonFriendsInfo;
 import com.sina.weibo.sdk.simple.weibo.ui.activity.UserFriendsWbActivity;
-
-import org.greenrobot.eventbus.EventBus;
+import com.sina.weibo.sdk.simple.weibo.util.Tools;
 
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class UserFriendsAdapter extends RecyclerView.Adapter<UserFriendsAdapter.
 
     @Override
     public void onBindViewHolder(UserFriendsHolder holder, int position) {
-        holder.bindFriends(mUsersBeanList.get(position));
+        holder.bindData(mUsersBeanList.get(position));
     }
 
     @Override
@@ -66,29 +64,69 @@ public class UserFriendsAdapter extends RecyclerView.Adapter<UserFriendsAdapter.
         private CommonFriendsInfo.UsersBean mUsersBean;
         private Context mContext;
 
-        public UserFriendsHolder(Context context, View itemView) {
+        public UserFriendsHolder(final Context context, View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = context;
+            //加载监听
+            initListener(context, itemView);
+        }
+
+
+        /**
+         * 初始化监听
+         *
+         * @param context
+         * @param itemView
+         */
+        private void initListener(final Context context, View itemView) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mContext.startActivity(new Intent(mContext, UserFriendsWbActivity.class));
-                    EventBus.getDefault().postSticky(new ShowUserFriendsWebEvent(mUsersBean));
+                    UserFriendsWbActivity.sendShowUserFriendsWebEvent(
+                            context,
+                            new WeiboPublisherEvent(mUsersBean.getProfile_url(), mUsersBean.getScreen_name())
+                    );
                 }
             });
         }
 
-        public void bindFriends(CommonFriendsInfo.UsersBean usersBean) {
+
+        /**
+         * 绑定数据
+         *
+         * @param usersBean
+         */
+        public void bindData(CommonFriendsInfo.UsersBean usersBean) {
             mUsersBean = usersBean;
+            //设置发布者信息
+            setPublisherInfo(usersBean);
+            //设置发布内容
+            setPublisherContent(usersBean);
+        }
+
+
+        /**
+         * 设置发布内容
+         *
+         * @param usersBean
+         */
+        private void setPublisherContent(CommonFriendsInfo.UsersBean usersBean) {
+            Tools.setWeiboTextContent(mContext,usersBean.getDescription(),mItemUserFriendWeiboContent);
+        }
+
+        /**
+         * 设置发布者信息
+         *
+         * @param usersBean
+         */
+        private void setPublisherInfo(CommonFriendsInfo.UsersBean usersBean) {
             Glide.with(mContext)
                     .load(usersBean.getProfile_image_url())
                     .centerCrop()
                     .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                     .into(mItemUserFriendHead);
             mItemUserFriendScreenName.setText(usersBean.getScreen_name());
-            mItemUserFriendWeiboContent.setText(usersBean.getDescription());
-
         }
     }
 }

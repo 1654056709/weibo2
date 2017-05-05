@@ -14,7 +14,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by John on 2017/4/4.
- * 用户主页面
  */
 
 public abstract class BaseActivity extends AppCompatActivity {

@@ -7,18 +7,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 /**
- * Created by John on 2017/4/7.
- * ViewPager适配器
+ * Created by John on 2017/5/3.
  */
 
-public class CommentViewPagerAdapter extends FragmentPagerAdapter {
+public class ImagePagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragments;
-    private List<String> mTitles;
 
-    public CommentViewPagerAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+    public ImagePagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
         mFragments = fragments;
-        mTitles = titles;
     }
 
     @Override
@@ -30,9 +27,5 @@ public class CommentViewPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return mFragments.size();
     }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mTitles.get(position);
-    }
 }
+

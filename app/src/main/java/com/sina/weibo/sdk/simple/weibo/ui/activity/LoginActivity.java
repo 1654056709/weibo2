@@ -43,7 +43,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
 /**
- * 用户登录界面
+ * 登录Activity
  */
 public class LoginActivity extends AppCompatActivity {
 

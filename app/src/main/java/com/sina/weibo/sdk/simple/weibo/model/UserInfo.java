@@ -16,6 +16,7 @@ import java.io.Serializable;
 
 /**
  * Created by John on 2017/3/22.
+ * 用户信息实体
  */
 
 public class UserInfo implements Serializable {

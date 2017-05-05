@@ -6,45 +6,10 @@ import java.util.List;
 
 /**
  * Created by John on 2017/4/9.
+ * 微博实体
  */
 
 public class UpdateWeiboInfo {
-
-    /**
-     * created_at : Sun Apr 09 21:10:50 +0800 2017
-     * id : 4094731170409497
-     * mid : 4094731170409497
-     * idstr : 4094731170409497
-     * text : hello ​
-     * textLength : 5
-     * source_allowclick : 0
-     * source_type : 1
-     * source : <a href="http://open.weibo.com" rel="nofollow">未通过审核应用</a>
-     * favorited : false
-     * truncated : false
-     * in_reply_to_status_id :
-     * in_reply_to_user_id :
-     * in_reply_to_screen_name :
-     * pic_urls : []
-     * geo : null
-     * user : {"id":3903514164,"idstr":"3903514164","class":1,"screen_name":"如果爱-就勇敢爱","name":"如果爱-就勇敢爱","province":"100","city":"1000","location":"其他","description":"做真的自我","url":"","profile_image_url":"http://tva1.sinaimg.cn/crop.0.0.180.180.50/e8aae634jw8eakgk3uvxlj2050050weg.jpg","cover_image_phone":"http://ww1.sinaimg.cn/crop.0.0.640.640.640/549d0121tw1egm1kjly3jj20hs0hsq4f.jpg","profile_url":"u/3903514164","domain":"","weihao":"","gender":"m","followers_count":23,"friends_count":209,"pagefriends_count":1,"statuses_count":119,"favourites_count":17,"created_at":"Thu Nov 14 12:54:49 +0800 2013","following":false,"allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":-1,"remark":"","insecurity":{"sexual_content":false},"ptype":0,"allow_all_comment":true,"avatar_large":"http://tva1.sinaimg.cn/crop.0.0.180.180.180/e8aae634jw8eakgk3uvxlj2050050weg.jpg","avatar_hd":"http://tva1.sinaimg.cn/crop.0.0.180.180.1024/e8aae634jw8eakgk3uvxlj2050050weg.jpg",
-     * "verified_reason":"","verified_trade":"","verified_reason_url":"","verified_source":"","verified_source_url":"","follow_me":false,"online_status":0,"bi_followers_count":8,"lang":"zh-cn","star":0,"mbtype":0,"mbrank":0,"block_word":0,"block_app":0,"credit_score":80,"user_ability":0,"urank":9}
-     * reposts_count : 0
-     * comments_count : 0
-     * attitudes_count : 0
-     * isLongText : false
-     * mlevel : 0
-     * visible : {"type":0,"list_id":0}
-     * biz_feature : 0
-     * hasActionTypeCard : 0
-     * darwin_tags : []
-     * hot_weibo_tags : []
-     * text_tag_tips : []
-     * userType : 590081
-     * positive_recom_flag : 0
-     * gif_ids : null
-     * is_show_bulletin : 2
-     */
 
     private String created_at;
     private long id;
@@ -845,7 +810,6 @@ public class UpdateWeiboInfo {
             /**
              * sexual_content : false
              */
-
             private boolean sexual_content;
 
             public boolean isSexual_content() {
@@ -859,10 +823,6 @@ public class UpdateWeiboInfo {
     }
 
     public static class VisibleBean {
-        /**
-         * type : 0
-         * list_id : 0
-         */
 
         private int type;
         private int list_id;

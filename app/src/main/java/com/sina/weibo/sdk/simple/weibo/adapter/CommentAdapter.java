@@ -20,6 +20,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by John on 2017/4/7.
+ * 评论适配器
  */
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentHolder> {
@@ -39,7 +40,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
 
     @Override
     public void onBindViewHolder(CommentHolder holder, int position) {
-        holder.bindComment(mCommentsBeanList.get(position));
+        holder.bindData(mCommentsBeanList.get(position));
     }
 
     @Override
@@ -47,10 +48,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
         return mCommentsBeanList.size();
     }
 
-
-    /**
-     * Created by John on 2017/4/7.
-     */
 
     public class CommentHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_user_weibo_user_head)
@@ -70,7 +67,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
             mContext = context;
         }
 
-        public void bindComment(CommonComment.CommentsBean commentsBean) {
+        /**
+         * 绑定数据
+         *
+         * @param commentsBean
+         */
+        public void bindData(CommonComment.CommentsBean commentsBean) {
             mCommentsBean = commentsBean;
             Glide.with(mContext)
                     .load(commentsBean.getUser().getProfile_image_url())
@@ -79,8 +81,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
 
             mItemUserWeiboUserName.setText(commentsBean.getUser().getName());
             mItemUserWeiboContentDate.setText(Tools.dateFormat(commentsBean.getCreated_at()));
-            mItemUserWeiboContent.setText(commentsBean.getText());
+            Tools.setWeiboTextContent(mContext, commentsBean.getText(), mItemUserWeiboContent);
         }
-
     }
 }

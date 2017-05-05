@@ -3,6 +3,7 @@
           package="com.sina.weibo.sdk.simple.weibo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
@@ -93,9 +94,11 @@
             />
         <activity
             android:name=".ui.activity.UserFriendsWbActivity"
-            android:label="@string/title_activity_user_friends_wb"
+            android:screenOrientation="portrait"
             android:theme="@style/NoActionBar">
         </activity>
+
+        <activity android:name=".ui.activity.SendWeiboActivity"></activity>
     </application>
 
 </manifest>

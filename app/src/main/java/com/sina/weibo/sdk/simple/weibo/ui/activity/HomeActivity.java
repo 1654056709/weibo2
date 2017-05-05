@@ -15,6 +15,9 @@ import com.sina.weibo.sdk.simple.weibo.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+/**
+ * 主页Activity
+ */
 public class HomeActivity extends BaseActivity {
     public static final String TAG = "HomeActivity";
 

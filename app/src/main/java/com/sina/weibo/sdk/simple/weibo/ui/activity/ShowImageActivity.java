@@ -2,24 +2,25 @@ package com.sina.weibo.sdk.simple.weibo.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.sina.weibo.sdk.simple.weibo.R;
-import com.sina.weibo.sdk.simple.weibo.util.Tools;
+import com.sina.weibo.sdk.simple.weibo.adapter.ImagePagerAdapter;
+import com.sina.weibo.sdk.simple.weibo.event.ImageEvent;
+import com.sina.weibo.sdk.simple.weibo.ui.fragment.ImageFragment;
+import com.sina.weibo.sdk.simple.weibo.ui.view.CustomViewPager;
 
-import java.io.File;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,48 +31,91 @@ import butterknife.OnClick;
  */
 
 public class ShowImageActivity extends AppCompatActivity {
-    private static final String IMG_URL = "img_url";
     @BindView(R.id.activity_show_img_close)
     ImageView mActivityShowImgClose;
-    @BindView(R.id.activity_show_img)
-    ImageView mActivityShowImg;
-    @BindView(R.id.activity_show_image)
-    LinearLayout mActivityShowImage;
+    @BindView(R.id.image_title)
+    TextView mImageTitle;
+    @BindView(R.id.view_page_show_imgs)
+    CustomViewPager mViewPageShowImgs;
 
+    private ImageEvent mImageEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String imgUrl = getIntent().getStringExtra(IMG_URL);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_show_image);
         ButterKnife.bind(this);
 
-        Glide.with(this)
-                .load(imgUrl)
-                .downloadOnly(new SimpleTarget<File>() {
-                    @Override
-                    public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-                        BitmapFactory.Options options = Tools.getOptions(resource);
-                        DisplayMetrics metrics = Tools.getDisplayMetrics(ShowImageActivity.this);
-                        float width = metrics.widthPixels;
-                        float height = Math.round(options.outHeight * (width / options.outWidth));
-                        Glide.with(ShowImageActivity.this)
-                                .load(Uri.fromFile(resource))
-                                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                                .override((int) width, (int) height)
-                                .fitCenter()
-                                .into(mActivityShowImg);
-                    }
-                });
+        //初始化ViewPager
+        initViewPager();
+        //初始化数据
+        initData();
+        //初始化监听
+        initListener();
+
+    }
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+
+
+    }
+
+    /**
+     * 初始化监听
+     */
+    private void initListener() {
+        //页面切换监听
+        mViewPageShowImgs.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                mImageTitle.setText((position + 1) + "/" + mImageEvent.getUrls().size());
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    /**
+     * 初始化ViewPager
+     */
+    private void initViewPager() {
+        List<String> urls = mImageEvent.getUrls();
+        List<Fragment> fragments = new ArrayList<>();
+        for (String url : urls) {
+            fragments.add(ImageFragment.newInstance(url));
+        }
+        mViewPageShowImgs.setAdapter(new ImagePagerAdapter(getSupportFragmentManager(), fragments));
+        mViewPageShowImgs.setCurrentItem(mImageEvent.getCurrentPos());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onImageEvent(ImageEvent imageEvent) {
+        mImageEvent = imageEvent;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 
-    public static Intent newIntent(Context context, String imgUrl) {
-        Intent intent = new Intent(context, ShowImageActivity.class);
-        intent.putExtra(IMG_URL, imgUrl);
-        return intent;
+    public static void sendImageEvent(Context context, ImageEvent imageEvent) {
+        context.startActivity(new Intent(context, ShowImageActivity.class));
+        EventBus.getDefault().postSticky(imageEvent);
     }
-
 
     @OnClick(R.id.activity_show_img_close)
     public void onClick() {
